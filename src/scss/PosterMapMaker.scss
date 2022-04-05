@@ -1,0 +1,125 @@
+:root {
+  --green-border: #246400;
+  --green-background: #9FE379;
+  --red-border: #B70000;
+  --red-background: #FF7878;
+  --grey-border: #595959;
+  --grey-background: #E8E8E8;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html, body {
+  font-family: sans-serif;
+  height: 100%;
+  width: 100%;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.2rem;
+}
+
+.map-wrapper {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+.editor-wrapper {
+  display: flex;
+  flex-direction: column;
+  left: 1em;
+  position: absolute;
+  top: 1rem;
+}
+
+.map-container {
+  aspect-ratio: 21 / 29.7;
+  border: solid 1px black;
+  height: 98%;
+  position: relative;
+  z-index: 10;
+
+  .user-text-wrapper {
+    position: absolute;
+    background: linear-gradient(transparent, white 25%);
+    bottom: 0;
+    height: 20%;
+    padding-top: 6%;
+    text-align: center;
+    width: 100%;
+    z-index: 9999;
+
+    h1 {
+      font-size: 3.6rem;
+    }
+  }
+}
+
+/* Modal */
+
+.modal-overlay {
+  align-items: center;
+  background-color: rgba(0, 0, 0, .3);
+  display: none;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 99;
+  transition: opacity .2s;
+
+  .modal {
+    background: white;
+    border-radius: .5rem;
+    padding: 3rem;
+
+    h1 {
+      font-size: 2.6rem;
+      text-align: center;
+    }
+
+    &.timetable-modal {
+      width: 60rem;
+      max-width: 95%;
+
+      h3 {
+        font-size: 1.4rem;
+        font-style: italic;
+        font-weight: 100;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      p {
+        text-align: center;
+      }
+
+      .marker-opened {
+        cursor: initial;
+
+        i {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+/* Leaflet map overides */
+.leaflet-control-attribution {
+  display: none;
+}

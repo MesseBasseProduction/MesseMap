@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta content="ie=edge" http-equiv="x-ua-compatible">
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+  <meta content="initial-scale=1" name="viewport">
+  <meta name="Leaflet" content="Leaflet">	
+	<title>PosterMapMaker – 0.0.1</title>
+	<link rel="icon" href="https://raw.githubusercontent.com/ArthurBeaulieu/ArthurBeaulieu/master/assets/img/ab-logo.png" type="image/png" sizes="32x32">	
+  <!-- Leaflet stylesheet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+  <link rel="stylesheet" type="text/css" href="dist/PosterMapMaker.bundle.css">
+</head>
+<body>
+  <div class="map-wrapper">
+    <div class="editor-wrapper">
+      <h1>Coordonnées GPS</h1>
+      <input id="user-lat" type="text" placeholder="Lat">
+      <input id="user-lng" type="text" placeholder="Lng">
+      <button id="apply-coordinates">Centrer</button>
+      <input id="user-title" type="text" placeholder="Titre de la carte">
+      <input id="user-subtitle" type="text" placeholder="Sous-Titre de la carte">
+      <input id="user-comment" type="text" placeholder="Commentaire">
+      <button id="apply-text">Mettre à jour le texte</button>
+    </div>
+    <div id="map" class="map-container">
+      <div class="user-text-wrapper">
+        <h1 id="title">Titre de la carte</h1>
+        <h3 id="subtitle">Sous-Titre de la carte</h3>
+        <p id="comment"></p>
+      </div>
+    </div>
+  </div>
+  <div id="modal-overlay" class="modal-overlay"></div>
+  <!-- Leaflet script -->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+  <!-- Then load HomeMap Js bundle -->
+  <script type="text/javascript" src="dist/PosterMapMaker.bundle.js"></script>
+  <!-- Finally, start HomeMap instance -->
+  <script type="text/javascript">
+    window.PosterMapMaker = new PosterMapMaker();
+  </script>
+</body>
+</html>

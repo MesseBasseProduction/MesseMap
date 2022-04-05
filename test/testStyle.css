@@ -1,0 +1,30 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	align-items: center;
+	display: flex;
+	flex-direction: column-reverse;
+	justify-content: flex-end;
+	width: 100vw;
+	overflow-x: hidden;
+}
+
+.container {
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.1);
+	display: flex;
+	justify-content: center;
+	height: 600px;
+	width: 800px;
+	margin: 15px auto;
+}
+
+.jasmine_html-reporter {
+	margin: 0px;
+	margin-bottom: 30px;
+	width: 96%;
+}
