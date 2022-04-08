@@ -13,21 +13,35 @@
   <link rel="stylesheet" type="text/css" href="dist/PosterMapMaker.bundle.css">
 </head>
 <body>
-  <div class="map-wrapper">
+  <div class="app-wrapper">
     <div class="editor-wrapper">
-      <h1>Coordonnées GPS</h1>
-      <input id="user-lat" type="text" placeholder="Lat">
-      <input id="user-lng" type="text" placeholder="Lng">
+      <h1>Coordonnées</h1>
+      <input id="user-lat" type="text" value="48.038878" placeholder="Lat">
+      <input id="user-lng" type="text" value="-4.736737" placeholder="Lng">
       <button id="apply-coordinates">Centrer</button>
-      <input id="user-title" type="text" placeholder="Titre de la carte">
-      <input id="user-subtitle" type="text" placeholder="Sous-Titre de la carte">
-      <input id="user-comment" type="text" placeholder="Commentaire">
+
+      <h1>Textes</h1>
+      <div class="input-with-color">
+        <input id="user-title" type="text" value="Pointe du Raz" placeholder="Titre de la carte">
+        <div id="title-color" class="color-picker" data-type="title"></div>
+      </div>
+      <div class="input-with-color">
+      <input id="user-subtitle" type="text" value="Bretagne" placeholder="Sous-Titre de la carte">
+        <div id="subtitle-color" class="color-picker" data-type="subtitle"></div>
+      </div>
+      <div class="input-with-color">
+      <input id="user-comment" type="text" value="48.038878°N / -4.736737°E" placeholder="Commentaire">
+        <div id="comment-color" class="color-picker" data-type="comment"></div>
+      </div>
       <button id="apply-text">Mettre à jour le texte</button>
+      <h1>Enregistrer</h1>
+      <button id="map-save">Sauvegarder</button>
     </div>
-    <div id="map" class="map-container">
+    <div id="map-output" class="map-container standard-style">
+      <div id="map" class="map"></div>
       <div class="user-text-wrapper">
-        <h1 id="title">Titre de la carte</h1>
-        <h3 id="subtitle">Sous-Titre de la carte</h3>
+        <h1 id="title"></h1>
+        <h3><span id="subtitle"></span></h3>
         <p id="comment"></p>
       </div>
     </div>
@@ -35,6 +49,9 @@
   <div id="modal-overlay" class="modal-overlay"></div>
   <!-- Leaflet script -->
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+  <script type="text/javascript" src="assets/lib/html2canvas.min.js"></script>
+  <!-- KolorPick to select text and postr colors -->
+  <script type="text/javascript" src="https://arthurbeaulieu.github.io/KolorPick/dist/KolorPick.bundle.js"></script>
   <!-- Then load HomeMap Js bundle -->
   <script type="text/javascript" src="dist/PosterMapMaker.bundle.js"></script>
   <!-- Finally, start HomeMap instance -->

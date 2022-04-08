@@ -26,8 +26,9 @@ body {
   font-size: 1.2rem;
 }
 
-.map-wrapper {
+.app-wrapper {
   align-items: center;
+  background: rgba(20, 20, 20, .2);
   display: flex;
   height: 100%;
   justify-content: center;
@@ -41,27 +42,123 @@ body {
   left: 1em;
   position: absolute;
   top: 1rem;
+  width: 20rem;
+
+  .input-with-color {
+    align-items: center;
+    display: flex;
+    width: 100%;
+
+    input {
+      margin-right: .5rem;
+      width: inherit;
+    }
+  }
+
+  .color-picker {
+    aspect-ratio: 1 / 1;
+    background-color: black;
+    cursor: pointer;
+    height: 2rem;
+    padding: .2rem;
+    width: 2rem;
+  }
 }
 
 .map-container {
+  align-items: center;
   aspect-ratio: 21 / 29.7;
-  border: solid 1px black;
-  height: 98%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  padding: 3rem;
   position: relative;
+  width: 600px;
   z-index: 10;
+
+  &.standard-style {
+    --padding: 3rem;
+    --thick-border: 5px;
+  }
+
+  &::before {
+    content: " ";
+    position: absolute;
+    z-index: 999;
+    pointer-events: none;
+    top: calc(var(--padding) - var(--thick-border));
+    left: calc(var(--padding) - var(--thick-border));
+    right: calc(var(--padding) - var(--thick-border));
+    bottom: calc(var(--padding) - var(--thick-border));
+    border: 1px solid black;
+  }
+  
+  .map {
+    border: solid var(--thick-border) black;
+    height: 100%;
+    width: 100%;
+  }
 
   .user-text-wrapper {
     position: absolute;
-    background: linear-gradient(transparent, white 25%);
-    bottom: 0;
-    height: 20%;
-    padding-top: 6%;
+    background: linear-gradient(transparent, white 50%);
+    bottom: calc(var(--padding) + var(--thick-border));
+    height: 35%;
+    padding-top: 20%;
     text-align: center;
-    width: 100%;
-    z-index: 9999;
+    width: calc(100% - (var(--padding) * 2) - (var(--thick-border) * 2));
+    z-index: 998;
 
     h1 {
-      font-size: 3.6rem;
+      font-size: 3.8rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-indent: 0.2em;
+      text-transform: uppercase;
+    }
+
+    h3 {
+      margin: .5em 0;
+
+      span {
+        font-weight: 400;
+        font-size: 1.7em;
+        text-transform: uppercase;
+        letter-spacing: .5em;
+        text-indent: 0.5em;
+        line-height: 1.4;
+        padding: 0 1em;
+        position: relative;
+
+        &::before {
+          content: '';
+          display: block;
+          width: 3em;
+          position: absolute;
+          top: calc(50% - 0.07em);
+          background-color: #000;
+          height: 0.14em;
+          left: 100%;
+        }
+
+        &::after {
+          content: "";
+          display: block;
+          width: 3em;
+          position: absolute;
+          top: calc(50% - 0.07em);
+          background-color: #000;
+          height: 0.14em;
+          right: 100%;
+        }
+      }
+    }
+
+    p {
+      font-weight: 300;
+      font-size: 1.3em;
+      letter-spacing: .1em;
+      text-indent: 0.1em;
     }
   }
 }
@@ -82,44 +179,51 @@ body {
   z-index: 99;
   transition: opacity .2s;
 
-  .modal {
-    background: white;
-    border-radius: .5rem;
-    padding: 3rem;
+  [class$="-modal"] {
+		background: rgba(255, 255, 255, .8);
+		border-radius: .5rem;
+		box-shadow: 0px 0px 10px #424242;
+		padding: 3rem 4rem;
+		position: relative;
+		text-align: center;
 
-    h1 {
-      font-size: 2.6rem;
-      text-align: center;
+		h1 {
+			margin-bottom: 3rem;
+		}
+
+		button {
+			margin-top: 3rem;
+		}
+
+		.modal-close {
+			color: #999;
+			cursor: pointer;
+			font-size: 2.2rem;
+			font-weight: bold;
+			line-height: 1.4rem; /* Because the cross symbol doesn't fit font height */
+			right: 1rem;
+			position: absolute;
+			top: 1rem;
+		}
+
+    .applied-color {
+      aspect-ratio: 1 / 1;
+      background-color: black;
+      cursor: pointer;
+      height: 2rem;
+      padding: .2rem;
+      width: 2rem;
     }
 
-    &.timetable-modal {
-      width: 60rem;
-      max-width: 95%;
+		.button-wrapper {
+			align-items: center;
+			display: flex;
+			justify-content: center;
 
-      h3 {
-        font-size: 1.4rem;
-        font-style: italic;
-        font-weight: 100;
-        margin-bottom: 1rem;
-        text-align: center;
-      }
-
-      p {
-        text-align: center;
-      }
-
-      .marker-opened {
-        cursor: initial;
-
-        i {
-          display: none;
-        }
-      }
-    }
-  }
-}
-
-/* Leaflet map overides */
-.leaflet-control-attribution {
-  display: none;
+			button {
+				margin-left: 1rem;
+				margin-right: 1rem;
+			}
+		}
+	}
 }
