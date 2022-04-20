@@ -2,6 +2,13 @@ import '../scss/PosterMapMaker.scss';
 import './SmoothWheelZoom.js';
 import MapProviders from './MapProviders.js';
 
+
+const CONST = {
+  VERSION: '0.0.1',
+  DEBUG: true
+};
+
+
 class PosterMapMaker {
 
 
@@ -11,6 +18,8 @@ class PosterMapMaker {
 
     this._baseLayer = {};
     this._overlayLayer = {};
+
+    this._tilesLoaded = false;
 
     this._initMap()
       .then(this._initEvents.bind(this));
@@ -22,6 +31,7 @@ class PosterMapMaker {
       // Use main div to inject OSM into
       this._map = window.L.map('map', {
         attributionControl: false,
+        zoomSnap: 0, // On resize, all fitBounds to precisely be set
         scrollWheelZoom: false, // SmoothWheelZoom lib
         smoothWheelZoom: true, // SmoothWheelZoom lib
         smoothSensitivity: 1, // SmoothWheelZoom lib
@@ -48,7 +58,12 @@ class PosterMapMaker {
 			document.getElementById('modal-overlay').addEventListener('click', this._closeModal.bind(this));
 			document.getElementById('apply-coordinates').addEventListener('click', this._applyCoordinates.bind(this));
 			document.getElementById('apply-text').addEventListener('click', this._applyTexts.bind(this));
+			document.getElementById('image-width').addEventListener('input', this._updateOutputWidth.bind(this));
 			document.getElementById('map-save').addEventListener('click', this._download.bind(this));
+      // Load event on map layers
+      for (const layer in MapProviders.layers) {
+        MapProviders.layers[layer].on('load', () => this._tilesLoaded = true);
+      }
       resolve();
     });
   }
@@ -111,25 +126,88 @@ class PosterMapMaker {
   }
 
 
+  _updateOutputWidth(e) {
+    const label = e.target.previousElementSibling;
+    label.innerHTML = `Largeur : ${e.target.value}px x ${this.precisionRound(e.target.value * 29.7 / 21, 0)}px`;
+  }
+
+
   _download() {
-    document.querySelector('.leaflet-top.leaflet-left').style.display = 'none';
-    document.querySelector('.leaflet-top.leaflet-right').style.display = 'none';
-    // Execute html2canvas with output div
-    window.html2canvas(document.getElementById('map-output'), {
-      logging: true,
-      useCORS: true,
-      allowTaint: true,
-      width: document.getElementById('map-output').offsetWidth,
-      height: document.getElementById('map-output').offsetHeight,
-      scale: 8, // Ensure a good output resolution
-    }).then((canvas) => {
-      const link = document.createElement('A');
-      link.download = 'orly-generator.png';
-      link.href = canvas.toDataURL('image/png');
-      link.click();
+    const width = document.getElementById('image-width').value;
+    const scale = width / 600;
+    const bounds = this._map.getBounds();
+    let intervalId = -1;
+    // Inner method to scale map elements according to user desired width
+    const prepareMap = () => {
+      if (CONST.DEBUG) { console.log('Prepare map style for printing...'); }
+      // Hide Leaflet.js overlays
+      document.querySelector('.leaflet-top.leaflet-left').style.display = 'none';
+      document.querySelector('.leaflet-top.leaflet-right').style.display = 'none';
+      // Scale CSS variables
+      document.getElementById('map-output').style.setProperty('--padding', `${3 * scale}rem`);
+      document.getElementById('map-output').style.setProperty('--thick-border', `${5 * scale}px`);
+      document.getElementById('map-output').style.setProperty('--small-border', `${1 * scale}px`);
+      document.body.style.fontSize = `${1.2 * scale}rem`;
+      // Set tiles loaded flag to false to wait for reframe to occur
+      this._tilesLoaded = false;
+      // Scale map dimension and attributes
+      document.getElementById('map-output').style.width = `${width}px`;
+      document.getElementById('map-output').style.position = 'absolute';
+      requestAnimationFrame(() => {
+        this._map.invalidateSize();
+        this._map.fitBounds(bounds);
+        if (CONST.DEBUG) { console.log('Waiting for map tiles to load...'); }
+      });
+    };
+    // Restore map to default value, to be called after printing operation
+    const restoreMap = () => {
+      if (CONST.DEBUG) { console.log('Restoring map style to default...'); }
+      // Restore Leaflet.js overlays
       document.querySelector('.leaflet-top.leaflet-left').style.display = 'inherit';
       document.querySelector('.leaflet-top.leaflet-right').style.display = 'inherit';
-    });
+      // Restore CSS variables
+      document.getElementById('map-output').style.setProperty('--padding', `3rem`);
+      document.getElementById('map-output').style.setProperty('--thick-border', `5px`);
+      document.getElementById('map-output').style.setProperty('--small-border', `1px`);
+      document.body.style.fontSize = `1.2rem`;      
+      // Restore map dimension and attributes
+      document.getElementById('map-output').style.width = '600px';
+      document.getElementById('map-output').style.position = 'inherit';
+      requestAnimationFrame(() => {
+        this._map.invalidateSize();
+        this._map.fitBounds(bounds);
+        if (CONST.DEBUG) { console.log('Map properly restored'); }
+      });  
+    };
+    // Perform map print with html2canvas if all tiles are loaded
+    const performMapPrint = () => {
+      if (this._tilesLoaded === true) {
+        if (CONST.DEBUG) { console.log('Map tiles loaded, performing printing...'); }        
+        clearInterval(intervalId);
+        this._tilesLoaded = false;
+        requestAnimationFrame(() => {      
+          // Execute html2canvas with output div
+          window.html2canvas(document.getElementById('map-output'), {
+            logging: CONST.DEBUG,
+            useCORS: true,
+            allowTaint: true,
+            width: document.getElementById('map-output').offsetWidth,
+            height: document.getElementById('map-output').offsetHeight
+          }).then(canvas => {
+            if (CONST.DEBUG) { console.log('Canvas printing done, exporting image to disk...'); }             
+            const link = document.createElement('A');
+            link.download = 'orly-generator.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            restoreMap();
+          });
+        });
+      }
+    };
+    // We call prepare map then put a setInterval on mapPrint to ensure tiles are loaded
+    prepareMap();
+    if (scale === 1) { this._tilesLoaded = true; } // Set tiles loaded if no upscale is requested on export
+    intervalId = setInterval(performMapPrint, 2000); // We put a 2s timeout to ensure latest tiles are properly loaded
   }
 
 
@@ -155,6 +233,15 @@ class PosterMapMaker {
         document.getElementById('modal-overlay').innerHTML = '';
       }, 300);
     }
+  }
+
+
+  /* Utils */
+
+
+  precisionRound(value, precision) {
+    const multiplier = Math.pow(10, precision || 0);
+    return Math.round(value * multiplier) / multiplier;
   }
 
 

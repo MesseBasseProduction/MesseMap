@@ -35,6 +35,8 @@
       </div>
       <button id="apply-text">Mettre à jour le texte</button>
       <h1>Enregistrer</h1>
+      <label for="image-width">Largeur : 600px x 848px</label>
+      <input type="range" id="image-width" name="width" min="600" max="3600" value="600">
       <button id="map-save">Sauvegarder</button>
     </div>
     <div id="map-output" class="map-container standard-style">
@@ -49,6 +51,7 @@
   <div id="modal-overlay" class="modal-overlay"></div>
   <!-- Leaflet script -->
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+  <!-- html2canvas script to allow map exporting -->
   <script type="text/javascript" src="assets/lib/html2canvas.min.js"></script>
   <!-- KolorPick to select text and postr colors -->
   <script type="text/javascript" src="https://arthurbeaulieu.github.io/KolorPick/dist/KolorPick.bundle.js"></script>

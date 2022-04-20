@@ -32,6 +32,7 @@ body {
   display: flex;
   height: 100%;
   justify-content: center;
+  overflow: auto;
   position: relative;
   width: 100%;
 }
@@ -71,7 +72,7 @@ body {
   background-color: white;
   display: flex;
   justify-content: center;
-  padding: 3rem;
+  padding: var(--padding);
   position: relative;
   width: 600px;
   z-index: 10;
@@ -79,6 +80,7 @@ body {
   &.standard-style {
     --padding: 3rem;
     --thick-border: 5px;
+    --small-border: 1px;
   }
 
   &::before {
@@ -90,7 +92,7 @@ body {
     left: calc(var(--padding) - var(--thick-border));
     right: calc(var(--padding) - var(--thick-border));
     bottom: calc(var(--padding) - var(--thick-border));
-    border: 1px solid black;
+    border: var(--small-border) solid black;
   }
   
   .map {
@@ -110,7 +112,7 @@ body {
     z-index: 998;
 
     h1 {
-      font-size: 3.8rem;
+      font-size: 3.2em;
       font-weight: 700;
       letter-spacing: .2em;
       text-indent: 0.2em;
@@ -142,7 +144,7 @@ body {
         }
 
         &::after {
-          content: "";
+          content: '';
           display: block;
           width: 3em;
           position: absolute;
@@ -226,4 +228,15 @@ body {
 			}
 		}
 	}
+}
+
+/* Avoid lines between tiles during export */
+.leaflet-tile[style*="width: 256px"] {
+  width: 257px !important;
+  height: 257px !important;
+}
+
+.leaflet-tile[style*="width: 512px"] {
+  width: 513px !important;
+  height: 513px !important;
 }
