@@ -37,13 +37,14 @@ body {
   width: 100%;
 }
 
-.editor-wrapper {
+aside.editor-wrapper {
   display: flex;
   flex-direction: column;
-  left: 1em;
+  height: 100%;
+  left: 0;
   position: absolute;
-  top: 1rem;
-  width: 20rem;
+  top: 0;
+  width: 30rem;
 
   .input-with-color {
     align-items: center;
@@ -239,4 +240,10 @@ body {
 .leaflet-tile[style*="width: 512px"] {
   width: 513px !important;
   height: 513px !important;
+}
+/* Pu scrollbar in layer menu for smoother navigation */
+.leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
+  max-height: 28rem;
+  overflow-y: auto;
+  width: 16rem;
 }
