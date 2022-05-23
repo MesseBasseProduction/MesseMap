@@ -13,6 +13,7 @@
 }
 
 html, body {
+  background-color: white;  
   font-family: sans-serif;
   height: 100%;
   width: 100%;
@@ -51,6 +52,14 @@ aside.editor-wrapper {
 
   h1 {
     margin-bottom: 1rem;
+
+    &.title {
+      text-align: center;
+      font-size: 2.8rem;
+      padding-bottom: 2rem;
+      border-bottom: solid 1px black;
+      margin-bottom: 2rem;
+    }
   }
 
   .input-with-color {
@@ -72,6 +81,7 @@ aside.editor-wrapper {
   .color-picker {
     aspect-ratio: 1 / 1;
     background-color: black;
+    border-radius: .3rem;
     cursor: pointer;
     height: 2rem;
     padding: .2rem;
@@ -79,6 +89,7 @@ aside.editor-wrapper {
   }
 
   hr {
+    height: 1px;
     margin: 2rem 0;
   }
 
@@ -103,6 +114,7 @@ main {
   align-items: center;
   aspect-ratio: 21 / 29.7;
   background-color: white;
+  box-shadow: .5rem .5rem 20rem rgba(0, 0, 0, .3);
   display: flex;
   font-family: proxima-nova, Arial, Open Sans, sans-serif;
   justify-content: center;
@@ -280,3 +292,5 @@ main {
   overflow-y: auto;
   width: 16rem;
 }
+
+@import 'responsive';

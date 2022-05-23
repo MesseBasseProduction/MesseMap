@@ -16,6 +16,7 @@
   <div class="app-wrapper">
     <!-- Customization and export aside -->
     <aside class="editor-wrapper">
+      <h1 class="title">MapPoster</h1>
       <h1>Customisation</h1>
       <div class="input-with-color">
         <input id="user-title" type="text" value="Pointe du Raz" placeholder="Titre de la carte" maxlength="16">
@@ -29,11 +30,9 @@
       <input id="user-comment" type="text" value="48.038878°N / -4.736737°E" placeholder="Commentaire">
         <div id="comment-color" class="color-picker" data-type="comment"></div>
       </div>
-      <label for="hue-rotation">Rotation de la teinte : 0 degrès</label>
-      <input type="range" id="hue-rotation" name="width" min="0" max="180" value="0">      
       <hr>
       <h1>Paramètre d'export</h1>
-      <label for="image-width">Dimension : 600 x 848 — A7 à 300dpi</label>
+      <label for="image-width" id="image-width-label">Dimension : 600 x 848 — A7 à 300dpi</label>
       <input type="range" id="image-width" name="width" min="600" max="6500" value="600">
       <fieldset id="image-type">
         <legend>Format de fichier</legend>
@@ -49,6 +48,10 @@
           <input type="radio" id="webp" name="image-type" data-type="webp" data-extension="webp">
           <label for="webp">.webp</label>
         </div>
+        <div>
+          <input type="radio" id="pdf" name="image-type" data-type="pdf" data-extension="pdf">
+          <label for="pdf">.pdf</label>
+        </div>        
       </fieldset>
       <button id="map-save">Exporter</button>
     </aside>
@@ -66,9 +69,11 @@
   </div>
   <div id="modal-overlay" class="modal-overlay"></div>
   <!-- Leaflet script -->
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet@latest/dist/leaflet.js"></script>
   <!-- html2canvas script to allow map exporting -->
   <script type="text/javascript" src="assets/lib/html2canvas.min.js"></script>
+  <!-- jsPDF script to create 'ready to print' images -->
+  <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
   <!-- KolorPick to select text and postr colors -->
   <script type="text/javascript" src="https://arthurbeaulieu.github.io/KolorPick/dist/KolorPick.bundle.js"></script>
   <!-- Then load HomeMap Js bundle -->

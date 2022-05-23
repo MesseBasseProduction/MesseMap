@@ -3,6 +3,7 @@ import './SmoothWheelZoom.js';
 import MapProviders from './MapProviders.js';
 
 
+const { jsPDF } = window.jspdf;
 const CONST = {
   VERSION: '0.0.1',
   DEBUG: true
@@ -15,10 +16,11 @@ class PosterMapMaker {
   constructor() {
     this._map = null;
     this._data = null;
-
+    console.log(jsPDF)
     this._baseLayer = {};
     this._overlayLayer = {};
 
+    this._shadowStyleBackup = '';    
     this._tilesLoaded = false;
     this._intervalId = -1;
 
@@ -55,7 +57,6 @@ class PosterMapMaker {
       document.getElementById('title-color').addEventListener('click', this._colorPicker.bind(this));
       document.getElementById('subtitle-color').addEventListener('click', this._colorPicker.bind(this));
       document.getElementById('comment-color').addEventListener('click', this._colorPicker.bind(this));
-      document.getElementById('hue-rotation').addEventListener('input', this._rotateHue.bind(this));
       // Listening to close modal event
       document.getElementById('modal-overlay').addEventListener('click', this._closeModal.bind(this));
       // Text edit events
@@ -111,13 +112,6 @@ class PosterMapMaker {
       document.getElementById('modal-overlay').style.display = 'flex';
 			setTimeout(() => document.getElementById('modal-overlay').style.opacity = 1, 50);      
     });
-  }
-
-
-  _rotateHue(e) {
-    const label = e.target.previousElementSibling;
-    document.getElementsByClassName('leaflet-tile-container')[0].style.filter = `hue-rotate(${e.target.value}deg)`;
-    label.innerHTML = `Rotation de la teinte : ${e.target.value} degrès`;
   }
 
 
@@ -183,6 +177,9 @@ class PosterMapMaker {
     // Scale map dimension and attributes
     document.getElementById('map-output').style.width = `${width}px`;
     document.getElementById('map-output').style.position = 'absolute';
+    // Remove box shadow from map container
+    this._shadowStyleBackup = document.getElementById('map-output').style.boxShadow;
+    document.getElementById('map-output').style.boxShadow = 'none';    
     requestAnimationFrame(() => {
       this._map.invalidateSize();
       this._map.fitBounds(bounds);
@@ -204,6 +201,8 @@ class PosterMapMaker {
     // Restore map dimension and attributes
     document.getElementById('map-output').style.width = '600px';
     document.getElementById('map-output').style.position = 'inherit';
+    // Restore map container box shadow
+    document.getElementById('map-output').style.boxShadow = this._shadowStyleBackup;    
     requestAnimationFrame(() => {
       this._map.invalidateSize();
       this._map.fitBounds(bounds);
@@ -218,7 +217,7 @@ class PosterMapMaker {
       if (CONST.DEBUG) { console.log('Map tiles loaded, performing printing...'); }        
       clearInterval(this._intervalId);
       this._tilesLoaded = false;
-      requestAnimationFrame(() => {      
+      requestAnimationFrame(() => {
         // Execute html2canvas with output div
         window.html2canvas(document.getElementById('map-output'), {
           logging: CONST.DEBUG,
@@ -237,8 +236,20 @@ class PosterMapMaker {
     const file = this._getOutputFileType();
     const link = document.createElement('A');
     link.download = `${document.getElementById('title').innerHTML}.${file.extension}`;
-    link.href = canvas.toDataURL(`image/${file.type}`);
-    link.click();
+    if (file.type === 'pdf') {
+      const pageFormat = document.getElementById('image-width-label').innerHTML.split('—')[1].replace(' ', '').substring(0, 2);
+      let pdf = new jsPDF({
+        format: pageFormat,
+        precision: 20
+      });
+      const width = pdf.internal.pageSize.getWidth();
+      const height = pdf.internal.pageSize.getHeight();
+      pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, width, height);
+      pdf.save(`${document.getElementById('title').innerHTML}.pdf`);
+    } else {
+      link.href = canvas.toDataURL(`image/${file.type}`);
+      link.click();
+    }
     // Restore map to default value        
     this._dlRestoreMap(bounds);
   }
