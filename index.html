@@ -31,8 +31,8 @@
       </div>
       <hr>
       <h1>Paramètre d'export</h1>
-      <label for="image-width">Largeur : 600px x 848px</label>
-      <input type="range" id="image-width" name="width" min="600" max="3600" value="600">
+      <label for="image-width">Dimension 600 x 848 — A7 à 300dpi</label>
+      <input type="range" id="image-width" name="width" min="600" max="6500" value="600">
       <fieldset id="image-type">
         <legend>Format de fichier</legend>
         <div>
@@ -51,14 +51,16 @@
       <button id="map-save">Exporter</button>
     </aside>
     <!-- Map view controls and poster -->
-    <div id="map-output" class="map-container standard-style">
-      <div id="map" class="map"></div>
-      <div class="user-text-wrapper">
-        <h1 id="title"></h1>
-        <h3><span id="subtitle"></span></h3>
-        <p id="comment"></p>
+    <main>
+      <div id="map-output" class="map-container standard-style">
+        <div id="map" class="map"></div>
+        <div class="user-text-wrapper">
+          <h1 id="title"></h1>
+          <h3><span id="subtitle"></span></h3>
+          <p id="comment"></p>
+        </div>
       </div>
-    </div>
+    </main>
   </div>
   <div id="modal-overlay" class="modal-overlay"></div>
   <!-- Leaflet script -->

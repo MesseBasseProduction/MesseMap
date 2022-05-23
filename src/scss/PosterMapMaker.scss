@@ -38,17 +38,25 @@ body {
 }
 
 aside.editor-wrapper {
+  background-color: #fff;
+  box-shadow: .5rem 0px 2rem rgba(0, 0, 0, .3);  
   display: flex;
   flex-direction: column;
   height: 100%;
   left: 0;
+  padding: 2rem;
   position: absolute;
   top: 0;
   width: 30rem;
 
+  h1 {
+    margin-bottom: 1rem;
+  }
+
   .input-with-color {
     align-items: center;
     display: flex;
+    margin: .2rem 0;
     width: 100%;
 
     input {
@@ -65,6 +73,26 @@ aside.editor-wrapper {
     padding: .2rem;
     width: 2rem;
   }
+
+  hr {
+    margin: 2rem 0;
+  }
+
+  fieldset {
+    margin: 1rem 0;
+  }
+}
+
+main {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  left: 30rem;
+  position: absolute;
+  top: 0;
+  width: calc(100% - 30rem);
 }
 
 .map-container {
@@ -72,6 +100,7 @@ aside.editor-wrapper {
   aspect-ratio: 21 / 29.7;
   background-color: white;
   display: flex;
+  font-family: proxima-nova, Arial, Open Sans, sans-serif;
   justify-content: center;
   padding: var(--padding);
   position: relative;
@@ -242,7 +271,7 @@ aside.editor-wrapper {
   height: 513px !important;
 }
 /* Pu scrollbar in layer menu for smoother navigation */
-.leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
+.leaflet-control-layers-expanded {
   max-height: 28rem;
   overflow-y: auto;
   width: 16rem;

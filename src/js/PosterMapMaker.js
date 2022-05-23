@@ -20,6 +20,7 @@ class PosterMapMaker {
     this._overlayLayer = {};
 
     this._tilesLoaded = false;
+    this._intervalId = -1;
 
     this._initMap()
       .then(this._initEvents.bind(this));
@@ -121,7 +122,21 @@ class PosterMapMaker {
 
   _updateOutputWidth(e) {
     const label = e.target.previousElementSibling;
-    label.innerHTML = `Largeur : ${e.target.value}px x ${this.precisionRound(e.target.value * 29.7 / 21, 0)}px`;
+    let text = 'A5 (Low res)';
+    if (e.target.value > 4961) {
+      text = '2'
+    } else if (e.target.value > 3508) {
+      text = '3'
+    } else if (e.target.value > 2480) {
+      text = '4'
+    } else if (e.target.value > 1754) {
+      text = '5'
+    } else if (e.target.value > 1241) {
+      text = '6'
+    } else {
+      text = '7'
+    }
+    label.innerHTML = `Dimension ${e.target.value} x ${this.precisionRound(e.target.value * 29.7 / 21, 0)} — A${text} à 300dpi`;
   }
 
 
@@ -137,12 +152,11 @@ class PosterMapMaker {
     const width = document.getElementById('image-width').value;
     const scale = width / 600;
     const bounds = this._map.getBounds(); // Map bound before scaling
-    let intervalId = -1;
     // Scale map elements according to user desired size
     this._dlPrepareMap(width, scale, bounds); 
     // setInterval on mapPrint to ensure tiles are loaded before downloading (tilesLoaded flag)
     if (scale === 1) { this._tilesLoaded = true; } // Set tiles loaded if no upscale is requested on export
-    intervalId = setInterval(this._dlPerformMapPrint.bind(this, intervalId, bounds), 2000); // We put a 2s timeout to ensure latest tiles are properly loaded
+    this._intervalId = setInterval(this._dlPerformMapPrint.bind(this, bounds), 2000); // We put a 2s timeout to ensure latest tiles are properly loaded
   }
 
 
@@ -190,11 +204,11 @@ class PosterMapMaker {
   }
 
 
-  _dlPerformMapPrint(intervalId, bounds) {
+  _dlPerformMapPrint(bounds) {
     // Perform map print with html2canvas if all tiles are loaded
     if (this._tilesLoaded === true) {
       if (CONST.DEBUG) { console.log('Map tiles loaded, performing printing...'); }        
-      clearInterval(intervalId);
+      clearInterval(this._intervalId);
       this._tilesLoaded = false;
       requestAnimationFrame(() => {      
         // Execute html2canvas with output div
