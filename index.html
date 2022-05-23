@@ -16,7 +16,7 @@
   <div class="app-wrapper">
     <!-- Customization and export aside -->
     <aside class="editor-wrapper">
-      <h1>Textes</h1>
+      <h1>Customisation</h1>
       <div class="input-with-color">
         <input id="user-title" type="text" value="Pointe du Raz" placeholder="Titre de la carte" maxlength="16">
         <div id="title-color" class="color-picker" data-type="title"></div>
@@ -29,9 +29,11 @@
       <input id="user-comment" type="text" value="48.038878°N / -4.736737°E" placeholder="Commentaire">
         <div id="comment-color" class="color-picker" data-type="comment"></div>
       </div>
+      <label for="hue-rotation">Rotation de la teinte : 0 degrès</label>
+      <input type="range" id="hue-rotation" name="width" min="0" max="180" value="0">      
       <hr>
       <h1>Paramètre d'export</h1>
-      <label for="image-width">Dimension 600 x 848 — A7 à 300dpi</label>
+      <label for="image-width">Dimension : 600 x 848 — A7 à 300dpi</label>
       <input type="range" id="image-width" name="width" min="600" max="6500" value="600">
       <fieldset id="image-type">
         <legend>Format de fichier</legend>

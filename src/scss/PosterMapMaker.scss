@@ -63,6 +63,10 @@ aside.editor-wrapper {
       margin-right: .5rem;
       width: inherit;
     }
+
+    &:last-of-type {
+      margin-bottom: 2rem;
+    }
   }
 
   .color-picker {
@@ -79,7 +83,7 @@ aside.editor-wrapper {
   }
 
   fieldset {
-    margin: 1rem 0;
+    margin: 2rem 0;
   }
 }
 

@@ -55,6 +55,7 @@ class PosterMapMaker {
       document.getElementById('title-color').addEventListener('click', this._colorPicker.bind(this));
       document.getElementById('subtitle-color').addEventListener('click', this._colorPicker.bind(this));
       document.getElementById('comment-color').addEventListener('click', this._colorPicker.bind(this));
+      document.getElementById('hue-rotation').addEventListener('input', this._rotateHue.bind(this));
       // Listening to close modal event
       document.getElementById('modal-overlay').addEventListener('click', this._closeModal.bind(this));
       // Text edit events
@@ -113,6 +114,13 @@ class PosterMapMaker {
   }
 
 
+  _rotateHue(e) {
+    const label = e.target.previousElementSibling;
+    document.getElementsByClassName('leaflet-tile-container')[0].style.filter = `hue-rotate(${e.target.value}deg)`;
+    label.innerHTML = `Rotation de la teinte : ${e.target.value} degrès`;
+  }
+
+
   _applyTexts() {
     document.getElementById('title').innerHTML = document.getElementById('user-title').value;
     document.getElementById('subtitle').innerHTML = document.getElementById('user-subtitle').value;
@@ -136,7 +144,7 @@ class PosterMapMaker {
     } else {
       text = '7'
     }
-    label.innerHTML = `Dimension ${e.target.value} x ${this.precisionRound(e.target.value * 29.7 / 21, 0)} — A${text} à 300dpi`;
+    label.innerHTML = `Dimension : ${e.target.value} x ${this.precisionRound(e.target.value * 29.7 / 21, 0)} — A${text} à 300dpi`;
   }
 
 
