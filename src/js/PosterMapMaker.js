@@ -20,14 +20,14 @@ class PosterMapMaker {
     this._baseLayer = {};
     this._overlayLayer = {};
 
-    this._shadowStyleBackup = '';    
+    this._shadowStyleBackup = '';
     this._tilesLoaded = false;
     this._intervalId = -1;
 
     this._initMap()
       .then(this._initEvents.bind(this));
   }
-  
+
 
   _initMap() {
     return new Promise(resolve => {
@@ -38,7 +38,7 @@ class PosterMapMaker {
         scrollWheelZoom: false, // SmoothWheelZoom lib
         smoothWheelZoom: true, // SmoothWheelZoom lib
         smoothSensitivity: 1, // SmoothWheelZoom lib
-      }).setView([48.038878, -4.736737], 13);
+      }).setView([16.24545930258416, -61.38413362483966], 10);
       // Add layer group to interface
       MapProviders.layers.OpenStreetMap.addTo(this._map);
       // Add layer switch radio on bottom right of the map
@@ -110,7 +110,7 @@ class PosterMapMaker {
       });
 			document.getElementById('modal-overlay').appendChild(dom);
       document.getElementById('modal-overlay').style.display = 'flex';
-			setTimeout(() => document.getElementById('modal-overlay').style.opacity = 1, 50);      
+			setTimeout(() => document.getElementById('modal-overlay').style.opacity = 1, 50);
     });
   }
 
@@ -155,7 +155,7 @@ class PosterMapMaker {
     const scale = width / 600;
     const bounds = this._map.getBounds(); // Map bound before scaling
     // Scale map elements according to user desired size
-    this._dlPrepareMap(width, scale, bounds); 
+    this._dlPrepareMap(width, scale, bounds);
     // setInterval on mapPrint to ensure tiles are loaded before downloading (tilesLoaded flag)
     if (scale === 1) { this._tilesLoaded = true; } // Set tiles loaded if no upscale is requested on export
     this._intervalId = setInterval(this._dlPerformMapPrint.bind(this, bounds), 2000); // We put a 2s timeout to ensure latest tiles are properly loaded
@@ -179,7 +179,7 @@ class PosterMapMaker {
     document.getElementById('map-output').style.position = 'absolute';
     // Remove box shadow from map container
     this._shadowStyleBackup = document.getElementById('map-output').style.boxShadow;
-    document.getElementById('map-output').style.boxShadow = 'none';    
+    document.getElementById('map-output').style.boxShadow = 'none';
     requestAnimationFrame(() => {
       this._map.invalidateSize();
       this._map.fitBounds(bounds);
@@ -197,24 +197,24 @@ class PosterMapMaker {
     document.getElementById('map-output').style.setProperty('--padding', `3rem`);
     document.getElementById('map-output').style.setProperty('--thick-border', `5px`);
     document.getElementById('map-output').style.setProperty('--small-border', `1px`);
-    document.body.style.fontSize = `1.2rem`;      
+    document.body.style.fontSize = `1.2rem`;
     // Restore map dimension and attributes
     document.getElementById('map-output').style.width = '600px';
     document.getElementById('map-output').style.position = 'inherit';
     // Restore map container box shadow
-    document.getElementById('map-output').style.boxShadow = this._shadowStyleBackup;    
+    document.getElementById('map-output').style.boxShadow = this._shadowStyleBackup;
     requestAnimationFrame(() => {
       this._map.invalidateSize();
       this._map.fitBounds(bounds);
       if (CONST.DEBUG) { console.log('Map properly restored'); }
-    });  
+    });
   }
 
 
   _dlPerformMapPrint(bounds) {
     // Perform map print with html2canvas if all tiles are loaded
     if (this._tilesLoaded === true) {
-      if (CONST.DEBUG) { console.log('Map tiles loaded, performing printing...'); }        
+      if (CONST.DEBUG) { console.log('Map tiles loaded, performing printing...'); }
       clearInterval(this._intervalId);
       this._tilesLoaded = false;
       requestAnimationFrame(() => {
@@ -232,7 +232,7 @@ class PosterMapMaker {
 
 
   _dlMap(bounds, canvas) {
-    if (CONST.DEBUG) { console.log('Canvas printing done, exporting image to disk...'); }             
+    if (CONST.DEBUG) { console.log('Canvas printing done, exporting image to disk...'); }
     const file = this._getOutputFileType();
     const link = document.createElement('A');
     link.download = `${document.getElementById('title').innerHTML}.${file.extension}`;
@@ -250,7 +250,7 @@ class PosterMapMaker {
       link.href = canvas.toDataURL(`image/${file.type}`);
       link.click();
     }
-    // Restore map to default value        
+    // Restore map to default value
     this._dlRestoreMap(bounds);
   }
 

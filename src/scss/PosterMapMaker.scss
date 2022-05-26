@@ -1,3 +1,5 @@
+@import 'fonts';
+
 :root {
   --green-border: #246400;
   --green-background: #9FE379;
@@ -13,7 +15,7 @@
 }
 
 html, body {
-  background-color: white;  
+  background-color: white;
   font-family: sans-serif;
   height: 100%;
   width: 100%;
@@ -40,7 +42,7 @@ body {
 
 aside.editor-wrapper {
   background-color: #fff;
-  box-shadow: .5rem 0px 2rem rgba(0, 0, 0, .3);  
+  box-shadow: .5rem 0px 2rem rgba(0, 0, 0, .3);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -116,7 +118,6 @@ main {
   background-color: white;
   box-shadow: .5rem .5rem 20rem rgba(0, 0, 0, .3);
   display: flex;
-  font-family: proxima-nova, Arial, Open Sans, sans-serif;
   justify-content: center;
   padding: var(--padding);
   position: relative;
@@ -130,7 +131,7 @@ main {
   }
 
   &::before {
-    content: " ";
+    content: ' ';
     position: absolute;
     z-index: 999;
     pointer-events: none;
@@ -140,7 +141,7 @@ main {
     bottom: calc(var(--padding) - var(--thick-border));
     border: var(--small-border) solid black;
   }
-  
+
   .map {
     border: solid var(--thick-border) black;
     height: 100%;
@@ -158,6 +159,7 @@ main {
     z-index: 998;
 
     h1 {
+      font-family: 'proxima-nova-bold', sans-serif;
       font-size: 3.2em;
       font-weight: 700;
       letter-spacing: .2em;
@@ -166,9 +168,10 @@ main {
     }
 
     h3 {
-      margin: .5em 0;
+      margin: 1em 0;
 
       span {
+        font-family: 'proxima-nova', sans-serif;
         font-weight: 400;
         font-size: 1.7em;
         text-transform: uppercase;
@@ -203,10 +206,12 @@ main {
     }
 
     p {
-      font-weight: 300;
+      font-family: 'proxima-nova-light', sans-serif;
       font-size: 1.3em;
+      font-weight: 300;
       letter-spacing: .1em;
       text-indent: 0.1em;
+      text-transform: uppercase;
     }
   }
 }
