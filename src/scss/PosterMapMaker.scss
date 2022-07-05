@@ -98,6 +98,25 @@ aside.editor-wrapper {
   fieldset {
     margin: 2rem 0;
   }
+
+  button {
+    cursor: pointer;
+  }
+
+  a {
+    color: black;
+    margin-top: auto;
+    text-align: center;
+    text-decoration: none;
+
+    transition: color .2s;
+
+    &:active,
+    &:focus,
+    &:hover {
+      color: #56d45b;
+    }
+  }
 }
 
 main {
@@ -150,7 +169,7 @@ main {
 
   .user-text-wrapper {
     position: absolute;
-    background: linear-gradient(transparent, white 50%);
+    background: linear-gradient(transparent 1%, white 50%);
     bottom: calc(var(--padding) + var(--thick-border));
     height: 35%;
     padding-top: 20%;
@@ -168,41 +187,35 @@ main {
     }
 
     h3 {
+      align-items: center;
+      display: flex;
+      font-family: 'proxima-nova', sans-serif;
+      font-size: 1.7em;
+      font-weight: 400;
+      justify-content: center;
+      letter-spacing: .5em;
+      line-height: 1.4;
       margin: 1em 0;
+      text-indent: 0.5em;
+      text-transform: uppercase;
 
-      span {
-        font-family: 'proxima-nova', sans-serif;
-        font-weight: 400;
-        font-size: 1.7em;
-        text-transform: uppercase;
-        letter-spacing: .5em;
-        text-indent: 0.5em;
-        line-height: 1.4;
-        padding: 0 1em;
-        position: relative;
-
-        &::before {
-          content: '';
-          display: block;
-          width: 3em;
-          position: absolute;
-          top: calc(50% - 0.07em);
-          background-color: #000;
-          height: 0.14em;
-          left: 100%;
-        }
-
-        &::after {
-          content: '';
-          display: block;
-          width: 3em;
-          position: absolute;
-          top: calc(50% - 0.07em);
-          background-color: #000;
-          height: 0.14em;
-          right: 100%;
-        }
+      span.before {
+        display: inline-block;
+        background-color: #000;
+        height: 0.14em;
+        width: 3em;
       }
+
+      span.subtitle {
+        padding: 0 1em;
+      }
+
+      span.after {
+        display: inline-block;
+        background-color: #000;
+        height: 0.14em;
+        width: 3em;
+      }      
     }
 
     p {

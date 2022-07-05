@@ -5,8 +5,8 @@ import MapProviders from './MapProviders.js';
 
 const { jsPDF } = window.jspdf;
 const CONST = {
-  VERSION: '0.0.1',
-  DEBUG: true
+  VERSION: '0.0.2',
+  DEBUG: false
 };
 
 
@@ -16,10 +16,8 @@ class PosterMapMaker {
   constructor() {
     this._map = null;
     this._data = null;
-    console.log(jsPDF)
     this._baseLayer = {};
     this._overlayLayer = {};
-
     this._shadowStyleBackup = '';
     this._tilesLoaded = false;
     this._intervalId = -1;
@@ -38,12 +36,18 @@ class PosterMapMaker {
         scrollWheelZoom: false, // SmoothWheelZoom lib
         smoothWheelZoom: true, // SmoothWheelZoom lib
         smoothSensitivity: 1, // SmoothWheelZoom lib
-      }).setView([16.24545930258416, -61.38413362483966], 10);
+      }).setView([44.79777779831652, 1.542703666063447], 5);
       // Add layer group to interface
-      MapProviders.layers.OpenStreetMap.addTo(this._map);
+      MapProviders.layers['Esri Satellite'].addTo(this._map);
       // Add layer switch radio on bottom right of the map
       window.L.control.layers(MapProviders.layers, MapProviders.overlays, { position: 'topright' }).addTo(this._map);
       this._applyTexts();
+      // Remove webp from Firefox browser as it is not supported (yet I hope)
+      if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+        const webp = document.getElementById('webp').parentNode;
+        const parent = webp.parentNode;
+        parent.removeChild(webp);
+      }
       resolve();
     });
   }
@@ -63,7 +67,7 @@ class PosterMapMaker {
       document.getElementById('user-title').addEventListener('input', this._applyTexts.bind(this));
       document.getElementById('user-subtitle').addEventListener('input', this._applyTexts.bind(this));
       document.getElementById('user-comment').addEventListener('input', this._applyTexts.bind(this));
-
+      // Export settings
       document.getElementById('image-width').addEventListener('input', this._updateOutputWidth.bind(this));
       document.getElementById('map-save').addEventListener('click', this._download.bind(this));
       // Load event on map layers
@@ -80,7 +84,9 @@ class PosterMapMaker {
 
 
   _mapClicked(opts) {
-    console.log(opts);
+    if (CONST.DEBUG) {
+      console.log(opts, this._map);
+    }
   }
 
 

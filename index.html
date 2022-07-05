@@ -17,22 +17,22 @@
     <!-- Customization and export aside -->
     <aside class="editor-wrapper">
       <h1 class="title">MapPoster</h1>
-      <h1>Customisation</h1>
+      <h1>Textes</h1>
       <div class="input-with-color">
-        <input id="user-title" type="text" value="Pointe du Raz" placeholder="Titre de la carte" maxlength="16">
+        <input id="user-title" type="text" value="M B P" placeholder="Titre de la carte" maxlength="16">
         <div id="title-color" class="color-picker" data-type="title"></div>
       </div>
       <div class="input-with-color">
-      <input id="user-subtitle" type="text" value="Bretagne" placeholder="Sous-Titre de la carte">
+      <input id="user-subtitle" type="text" value="France" placeholder="Sous-Titre de la carte" maxlength="11">
         <div id="subtitle-color" class="color-picker" data-type="subtitle"></div>
       </div>
       <div class="input-with-color">
-      <input id="user-comment" type="text" value="48.038878°N / -4.736737°E" placeholder="Commentaire">
+      <input id="user-comment" type="text" value="44.797°N / 1.542°E" placeholder="Commentaire">
         <div id="comment-color" class="color-picker" data-type="comment"></div>
       </div>
       <hr>
       <h1>Paramètre d'export</h1>
-      <label for="image-width" id="image-width-label">Dimension : 600 x 848 — A7 à 300dpi</label>
+      <label for="image-width" id="image-width-label">Dimension : 600 x 848 — A7 à 300dpi</label> <!-- https://fr.wikipedia.org/wiki/Point_par_pouce -->
       <input type="range" id="image-width" name="width" min="600" max="6500" value="600">
       <fieldset id="image-type">
         <legend>Format de fichier</legend>
@@ -44,16 +44,17 @@
           <input type="radio" id="jpg" name="image-type" data-type="jpeg" data-extension="jpg">
           <label for="jpg">.jpg</label>
         </div>
-        <div> <!-- TODO Disable on FF as not yet support for toDataUrl -->
+        <div>
           <input type="radio" id="webp" name="image-type" data-type="webp" data-extension="webp">
           <label for="webp">.webp</label>
         </div>
         <div>
           <input type="radio" id="pdf" name="image-type" data-type="pdf" data-extension="pdf">
           <label for="pdf">.pdf</label>
-        </div>        
+        </div>
       </fieldset>
       <button id="map-save">Exporter</button>
+      <a href="https://messe-basse-production.com" target="_blank" rel="noopener noreferer">Messe Basse Production – 2022</a>
     </aside>
     <!-- Map view controls and poster -->
     <main>
@@ -61,7 +62,7 @@
         <div id="map" class="map"></div>
         <div class="user-text-wrapper">
           <h1 id="title"></h1>
-          <h3><span id="subtitle"></span></h3>
+          <h3><span class="before"></span><span id="subtitle" class="subtitle"></span><span class="after"></span></h3>
           <p id="comment"></p>
         </div>
       </div>
