@@ -1,5 +1,4 @@
 // Thanks buddy https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom
-
 window.L.Map.mergeOptions({
   // @section Mousewheel options
   // @option smoothWheelZoom: Boolean|String = true

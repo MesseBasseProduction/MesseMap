@@ -5,8 +5,8 @@ import MapProviders from './MapProviders.js';
 
 const { jsPDF } = window.jspdf;
 const CONST = {
-  VERSION: '0.0.2',
-  DEBUG: false
+  VERSION: '0.0.3',
+  DEBUG: true
 };
 
 
@@ -21,6 +21,7 @@ class PosterMapMaker {
     this._shadowStyleBackup = '';
     this._tilesLoaded = false;
     this._intervalId = -1;
+    this._isDownloading = false;
 
     this._initMap()
       .then(this._initEvents.bind(this));
@@ -55,12 +56,10 @@ class PosterMapMaker {
 
   _initEvents() {
     return new Promise(resolve => {
-      // Subscribe to click event on map to react
-      this._map.on('click', this._mapClicked.bind(this));
       // Kolor Pick Events
-      document.getElementById('title-color').addEventListener('click', this._colorPicker.bind(this));
-      document.getElementById('subtitle-color').addEventListener('click', this._colorPicker.bind(this));
-      document.getElementById('comment-color').addEventListener('click', this._colorPicker.bind(this));
+      document.getElementById('title-color').addEventListener('click', this._textEdit.bind(this));
+      document.getElementById('subtitle-color').addEventListener('click', this._textEdit.bind(this));
+      document.getElementById('comment-color').addEventListener('click', this._textEdit.bind(this));
       // Listening to close modal event
       document.getElementById('modal-overlay').addEventListener('click', this._closeModal.bind(this));
       // Text edit events
@@ -83,14 +82,7 @@ class PosterMapMaker {
   /* Event callbacks */
 
 
-  _mapClicked(opts) {
-    if (CONST.DEBUG) {
-      console.log(opts, this._map);
-    }
-  }
-
-
-  _colorPicker(e) {
+  _textEdit(e) {
     this._fetchModal('colorpick').then(dom => {
       const picker = new window.KolorPick({
         renderTo: dom.querySelector('#picker-container'),
@@ -101,15 +93,27 @@ class PosterMapMaker {
         },
         onColorChange: data => { // Callback method called on each color modification
           if (document.getElementById('applied-color')) {
-            e.target.style.backgroundColor = document.getElementById('applied-color').style.backgroundColor;
-            document.getElementById(e.target.dataset.type).style.color = document.getElementById('applied-color').style.backgroundColor;
             document.getElementById('applied-color').style.backgroundColor = data.hex;
+            if (e.target.tagName === 'IMG') {
+              e.target.parentNode.style.borderColor = document.getElementById('applied-color').style.backgroundColor;
+              e.target.parentNode.previousElementSibling.style.borderColor = document.getElementById('applied-color').style.backgroundColor;
+            } else {
+              e.target.style.borderColor = document.getElementById('applied-color').style.backgroundColor;
+              e.target.previousElementSibling.style.borderColor = document.getElementById('applied-color').style.backgroundColor;
+            }
+            document.getElementById(e.target.dataset.type).style.color = document.getElementById('applied-color').style.backgroundColor;
           }
         }
       });
 
 			dom.querySelector('#confirm').addEventListener('click', () => {
-        e.target.style.backgroundColor = document.getElementById('applied-color').style.backgroundColor;
+        if (e.target.tagName === 'IMG') {
+          e.target.parentNode.style.borderColor = document.getElementById('applied-color').style.backgroundColor;
+          e.target.parentNode.previousElementSibling.style.borderColor = document.getElementById('applied-color').style.backgroundColor;
+        } else {
+          e.target.style.borderColor = document.getElementById('applied-color').style.backgroundColor;
+          e.target.previousElementSibling.style.borderColor = document.getElementById('applied-color').style.backgroundColor;
+        }
         document.getElementById(e.target.dataset.type).style.color = document.getElementById('applied-color').style.backgroundColor;
         picker.destroy();
         this._closeModal(null, true);
@@ -130,7 +134,7 @@ class PosterMapMaker {
 
   _updateOutputWidth(e) {
     const label = e.target.previousElementSibling;
-    let text = 'A5 (Low res)';
+    let text = '';
     if (e.target.value > 4961) {
       text = '2'
     } else if (e.target.value > 3508) {
@@ -144,6 +148,7 @@ class PosterMapMaker {
     } else {
       text = '7'
     }
+    // Update label with given slider value
     label.innerHTML = `Dimension : ${e.target.value} x ${this.precisionRound(e.target.value * 29.7 / 21, 0)} — A${text} à 300dpi`;
   }
 
@@ -156,20 +161,26 @@ class PosterMapMaker {
   // - save to user machine
   // - restore map size and scale
   _download() {
-    // First we get the user desired size
-    const width = document.getElementById('image-width').value;
-    const scale = width / 600;
-    const bounds = this._map.getBounds(); // Map bound before scaling
-    // Scale map elements according to user desired size
-    this._dlPrepareMap(width, scale, bounds);
-    // setInterval on mapPrint to ensure tiles are loaded before downloading (tilesLoaded flag)
-    if (scale === 1) { this._tilesLoaded = true; } // Set tiles loaded if no upscale is requested on export
-    this._intervalId = setInterval(this._dlPerformMapPrint.bind(this, bounds), 2000); // We put a 2s timeout to ensure latest tiles are properly loaded
+    document.getElementById('print-overlay').style.zIndex = 99;    
+    document.getElementById('print-overlay').style.opacity = 1;
+    requestAnimationFrame(() => {
+      // First we get the user desired size
+      const width = document.getElementById('image-width').value;
+      const scale = width / 600;
+      const bounds = this._map.getBounds(); // Map bound before scaling
+      // Scale map elements according to user desired size
+      this._dlPrepareMap(width, scale, bounds);
+      // setInterval on mapPrint to ensure tiles are loaded before downloading (tilesLoaded flag)
+      if (scale === 1) { this._tilesLoaded = true; } // Set tiles loaded if no upscale is requested on export
+      this._intervalId = setInterval(this._dlPerformMapPrint.bind(this, bounds), 2000); // We put a 2s timeout to ensure latest tiles are properly loaded
+    });
   }
 
 
   _dlPrepareMap(width, scale, bounds) {
     if (CONST.DEBUG) { console.log('Prepare map style for printing...'); }
+    document.getElementById('print-status').innerHTML = `Préparation du style de la carte pour l'export...`;
+    document.getElementById('print-progress').style.width = '10%';
     // Hide Leaflet.js overlays
     document.querySelector('.leaflet-top.leaflet-left').style.display = 'none';
     document.querySelector('.leaflet-top.leaflet-right').style.display = 'none';
@@ -190,29 +201,8 @@ class PosterMapMaker {
       this._map.invalidateSize();
       this._map.fitBounds(bounds);
       if (CONST.DEBUG) { console.log('Waiting for map tiles to load...'); }
-    });
-  }
-
-
-  _dlRestoreMap(bounds) {
-    if (CONST.DEBUG) { console.log('Restoring map style to default...'); }
-    // Restore Leaflet.js overlays
-    document.querySelector('.leaflet-top.leaflet-left').style.display = 'inherit';
-    document.querySelector('.leaflet-top.leaflet-right').style.display = 'inherit';
-    // Restore CSS variables
-    document.getElementById('map-output').style.setProperty('--padding', `3rem`);
-    document.getElementById('map-output').style.setProperty('--thick-border', `5px`);
-    document.getElementById('map-output').style.setProperty('--small-border', `1px`);
-    document.body.style.fontSize = `1.2rem`;
-    // Restore map dimension and attributes
-    document.getElementById('map-output').style.width = '600px';
-    document.getElementById('map-output').style.position = 'inherit';
-    // Restore map container box shadow
-    document.getElementById('map-output').style.boxShadow = this._shadowStyleBackup;
-    requestAnimationFrame(() => {
-      this._map.invalidateSize();
-      this._map.fitBounds(bounds);
-      if (CONST.DEBUG) { console.log('Map properly restored'); }
+      document.getElementById('print-status').innerHTML = `En attente du chargement des tuiles de la carte...`;
+      document.getElementById('print-progress').style.width = '25%';
     });
   }
 
@@ -221,6 +211,8 @@ class PosterMapMaker {
     // Perform map print with html2canvas if all tiles are loaded
     if (this._tilesLoaded === true) {
       if (CONST.DEBUG) { console.log('Map tiles loaded, performing printing...'); }
+      document.getElementById('print-status').innerHTML = `Tuiles chargées, démarrage de l'export...`;
+      document.getElementById('print-progress').style.width = '66%';
       clearInterval(this._intervalId);
       this._tilesLoaded = false;
       requestAnimationFrame(() => {
@@ -231,7 +223,7 @@ class PosterMapMaker {
           allowTaint: true,
           width: document.getElementById('map-output').offsetWidth,
           height: document.getElementById('map-output').offsetHeight
-        }).then(this._dlMap.bind(this, bounds));
+        }).then(this._dlMap.bind(this, bounds)).catch(this._dlRestoreMap.bind(this, bounds));
       });
     }
   }
@@ -239,6 +231,8 @@ class PosterMapMaker {
 
   _dlMap(bounds, canvas) {
     if (CONST.DEBUG) { console.log('Canvas printing done, exporting image to disk...'); }
+    document.getElementById('print-status').innerHTML = `Export terminé. Sauvegarde sur le disque en cours...`;
+    document.getElementById('print-progress').style.width = '88%';
     const file = this._getOutputFileType();
     const link = document.createElement('A');
     link.download = `${document.getElementById('title').innerHTML}.${file.extension}`;
@@ -258,6 +252,34 @@ class PosterMapMaker {
     }
     // Restore map to default value
     this._dlRestoreMap(bounds);
+  }
+
+
+  _dlRestoreMap(bounds) {
+    if (CONST.DEBUG) { console.log('Restoring map style to default...'); }
+    document.getElementById('print-status').innerHTML = `Remise en état du style initial...`;
+    document.getElementById('print-progress').style.width = '100%';
+    // Restore Leaflet.js overlays
+    document.querySelector('.leaflet-top.leaflet-left').style.display = 'inherit';
+    document.querySelector('.leaflet-top.leaflet-right').style.display = 'inherit';
+    // Restore CSS variables
+    document.getElementById('map-output').style.setProperty('--padding', `3rem`);
+    document.getElementById('map-output').style.setProperty('--thick-border', `5px`);
+    document.getElementById('map-output').style.setProperty('--small-border', `1px`);
+    document.body.style.fontSize = `1.2rem`;
+    // Restore map dimension and attributes
+    document.getElementById('map-output').style.width = '600px';
+    document.getElementById('map-output').style.position = 'inherit';
+    // Restore map container box shadow
+    document.getElementById('map-output').style.boxShadow = this._shadowStyleBackup;
+    // Remove print overlay
+    document.getElementById('print-overlay').style.opacity = 0;
+    setTimeout(() => document.getElementById('print-overlay').style.zIndex = -1, 200)
+    requestAnimationFrame(() => {
+      this._map.invalidateSize();
+      this._map.fitBounds(bounds);
+      if (CONST.DEBUG) { console.log('Map properly restored'); }
+    });
   }
 
 

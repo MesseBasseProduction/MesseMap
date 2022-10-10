@@ -18,17 +18,26 @@
     <aside class="editor-wrapper">
       <h1 class="title">MapPoster</h1>
       <h1>Textes</h1>
+      <label for="user-title">Titre</label>
       <div class="input-with-color">
         <input id="user-title" type="text" value="M B P" placeholder="Titre de la carte" maxlength="16">
-        <div id="title-color" class="color-picker" data-type="title"></div>
+        <div id="title-color" class="text-edit" data-type="title">
+          <img src="assets/img/option.svg" data-type="title" alt="text-option">
+        </div>
       </div>
+      <label for="user-subtitle">Sous-Titre</label>
       <div class="input-with-color">
-      <input id="user-subtitle" type="text" value="France" placeholder="Sous-Titre de la carte" maxlength="11">
-        <div id="subtitle-color" class="color-picker" data-type="subtitle"></div>
+        <input id="user-subtitle" type="text" value="France" placeholder="Sous-Titre de la carte" maxlength="11">
+        <div id="subtitle-color" class="text-edit" data-type="subtitle">
+          <img src="assets/img/option.svg" data-type="subtitle" alt="text-option">
+        </div>
       </div>
+      <label for="user-comment">Commentaire</label>
       <div class="input-with-color">
-      <input id="user-comment" type="text" value="44.797°N / 1.542°E" placeholder="Commentaire">
-        <div id="comment-color" class="color-picker" data-type="comment"></div>
+        <input id="user-comment" type="text" value="44.797°N / 1.542°E" placeholder="Commentaire" maxlength="43">
+        <div id="comment-color" class="text-edit" data-type="comment">
+          <img src="assets/img/option.svg" data-type="comment" alt="text-option">
+        </div>
       </div>
       <hr>
       <h1>Paramètre d'export</h1>
@@ -69,6 +78,12 @@
     </main>
   </div>
   <div id="modal-overlay" class="modal-overlay"></div>
+  <div id="print-overlay" class="print-overlay">
+    <h1>Votre poster est en cours de préparation</h1>
+    <p>Veuillez patienter le temps que les données soient rassemblées</p>
+    <p id="print-status"></p>
+    <div id="print-progress" class="progress"></div>
+  </div>
   <!-- Leaflet script -->
   <script src="https://unpkg.com/leaflet@latest/dist/leaflet.js"></script>
   <!-- html2canvas script to allow map exporting -->
