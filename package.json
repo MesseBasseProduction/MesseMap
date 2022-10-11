@@ -1,8 +1,8 @@
 {
-  "name": "postermapmaker",
-  "version": "0.0.3",
+  "name": "mapposter",
+  "version": "0.0.4",
   "keywords": [],
-  "main": "src/js/PosterMapMaker.js",
+  "main": "src/js/MapPoster.js",
   "scripts": {
     "build": "webpack --config webpack/webpack.prod.js",
     "watch": "webpack --watch --config webpack/webpack.dev.js",
@@ -12,13 +12,13 @@
     "doc": "jsdoc -c doc/jsDoc.json",
     "beforecommit": "npm run test && npm run doc && npm run build"
   },
-  "homepage": "https://github.com/MesseBasseProduction/PosterMapMaker/README.md",
+  "homepage": "https://github.com/MesseBasseProduction/MapPoster/README.md",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MesseBasseProduction/PosterMapMaker.git"
+    "url": "git+https://github.com/MesseBasseProduction/MapPoster.git"
   },
   "bugs": {
-    "url": "https://github.com/MesseBasseProduction/PosterMapMaker/issues"
+    "url": "https://github.com/MesseBasseProduction/MapPoster/issues"
   },
   "author": "ArthurBeaulieu",
   "license": "GPL-3.0",

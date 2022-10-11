@@ -50,6 +50,22 @@ export default {
       minZoom: 1,
       maxZoom: 16,
       ext: 'jpg'
+    }),
+    'Mapiful Mono': window.L.tileLayer('https://tiles.mapiful.com/mono/{z}/{x}/{y}.png', {
+      minZoom: 1,
+      maxZoom: 16
+    }),
+    'Mapiful Asphalt': window.L.tileLayer('https://tiles.mapiful.com/asphalt/{z}/{x}/{y}.png', {
+      minZoom: 1,
+      maxZoom: 16
+    }),
+    'Mapiful Nara': window.L.tileLayer('https://tiles.mapiful.com/playroom/{z}/{x}/{y}.png', {
+      minZoom: 1,
+      maxZoom: 16
+    }),
+    'Mapiful Blue': window.L.tileLayer('https://tiles.mapiful.com/blue/{z}/{x}/{y}.png', {
+      minZoom: 1,
+      maxZoom: 16
     })
   },
   overlays: {
