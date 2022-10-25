@@ -6,18 +6,32 @@
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
   <meta content="initial-scale=1" name="viewport">
   <meta name="Leaflet" content="Leaflet">	
-	<title>MapPoster – 0.0.4</title>
+	<title>MapPoster – 0.0.5</title>
 	<link rel="icon" href="https://raw.githubusercontent.com/ArthurBeaulieu/ArthurBeaulieu/master/assets/img/ab-logo.png" type="image/png" sizes="32x32">	
   <!-- Leaflet stylesheet -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
   <link rel="stylesheet" type="text/css" href="dist/MapPoster.bundle.css">
 </head>
-<body>
+<body class="light-theme">
   <div class="app-wrapper">
     <!-- Customization and export aside -->
     <aside class="editor-wrapper">
       <h1 class="title">MapPoster</h1>
+      <h1>Orientation</h1>
+      <div id="map-orientation" class="map-orientation">
+        <span class="selected" data-orientation="vertical">Vertical</span>
+        <span data-orientation="horizontal">Horizontal</span>
+      </div>
       <h1>Style</h1>
+      <div class="dark-theme-wrapper">
+        <label for="dark-theme">Theme sombre</label>
+        <div class="theme-input-holder">
+          <input type="checkbox" id="dark-theme" class="switch">
+          <div id="theme-editor" class="theme-editor">
+            <img src="assets/img/option.svg" alt="theme-editor-option">
+          </div>
+        </div>
+      </div>
       <div id="map-style" class="map-style">
         <span class="selected" data-style="standard">Standard</span>
         <span data-style="travel">Voyage</span>
@@ -28,29 +42,23 @@
       <label for="user-title">Titre</label>
       <div class="input-with-color">
         <input id="user-title" type="text" value="M B P" placeholder="Titre de la carte" maxlength="16">
-        <div id="title-color" class="text-edit" data-type="title">
-          <img src="assets/img/option.svg" data-type="title" alt="text-option">
-        </div>
+        <input type="color" id="title-color" class="text-edit" data-type="title">
       </div>
       <label for="user-subtitle">Sous-Titre</label>
       <div class="input-with-color">
         <input id="user-subtitle" type="text" value="France" placeholder="Sous-Titre de la carte" maxlength="16">
-        <div id="subtitle-color" class="text-edit" data-type="subtitle">
-          <img src="assets/img/option.svg" data-type="subtitle" alt="text-option">
-        </div>
+        <input type="color" id="subtitle-color" class="text-edit" data-type="subtitle">
       </div>
       <label for="user-comment">Commentaire</label>
       <div class="input-with-color">
         <input id="user-comment" type="text" value="44.797°N / 1.542°E" placeholder="Commentaire" maxlength="43">
-        <div id="comment-color" class="text-edit" data-type="comment">
-          <img src="assets/img/option.svg" data-type="comment" alt="text-option">
-        </div>
+        <input type="color" id="comment-color" class="text-edit" data-type="comment">
       </div>
       <hr>
       <h1>Paramètre d'export</h1>
       <!-- https://fr.wikipedia.org/wiki/Point_par_pouce -->
       <label for="image-width" id="image-width-label">Dimension : 600 x 848 — A7 à 300dpi</label>
-      <input type="range" id="image-width" name="width" min="600" max="6500" value="600">
+      <input type="range" id="image-width" name="width" min="600" max="6500" value="600" data-height="848">
       <fieldset id="image-type">
         <legend>Format de fichier</legend>
         <div>
@@ -72,11 +80,11 @@
       </fieldset>
       <button id="map-save">Exporter</button>
       <a href="https://messe-basse-production.com" target="_blank" rel="noopener noreferer">Messe Basse Production</a>
-      <a>2022 – Crédits</a>
+      <a href="#" id="credit-modal">2022 – Crédits</a>
     </aside>
     <!-- Map view controls and poster -->
     <main>
-      <div id="map-output" class="map-container shadow standard-style">
+      <div id="map-output" class="map-container shadow standard-style vertical">
         <div id="map" class="map"></div>
         <div class="user-text-wrapper">
           <h1 id="title"></h1>

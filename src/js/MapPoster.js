@@ -5,7 +5,7 @@ const { jsPDF } = window.jspdf;
 
 
 const CONST = {
-  VERSION: '0.0.3',
+  VERSION: '0.0.5',
   DEBUG: false
 };
 
@@ -50,6 +50,12 @@ class MapPoster {
      * @private
      **/
     this._intervalId = -1;
+    /**
+     * Hold default or saved theme colors (light/dark)
+     * @type {Object}
+     * @private
+     **/
+    this._cssTheme = {};
     // Begin the initialization sequence (interface and events)
     this._initInterface()
       .then(this._initEvents.bind(this))
@@ -101,6 +107,12 @@ class MapPoster {
       window.L.control.layers(MapProviders.layers, MapProviders.overlays, { position: 'topright' }).addTo(this._map);
       // Apply default input text to poster
       this._applyTexts();
+      // Load user theme overrides
+      const cssTheme = localStorage.getItem('theme');
+      if (cssTheme && JSON.parse(cssTheme)) {
+        this._cssTheme = JSON.parse(cssTheme);
+        this.applyThemeColor();
+      }
       resolve();
     });
   }
@@ -124,14 +136,20 @@ class MapPoster {
   _initEvents() {
     return new Promise(resolve => {
       // Map style
+      const orientations = document.getElementById('map-orientation');
+      for (let i = 0; i < orientations.children.length; ++i) {
+        orientations.children[i].addEventListener('click', this._updateMapOrientation.bind(this));
+      }      
       const styles = document.getElementById('map-style');
       for (let i = 0; i < styles.children.length; ++i) {
         styles.children[i].addEventListener('click', this._updateMapStyle.bind(this));
       }
+      document.getElementById('dark-theme').addEventListener('change', this._updateDarkTheme.bind(this));
+      document.getElementById('theme-editor').addEventListener('click', this._themeEditModal.bind(this));
       // Text modification events (color, style etc.)
-      document.getElementById('title-color').addEventListener('click', this._textEditModal.bind(this));
-      document.getElementById('subtitle-color').addEventListener('click', this._textEditModal.bind(this));
-      document.getElementById('comment-color').addEventListener('click', this._textEditModal.bind(this));
+      document.getElementById('title-color').addEventListener('input', this._textColorEdit.bind(this));
+      document.getElementById('subtitle-color').addEventListener('input', this._textColorEdit.bind(this));
+      document.getElementById('comment-color').addEventListener('input', this._textColorEdit.bind(this));
       // Listening to close modal event
       document.getElementById('modal-overlay').addEventListener('click', this._closeModal.bind(this));
       // Input text events
@@ -141,6 +159,8 @@ class MapPoster {
       // Export settings
       document.getElementById('image-width').addEventListener('input', this._updateDimensionLabel.bind(this));
       document.getElementById('map-save').addEventListener('click', this._download.bind(this));
+
+      document.getElementById('credit-modal').addEventListener('click', this._creditModal.bind(this));
       // Load event on map layers for loaded tiles (to ensure the printing occurs with all map tiles)
       for (const layer in MapProviders.layers) {
         MapProviders.layers[layer].on('load', () => this._tilesLoaded = true);
@@ -154,6 +174,53 @@ class MapPoster {
   // ======================================================================= //
   // ----------------------- Input events callbacks ------------------------ //
   // ======================================================================= //
+
+
+  _updateMapOrientation(e) {
+    let previousOrientation = '';
+    const orientations = document.getElementById('map-orientation');
+    for (let i = 0; i < orientations.children.length; ++i) {
+      if (orientations.children[i].classList.contains('selected')) {
+        previousOrientation = orientations.children[i].dataset.orientation;
+        orientations.children[i].classList.remove('selected');
+        break;
+      }
+    }
+    // Update menu, remove previous style from map and add new style to map
+    e.target.classList.add('selected');
+    document.getElementById('map-output').classList.remove(`${previousOrientation}`);
+    document.getElementById('map-output').classList.add(`${e.target.dataset.orientation}`);
+    setTimeout(() => { // Transition all .2s avoidance
+      const bounds = this._map.getBounds(); // Map bound before scaling
+      this._map.invalidateSize();
+      this._map.fitBounds(bounds);
+    }, 200);
+  }
+
+
+  /**
+   * @method
+   * @name _updateDarkTheme
+   * @private
+   * @memberof MapPoster
+   * @author Arthur Beaulieu
+   * @since October 2022
+   * @description
+   * <blockquote>
+   * Will update the poster with dark or light css theme colors. If colors have been overiden
+   * by user, they will properly applied to the poster.
+   * </blockquote>
+   * @param {Event} e - The change event on the theme checkbox
+   **/
+  _updateDarkTheme(e) {
+    if (e.target.checked) {
+      document.body.classList.remove('light-theme');
+      document.body.classList.add('dark-theme');
+    } else {
+      document.body.classList.remove('dark-theme');
+      document.body.classList.add('light-theme');
+    }
+  }
 
 
   /**
@@ -189,65 +256,6 @@ class MapPoster {
 
   /**
    * @method
-   * @name _textEditModal
-   * @private
-   * @memberof MapPoster
-   * @author Arthur Beaulieu
-   * @since October 2022
-   * @description
-   * <blockquote>
-   * Request the text edit modal for a given input, fills the modal with a KolorPick and
-   * make it interactive to update the matching input and text on the poster.
-   * </blockquote>
-   * @param {Event} e - The click event on the text edit button
-   **/
-  _textEditModal(e) {
-    this._fetchModal('textedit').then(dom => {
-      // Internal color update method
-      const _updateColors = () => {
-        if (e.target.tagName === 'IMG') {
-          // User clicked on gear SVG, we have to go up to parentNode to alter borders
-          e.target.parentNode.style.borderColor = document.getElementById('applied-color').style.backgroundColor;
-          e.target.parentNode.previousElementSibling.style.borderColor = document.getElementById('applied-color').style.backgroundColor;
-        } else {
-          // User clicked on button (except gear SVG)
-          e.target.style.borderColor = document.getElementById('applied-color').style.backgroundColor;
-          e.target.previousElementSibling.style.borderColor = document.getElementById('applied-color').style.backgroundColor;
-        }
-        // Update poster associated text
-        document.getElementById(e.target.dataset.type).style.color = document.getElementById('applied-color').style.backgroundColor;
-      };
-      // Create KolorPick and inject into modal
-      const picker = new window.KolorPick({
-        renderTo: dom.querySelector('#picker-container'),
-        type: 'linear',
-        style: {
-          bg: 'transparent',
-          padding: 0
-        },
-        onColorChange: data => {
-          if (document.getElementById('applied-color')) {
-            document.getElementById('applied-color').style.backgroundColor = data.hex;
-            _updateColors();
-          }
-        }
-      });
-      // Close modal button event
-			dom.querySelector('#confirm').addEventListener('click', () => {
-        _updateColors(); // Apply latest color
-        picker.destroy(); // Free modal KolorPick
-        this._closeModal(null, true); // Force modal close with flag
-      });
-      // Modal start animation (close animation handled in _closeModal())
-			document.getElementById('modal-overlay').appendChild(dom);
-      document.getElementById('modal-overlay').style.display = 'flex';
-			setTimeout(() => document.getElementById('modal-overlay').style.opacity = 1, 50);
-    });
-  }
-
-
-  /**
-   * @method
    * @name _applyTexts
    * @private
    * @memberof MapPoster
@@ -262,6 +270,24 @@ class MapPoster {
     document.getElementById('title').innerHTML = document.getElementById('user-title').value;
     document.getElementById('subtitle').innerHTML = document.getElementById('user-subtitle').value;
     document.getElementById('comment').innerHTML = document.getElementById('user-comment').value;
+  }
+
+
+    /**
+   * @method
+   * @name _textColorEdit
+   * @private
+   * @memberof MapPoster
+   * @author Arthur Beaulieu
+   * @since October 2022
+   * @description
+   * <blockquote>
+   * Modify the text on map color. Overrides the default theme color
+   * </blockquote>
+   * @param {Event} e - The input color change
+   **/
+  _textColorEdit(e) {
+    document.getElementById(e.target.dataset.type).style.color = e.target.value;
   }
 
 
@@ -295,7 +321,12 @@ class MapPoster {
     }
     // Update label with slider value, computed height and matching paper format
     const height = this.precisionRound(e.target.value * 29.7 / 21, 0);
-    label.innerHTML = `Dimension : ${e.target.value} x ${height} — A${a} à 300dpi`;
+    e.target.dataset.height = height;
+    if (document.getElementById('map-output').classList.contains('horizontal')) {
+      label.innerHTML = `Dimension : ${height} x ${e.target.value} — A${a} à 300dpi`;
+    } else {
+      label.innerHTML = `Dimension : ${e.target.value} x ${height} — A${a} à 300dpi`;      
+    }
   }
 
 
@@ -323,17 +354,23 @@ class MapPoster {
   _download() {
     document.getElementById('print-overlay').style.zIndex = 99;    
     document.getElementById('print-overlay').style.opacity = 1;
-    requestAnimationFrame(() => {
+    document.getElementById('map-output').style.transition = 'none';
+    setTimeout(() => {
       // First we get the user desired size
-      const width = document.getElementById('image-width').value;
-      const scale = width / 600;
+      let size = document.getElementById('image-width').value;
+      let scale = size / 600;
+      if (document.getElementById('map-output').classList.contains('horizontal')) {
+        const height = document.getElementById('image-width').dataset.height;
+        scale = height / 600;
+        size = height;
+      }
       const bounds = this._map.getBounds(); // Map bound before scaling
       // Scale map elements according to user desired size
-      this._dlPrepareMap(width, scale, bounds);
+      this._dlPrepareMap(size, scale, bounds);
       // setInterval on mapPrint to ensure tiles are loaded before downloading (tilesLoaded flag)
       if (scale === 1) { this._tilesLoaded = true; } // Set tiles loaded if no upscale is requested on export
-      this._intervalId = setInterval(this._dlPerformMapPrint.bind(this, bounds), 2000); // We put a 2s timeout to ensure latest tiles are properly loaded
-    });
+      this._intervalId = setInterval(this._dlPerformMapPrint.bind(this, bounds), 5000); // We put a 2s timeout to ensure latest tiles are properly loaded
+    }, 200);
   }
 
 
@@ -356,7 +393,7 @@ class MapPoster {
    * @param {Number} scale - The poster scale compared to the classical 600px wide one
    * @param {Object} bounds - The map bounds requested for the printing
   **/
-  _dlPrepareMap(width, scale, bounds) {
+  _dlPrepareMap(size, scale, bounds) {
     if (CONST.DEBUG) { console.log('Prepare map style for printing...'); }
     document.getElementById('print-status').innerHTML = `Préparation du style de la carte pour l'export...`;
     document.getElementById('print-progress').style.width = '10%';
@@ -376,7 +413,14 @@ class MapPoster {
     // Set tiles loaded flag to false to wait for reframe to occur
     this._tilesLoaded = false;
     // Scale map dimension and attributes
-    document.getElementById('map-output').style.width = `${width}px`;
+    if (document.getElementById('map-output').classList.contains('horizontal')) {
+      document.getElementById('map-output').style.height = `${size}px`;
+    } else {
+      document.getElementById('map-output').style.width = `${size}px`;
+    }
+    if (document.body.clientWidth < 1150) {
+      document.querySelector('.user-text-wrapper').style.fontSize = 'inherit';
+    }
     document.getElementById('map-output').style.position = 'absolute';
     // Remove box shadow from map container
     document.getElementById('map-output').classList.remove('shadow');
@@ -495,23 +539,86 @@ class MapPoster {
     document.querySelector('.leaflet-top.leaflet-right').style.display = 'inherit';
     document.body.style.fontSize = `1.2rem`;
     // Restore map inline styles and variables
+    if (document.body.clientWidth < 1150) {
+      document.querySelector('.user-text-wrapper').style.fontSize = '50%';
+    }
     document.getElementById('map-output').style = '';
     // Restore map container box shadow
     document.getElementById('map-output').classList.add('shadow');
     // Remove print overlay
     document.getElementById('print-overlay').style.opacity = 0;
-    setTimeout(() => document.getElementById('print-overlay').style.zIndex = -1, 200)
-    requestAnimationFrame(() => {
+    setTimeout(() => {
+      document.getElementById('print-overlay').style.zIndex = -1;
       this._map.invalidateSize();
       this._map.fitBounds(bounds);
+      document.getElementById('map-output').style.transition = 'all .2s';
       if (CONST.DEBUG) { console.log('Map properly restored'); }
-    });
+    }, 200);
   }
 
 
   // ======================================================================= //
   // --------------------------- Modal methods ----------------------------- //
   // ======================================================================= //
+
+
+  _themeEditModal(e) {
+    e.preventDefault();
+    this._fetchModal('themeedit').then(dom => {
+      const _updateInputs = () => {
+        document.getElementById('light-bg-color').value = this._cssTheme.lbg;
+        document.getElementById('light-txt-color').value = this._cssTheme.ltxt;
+        document.getElementById('light-txt-alt-color').value = this._cssTheme.lcom;
+        document.getElementById('dark-bg-color').value = this._cssTheme.dbg;
+        document.getElementById('dark-txt-color').value = this._cssTheme.dtxt;
+        document.getElementById('dark-txt-alt-color').value = this._cssTheme.dcom;
+      };
+
+      const _updateColor = e => {
+        document.querySelector(':root').style.setProperty(`--color-${e.target.dataset.key}`, e.target.value);
+        this.updateThemeColorInternal();
+      };
+      // Color input Listeners
+      dom.querySelector('#light-bg-color').addEventListener('input', _updateColor);
+      dom.querySelector('#light-txt-color').addEventListener('input', _updateColor);
+      dom.querySelector('#light-txt-alt-color').addEventListener('input', _updateColor);
+      dom.querySelector('#dark-bg-color').addEventListener('input', _updateColor);
+      dom.querySelector('#dark-txt-color').addEventListener('input', _updateColor);
+      dom.querySelector('#dark-txt-alt-color').addEventListener('input', _updateColor);
+      // Apply current theme
+      this.updateThemeColorInternal();
+      // Close modal button event
+			dom.querySelector('#close').addEventListener('click', this._closeModal.bind(this, null, true));
+      dom.querySelector('#reset').addEventListener('click', () => {
+        this._cssTheme.lbg = '#FFFFFE';
+        this._cssTheme.ltxt = '#000001';
+        this._cssTheme.lcom = '#999998';
+        this._cssTheme.dbg = '#000001';
+        this._cssTheme.dtxt = '#FFFFFE';
+        this._cssTheme.dcom = '#999998';
+        this.applyThemeColor();
+        _updateInputs();
+      });
+      // Modal start animation (close animation handled in _closeModal())
+			document.getElementById('modal-overlay').appendChild(dom);
+      document.getElementById('modal-overlay').style.display = 'flex';
+			setTimeout(() => document.getElementById('modal-overlay').style.opacity = 1, 50);
+      requestAnimationFrame(_updateInputs.bind(this));
+    });
+  }
+  
+
+  _creditModal(e) {
+    e.preventDefault();
+    this._fetchModal('credits').then(dom => {
+      // Close modal button event
+			dom.querySelector('#confirm').addEventListener('click', this._closeModal.bind(this, null, true));
+      // Modal start animation (close animation handled in _closeModal())
+			document.getElementById('modal-overlay').appendChild(dom);
+      document.getElementById('modal-overlay').style.display = 'flex';
+			setTimeout(() => document.getElementById('modal-overlay').style.opacity = 1, 50);
+    });
+  }
 
 
   /** 
@@ -618,6 +725,31 @@ class MapPoster {
   precisionRound(value, precision) {
     const multiplier = Math.pow(10, precision || 0);
     return Math.round(value * multiplier) / multiplier;
+  }
+
+
+  updateThemeColorInternal() {
+    // Update input.color values
+    this._cssTheme = {
+      lbg: window.getComputedStyle(document.querySelector(':root')).getPropertyValue('--color-l-bg'),
+      ltxt: window.getComputedStyle(document.querySelector(':root')).getPropertyValue('--color-l-txt'),
+      lcom: window.getComputedStyle(document.querySelector(':root')).getPropertyValue('--color-l-txt-alt'),
+      dbg: window.getComputedStyle(document.querySelector(':root')).getPropertyValue('--color-d-bg'),
+      dtxt: window.getComputedStyle(document.querySelector(':root')).getPropertyValue('--color-d-txt'),
+      dcom: window.getComputedStyle(document.querySelector(':root')).getPropertyValue('--color-d-txt-alt'),
+    };
+    localStorage.setItem('theme', JSON.stringify(this._cssTheme));
+  }
+
+
+  applyThemeColor() {
+    document.querySelector(':root').style.setProperty('--color-l-bg', this._cssTheme.lbg);
+    document.querySelector(':root').style.setProperty('--color-l-txt', this._cssTheme.ltxt);
+    document.querySelector(':root').style.setProperty('--color-l-txt-alt', this._cssTheme.lcom);
+    document.querySelector(':root').style.setProperty('--color-d-bg', this._cssTheme.dbg);
+    document.querySelector(':root').style.setProperty('--color-d-txt', this._cssTheme.dtxt);
+    document.querySelector(':root').style.setProperty('--color-d-txt-alt', this._cssTheme.dcom);
+    this.updateThemeColorInternal();
   }
 
 

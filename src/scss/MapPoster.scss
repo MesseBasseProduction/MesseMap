@@ -7,6 +7,25 @@
   --red-background: #FF7878;
   --grey-border: #595959;
   --grey-background: #E8E8E8;
+
+  --color-l-bg: #FFFFFE;
+  --color-l-txt: #000001;
+  --color-l-txt-alt: #999998;
+  --color-d-bg: #000001;
+  --color-d-txt: #FFFFFE;
+  --color-d-txt-alt: #999998;
+}
+
+.light-theme {
+  --color-bg: var(--color-l-bg);
+  --color-txt: var(--color-l-txt);
+  --color-txt-alt: var(--color-l-txt-alt);
+}
+
+.dark-theme {
+  --color-bg: var(--color-d-bg);
+  --color-txt: var(--color-d-txt);
+  --color-txt-alt: var(--color-d-txt-alt);
 }
 
 * {
@@ -27,6 +46,42 @@ html {
 
 body {
   font-size: 1.2rem;
+}
+
+input[type="checkbox"].switch {
+  appearance: none;
+  cursor: pointer;
+	height: calc(1.2rem + 2px);
+	background-color: rgb(255, 107, 103);
+  border: solid 1px rgb(127, 127, 127);
+	border-radius: 3rem;
+  margin: 0;
+	position: relative;
+	outline: none;
+  user-select: none;
+  width: 3rem;
+	transition: all .3s ease-in-out;
+
+  &::after {
+    content: '';
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 .25rem rgba(0, 0, 0, .9);
+    height: 1.2rem;
+    left: 0;
+    position: absolute;
+    transform: scale(.7);
+    width: 1.2rem;
+    transition: all .3s ease-in-out;
+  }
+
+  &:checked {
+    background-color: rgb(86, 212, 91);
+  }
+
+  &:checked::after {
+    left: calc(100% - 1.2rem);
+  }
 }
 
 .app-wrapper {
@@ -65,10 +120,10 @@ aside.editor-wrapper {
     }
   }
 
-  .map-style {
+  .map-style, .map-orientation {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 1rem;    
+    margin-bottom: 2rem;
 
     span {
       border: solid 1px white;
@@ -85,6 +140,41 @@ aside.editor-wrapper {
     }
   }
 
+  .map-orientation {
+    justify-content: left;
+
+    span {
+      margin: 0 .5rem;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .dark-theme-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 1rem;
+
+    div.theme-input-holder {
+      display: flex;
+
+      input {
+        margin-right: 1rem;        
+      }
+
+      div {
+        cursor: pointer;
+        width: calc(1.2rem + 2px);
+      }
+    }
+  }
+  
   label {
     font-style: italic;
     margin-left: .5rem;
@@ -98,7 +188,7 @@ aside.editor-wrapper {
     margin-bottom: 1rem;    
     width: 100%;
 
-    input {
+    input[type="text"] {
       background-color: transparent;
       border: solid 1px;
       border-color: white;
@@ -117,12 +207,12 @@ aside.editor-wrapper {
 
   .text-edit {
     aspect-ratio: 1 / 1;
+    background-color: transparent;
     border: solid 1px;
     border-color: white;
     border-radius: .3rem;
     cursor: pointer;
     height: 3rem;
-    padding: .4rem;
     width: 3rem;
   }
 
@@ -159,6 +249,10 @@ aside.editor-wrapper {
     &:hover {
       color: #56d45b;
     }
+
+    &:first-child {
+      margin-top: 1rem;      
+    }
   }
 }
 
@@ -177,13 +271,16 @@ main {
 .map-container {
   align-items: center;
   aspect-ratio: 21 / 29.7;
-  background-color: white;
+  background-color: var(--color-bg);
+  color: var(--color-txt);
   display: flex;
   justify-content: center;
   padding: var(--padding);
   position: relative;
   width: 600px;
   z-index: 10;
+
+  transition: all .2s;
 
   &.shadow {
     box-shadow: .5rem .5rem 5rem rgba(0, 0, 0, .4);
@@ -208,16 +305,16 @@ main {
       left: calc(var(--padding) - var(--thick-border));
       right: calc(var(--padding) - var(--thick-border));
       bottom: calc(var(--padding) - var(--thick-border));
-      border: var(--small-border) solid black;
+      border: var(--small-border) solid var(--color-txt);
     }
 
     .map {
-      border: solid var(--thick-border) black;      
+      border: solid var(--thick-border) var(--color-txt);
     }
 
     .user-text-wrapper {
       position: absolute;
-      background: linear-gradient(transparent 1%, white 50%);
+      background: linear-gradient(transparent 1%, var(--color-bg) 50%);
       bottom: calc(var(--padding) + var(--thick-border));
       height: 35%;
       padding-top: 20%;
@@ -249,7 +346,7 @@ main {
   
         span.before {
           display: inline-block;
-          background-color: #000;
+          background-color: var(--color-txt);
           height: 0.14em;
           width: 3em;
         }
@@ -260,13 +357,14 @@ main {
   
         span.after {
           display: inline-block;
-          background-color: #000;
+          background-color: var(--color-txt);
           height: 0.14em;
           width: 3em;
         }      
       }
   
       p {
+        color: var(--color-txt-alt);
         font-family: 'proxima-nova-light', sans-serif;
         font-size: 1.3em;
         font-weight: 300;
@@ -285,7 +383,7 @@ main {
     .user-text-wrapper {     
       /* Need to ad px to top/width because if scaling not round, line appear on print */
       position: absolute;
-      background: white;
+      background: var(--color-bg);
       top: calc(var(--padding) - 2px);
       height: 14%;
       width: calc(100% - (var(--padding) * 2) + 2px);
@@ -314,7 +412,8 @@ main {
       }
   
       p {
-        border-top: solid var(--thick-border) black;        
+        border-top: solid var(--thick-border) var(--color-txt);
+        color: var(--color-txt-alt);      
         font-family: 'proxima-nova-light', sans-serif;
         font-size: 1.3em;
         font-weight: 300;
@@ -343,7 +442,7 @@ main {
       flex-direction: column;
       justify-content: center;
       position: absolute;
-      background: white;
+      background: var(--color-bg);
       bottom: calc(2 * var(--padding));
       height: auto;
       padding: calc(var(--padding) / 2) var(--padding);
@@ -371,7 +470,7 @@ main {
       }
   
       p {
-        color: grey;
+        color: var(--color-txt-alt);
         font-family: 'proxima-nova-light', sans-serif;
         font-size: 1.2em;
         font-weight: 300;
@@ -386,15 +485,17 @@ main {
     --thick-border: 5px;
     --small-border: 1px;
 
+    padding: 0;
+
     .user-text-wrapper {
       /* Need to add px to bottom/width because if scaling not round, line appear on print */
       position: absolute;
-      background: linear-gradient(transparent 1%, white 50%);
-      bottom: calc(var(--padding) - 2px);
+      background: linear-gradient(transparent 1%, var(--color-bg) 50%);
+      bottom: 0;
       height: 35%;
       padding-top: 20%;
       text-align: center;
-      width: calc(100% - (var(--padding) * 2) + 2px);
+      width: 100%;
       z-index: 998;
   
       h1 {
@@ -425,6 +526,7 @@ main {
       }
   
       p {
+        color: var(--color-txt-alt);
         font-family: 'proxima-nova-light', sans-serif;
         font-size: 1.3em;
         font-weight: 300;
@@ -433,6 +535,21 @@ main {
         text-transform: uppercase;
       }
     }    
+  }
+
+  &.horizontal {
+    aspect-ratio: 29.7 / 21;
+    height: 600px;
+    width: auto;
+
+    &.standard-style .user-text-wrapper, &.pure-style .user-text-wrapper {
+      height: 50%;
+      padding-top: 15%;
+    }
+
+    &.travel-style .user-text-wrapper {
+      height: 20%;
+    }
   }
 }
 
@@ -452,7 +569,7 @@ main {
   transition: opacity .2s;
 
   [class$="-modal"] {
-		background: rgba(255, 255, 255, .8);
+		background: rgba(255, 255, 255, .9);
 		border-radius: .5rem;
 		box-shadow: 0px 0px 10px #424242;
 		padding: 3rem 4rem;
@@ -498,6 +615,61 @@ main {
 			}
 		}
 	}
+
+  .credit-modal {
+    max-width: 90%;
+    width: 45rem;
+
+    p {
+      padding-bottom: 1rem;
+      text-align: justify;
+      text-indent: 2rem;
+    }
+
+    a {
+      cursor: pointer;
+      color: #56d45b;
+      text-align: center;
+      text-decoration: none;
+  
+      transition: color .2s;
+  
+      &:active,
+      &:focus,
+      &:hover {
+        color: #FF7878;
+      }
+    }
+  }
+  
+  .theme-edit-modal .theme-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    h2 {
+      font-style: italic;
+      padding-bottom: 1rem;
+    }
+
+    .light-theme-container {
+      border-right: solid 1px rgba(0, 0, 0, .3);
+    }
+
+    .light-theme-container, .dark-theme-container {
+      padding: 0 2rem;
+    }
+
+    .item {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      margin: 1rem 0;
+
+      label {
+        margin-right: 1rem;
+      }
+    }
+  }
 }
 
 /* Loading overlay when printing */

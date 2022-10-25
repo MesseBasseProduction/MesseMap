@@ -1,20 +1,6 @@
 export default {
   layers: {
     'OpenStreetMap': window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'),
-    'GeoPortail Plan': window.L.tileLayer('https://wxs.ign.fr/{apikey}/geoportail/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE={style}&TILEMATRIXSET=PM&FORMAT={format}&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}', {
-      attribution: '<a target="_blank" href="https://www.geoportail.gouv.fr/">Geoportail France</a>',
-      bounds: [[-75, -180], [81, 180]],
-      minZoom: 2,
-      maxZoom: 18,
-      apikey: 'choisirgeoportail',
-      format: 'image/png',
-      style: 'normal'
-    }),
-    'GeoPortail Satellite': window.L.tileLayer('https://wxs.ign.fr/{apikey}/geoportail/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE={style}&TILEMATRIXSET=PM&FORMAT={format}&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}', {
-      apikey: 'choisirgeoportail',
-      format: 'image/jpeg',
-      style: 'normal'
-    }),
     'Esri Satellite': window.L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
       attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
     }),
@@ -51,19 +37,19 @@ export default {
       maxZoom: 16,
       ext: 'jpg'
     }),
-    'Mapiful Mono': window.L.tileLayer('https://tiles.mapiful.com/mono/{z}/{x}/{y}.png', {
+    'Mapíful Mono': window.L.tileLayer('https://tiles.mapiful.com/mono/{z}/{x}/{y}.png', {
       minZoom: 1,
       maxZoom: 16
     }),
-    'Mapiful Asphalt': window.L.tileLayer('https://tiles.mapiful.com/asphalt/{z}/{x}/{y}.png', {
+    'Mapíful Asphalt': window.L.tileLayer('https://tiles.mapiful.com/asphalt/{z}/{x}/{y}.png', {
       minZoom: 1,
       maxZoom: 16
     }),
-    'Mapiful Nara': window.L.tileLayer('https://tiles.mapiful.com/playroom/{z}/{x}/{y}.png', {
+    'Mapíful Nara': window.L.tileLayer('https://tiles.mapiful.com/playroom/{z}/{x}/{y}.png', {
       minZoom: 1,
       maxZoom: 16
     }),
-    'Mapiful Blue': window.L.tileLayer('https://tiles.mapiful.com/blue/{z}/{x}/{y}.png', {
+    'Mapíful Blue': window.L.tileLayer('https://tiles.mapiful.com/blue/{z}/{x}/{y}.png', {
       minZoom: 1,
       maxZoom: 16
     })

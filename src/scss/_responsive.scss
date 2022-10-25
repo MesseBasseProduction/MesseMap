@@ -1,4 +1,4 @@
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1150px) {
   body {
     overflow-x: hidden;
   }
@@ -21,10 +21,16 @@
     width: 100%;
 
     .map-container {
-      width: 300px;
+      &.vertical {
+        width: 300px;
+      }
+
+      &.horizontal {
+        height: 300px;
+      }
 
       .user-text-wrapper {
-        font-size: .5rem;
+        font-size: 50%;
       }
     }
   }
