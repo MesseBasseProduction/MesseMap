@@ -39,11 +39,23 @@ class MapPoster {
      **/
     this._map = null;
     /**
+     * The Leaflet control search object
+     * @type {Object}
+     * @private
+     **/
+    this._search = null;
+    /**
      * The flag to ensure all tiles are loaded before printing canvas to image
      * @type {Boolean}
      * @private
      **/
     this._tilesLoaded = false;
+    /**
+     * The flag to ensure the comment can be updated with center lat/lng
+     * @type {Boolean}
+     * @private
+     **/
+     this._commentEdited = false;
     /**
      * setInterval ID used to frequently ask for printing (only if tiles are loaded)
      * @type {Number}
@@ -59,7 +71,7 @@ class MapPoster {
     // Begin the initialization sequence (interface and events)
     this._initInterface()
       .then(this._initEvents.bind(this))
-      .catch((error) => { console.error(error); });
+      .catch(error => console.error(error));
   }
 
 
@@ -84,8 +96,8 @@ class MapPoster {
    * rejected there is no Leaflet in the user session (fatal error).
    * </blockquote>
    * @returns {Promise} A resolved or rejected Promise
-   **/  
-   _initInterface() {
+   **/
+  _initInterface() {
     return new Promise((resolve, reject) => {
       try {
         // Use #map div to inject Leaflet in, use SmoothWheelZoom flags
@@ -96,15 +108,31 @@ class MapPoster {
           smoothWheelZoom: true, // SmoothWheelZoom lib
           smoothSensitivity: 1, // SmoothWheelZoom lib
         }).setView([44.79777779831652, 1.542703666063447], 5);
+        // Search control creation
+        this._search = new window.L.Control.Search({
+          url: 'https://nominatim.openstreetmap.org/search?format=json&q={s}',
+          jsonpParam: 'json_callback',
+          propertyName: 'display_name',
+          propertyLoc: ['lat','lon'],
+          marker: false,
+          autoCollapse: true,
+          firstTipSubmit: true,
+          textPlaceholder: 'Rechercher...',
+          textCancel: 'Annuler',
+          textErr: 'Aucun résultat...'
+        });
       } catch (error) {
-        // The only eror case is Leaflet doesn't exist here
+        // The only error case is Leaflet doesn't exist here
         reject(error);
         return;
       }
       // Add default layer in map
-      MapProviders.layers['Esri Satellite'].addTo(this._map);
+      MapProviders.layers['Imagery (E)'].addTo(this._map)
+      document.getElementById('map-attribution').innerHTML = MapProviders.layers['Imagery (E)'].getAttribution();
       // Add layer switch radio on bottom right of the map
       window.L.control.layers(MapProviders.layers, MapProviders.overlays, { position: 'topright' }).addTo(this._map);
+      // Add search command
+      this._map.addControl(this._search);
       // Apply default input text to poster
       this._applyTexts();
       // Load user theme overrides
@@ -139,12 +167,13 @@ class MapPoster {
       const orientations = document.getElementById('map-orientation');
       for (let i = 0; i < orientations.children.length; ++i) {
         orientations.children[i].addEventListener('click', this._updateMapOrientation.bind(this));
-      }      
+      }
       const styles = document.getElementById('map-style');
       for (let i = 0; i < styles.children.length; ++i) {
         styles.children[i].addEventListener('click', this._updateMapStyle.bind(this));
       }
       document.getElementById('dark-theme').addEventListener('change', this._updateDarkTheme.bind(this));
+      document.getElementById('txt-position').addEventListener('change', this._updateTextPosition.bind(this));
       document.getElementById('theme-editor').addEventListener('click', this._themeEditModal.bind(this));
       // Text modification events (color, style etc.)
       document.getElementById('title-color').addEventListener('input', this._textColorEdit.bind(this));
@@ -163,12 +192,18 @@ class MapPoster {
       document.getElementById('credit-modal').addEventListener('click', this._creditModal.bind(this));
       // Load event on map layers for loaded tiles (to ensure the printing occurs with all map tiles)
       for (const layer in MapProviders.layers) {
-        MapProviders.layers[layer].on('load', () => this._tilesLoaded = true);
+        MapProviders.layers[layer].on('load', () => setTimeout(() => this._tilesLoaded = true, 2000));
+        MapProviders.layers[layer].on('add', (e) => {
+          document.getElementById('map-attribution').innerHTML = e.target.getAttribution();
+        });
       }
+
+      this._map.on('move', this._updateCommentLabel.bind(this));
+      this._search.on('search:locationfound', this._searchMatch.bind(this));
+
       resolve();
     });
   }
-
 
 
   // ======================================================================= //
@@ -223,6 +258,15 @@ class MapPoster {
   }
 
 
+  _updateTextPosition(e) {
+    if (e.target.checked) {
+      document.getElementById('map-output').classList.add('txt-reverse');
+    } else {
+      document.getElementById('map-output').classList.remove('txt-reverse');
+    }
+  }
+
+
   /**
    * @method
    * @name _updateMapStyle
@@ -266,10 +310,13 @@ class MapPoster {
    * Simply apply the input text to the poster (for title, subtitle and comment)
    * </blockquote>
    **/
-  _applyTexts() {
+  _applyTexts(e) {
     document.getElementById('title').innerHTML = document.getElementById('user-title').value;
     document.getElementById('subtitle').innerHTML = document.getElementById('user-subtitle').value;
     document.getElementById('comment').innerHTML = document.getElementById('user-comment').value;
+    if (e && e.target && e.target.id === 'user-comment') {
+      this._commentEdited = true;
+    }
   }
 
 
@@ -288,6 +335,14 @@ class MapPoster {
    **/
   _textColorEdit(e) {
     document.getElementById(e.target.dataset.type).style.color = e.target.value;
+  }
+
+
+  _updateCommentLabel() {
+    if (!this._commentEdited) {
+      const c = this._map.getCenter();
+      document.getElementById('comment').innerHTML = `${this.precisionRound(c.lat, 3)}°N / ${this.precisionRound(c.lng, 3)}° E`;
+    }
   }
 
 
@@ -325,8 +380,13 @@ class MapPoster {
     if (document.getElementById('map-output').classList.contains('horizontal')) {
       label.innerHTML = `Dimension : ${height} x ${e.target.value} — A${a} à 300dpi`;
     } else {
-      label.innerHTML = `Dimension : ${e.target.value} x ${height} — A${a} à 300dpi`;      
+      label.innerHTML = `Dimension : ${e.target.value} x ${height} — A${a} à 300dpi`;
     }
+  }
+
+
+  _searchMatch(data) {
+    this._map.setView(data.latlng);
   }
 
 
@@ -335,14 +395,14 @@ class MapPoster {
   // ======================================================================= //
 
 
-  /** 
+  /**
    * @method
    * @name _download
    * @private
    * @memberof MapPoster
    * @author Arthur Beaulieu
    * @since October 2022
-   * @description 
+   * @description
    * <blockquote>
    * Start the download routine. First, hide the app with a loading overlay,
    * then apply the user output dimension (set from the slider) to scale the
@@ -352,7 +412,7 @@ class MapPoster {
    * </blockquote>
   **/
   _download() {
-    document.getElementById('print-overlay').style.zIndex = 99;    
+    document.getElementById('print-overlay').style.zIndex = 99;
     document.getElementById('print-overlay').style.opacity = 1;
     document.getElementById('map-output').style.transition = 'none';
     setTimeout(() => {
@@ -369,19 +429,19 @@ class MapPoster {
       this._dlPrepareMap(size, scale, bounds);
       // setInterval on mapPrint to ensure tiles are loaded before downloading (tilesLoaded flag)
       if (scale === 1) { this._tilesLoaded = true; } // Set tiles loaded if no upscale is requested on export
-      this._intervalId = setInterval(this._dlPerformMapPrint.bind(this, bounds), 5000); // We put a 2s timeout to ensure latest tiles are properly loaded
+      this._intervalId = setInterval(this._dlPerformMapPrint.bind(this, bounds), 1000);
     }, 200);
   }
 
 
-  /** 
+  /**
    * @method
    * @name _dlPrepareMap
    * @private
    * @memberof MapPoster
    * @author Arthur Beaulieu
    * @since October 2022
-   * @description 
+   * @description
    * <blockquote>
    * Before starting the downloading of the poster, the map must be scaled in order to
    * honor the requested dimension. To do so, the map-output div is scaled according to the
@@ -435,14 +495,14 @@ class MapPoster {
   }
 
 
-  /** 
+  /**
    * @method
    * @name _dlPerformMapPrint
    * @private
    * @memberof MapPoster
    * @author Arthur Beaulieu
    * @since October 2022
-   * @description 
+   * @description
    * <blockquote>
    * The method will perform its logic only if all tiles are loaded. If so, it will use html2canvas library
    * to perform a conversion between poster into a canvas that will be later used to save the poster
@@ -465,24 +525,29 @@ class MapPoster {
           useCORS: true,
           allowTaint: true,
           width: document.getElementById('map-output').offsetWidth,
-          height: document.getElementById('map-output').offsetHeight
+          height: document.getElementById('map-output').offsetHeight,
+          imageTimeout: 0,
+          onclone: () => {
+            document.getElementById('print-status').innerHTML = `Création du fichier de sortie...`;
+            document.getElementById('print-progress').style.width = '72%';
+          }
         }).then(this._dlMap.bind(this, bounds)).catch((error) => {
           console.error(error);
-          this._dlRestoreMap(bounds);         
+          this._dlRestoreMap(bounds);
         });
       });
     }
   }
 
 
-  /** 
+  /**
    * @method
    * @name _dlMap
    * @private
    * @memberof MapPoster
    * @author Arthur Beaulieu
    * @since October 2022
-   * @description 
+   * @description
    * <blockquote>
    * The method will export the canvas previously drawn to the user disk, with the
    * curently selected format in the aside. (using jsPDF if so, otherwise, classical href with dataUrl)
@@ -500,8 +565,9 @@ class MapPoster {
     if (file.type === 'pdf') {
       const pageFormat = document.getElementById('image-width-label').innerHTML.split('—')[1].replace(' ', '').substring(0, 2);
       let pdf = new jsPDF({
+        orientation: (document.getElementById('map-output').classList.contains('horizontal')) ? 'landscape' : 'portrait',
         format: pageFormat,
-        precision: 20
+        precision: 32
       });
       const width = pdf.internal.pageSize.getWidth();
       const height = pdf.internal.pageSize.getHeight();
@@ -516,14 +582,14 @@ class MapPoster {
   }
 
 
-  /** 
+  /**
    * @method
    * @name _dlRestoreMap
    * @private
    * @memberof MapPoster
    * @author Arthur Beaulieu
    * @since October 2022
-   * @description 
+   * @description
    * <blockquote>
    * When the poster downloading is done, this method is called to cleanup the map
    * and to restore it to its default size to be then used again.
@@ -606,7 +672,7 @@ class MapPoster {
       requestAnimationFrame(_updateInputs.bind(this));
     });
   }
-  
+
 
   _creditModal(e) {
     e.preventDefault();
@@ -621,14 +687,14 @@ class MapPoster {
   }
 
 
-  /** 
+  /**
    * @method
    * @name _fetchModal
    * @private
    * @memberof MapPoster
    * @author Arthur Beaulieu
    * @since October 2022
-   * @description 
+   * @description
    * <blockquote>
    * This method will u_se the fetch API to request the modal HTMl file
    * stored in project <code>assets/html</code>.
@@ -647,7 +713,7 @@ class MapPoster {
   }
 
 
-  /** 
+  /**
    * @method
    * @name _closeModal
    * @private

@@ -5,11 +5,11 @@
   <meta content="ie=edge" http-equiv="x-ua-compatible">
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
   <meta content="initial-scale=1" name="viewport">
-  <meta name="Leaflet" content="Leaflet">	
+  <meta name="Leaflet" content="Leaflet">
 	<title>MapPoster – 0.0.5</title>
-	<link rel="icon" href="https://raw.githubusercontent.com/ArthurBeaulieu/ArthurBeaulieu/master/assets/img/ab-logo.png" type="image/png" sizes="32x32">	
-  <!-- Leaflet stylesheet -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+	<link rel="icon" href="https://raw.githubusercontent.com/ArthurBeaulieu/ArthurBeaulieu/master/assets/img/ab-logo.png" type="image/png" sizes="32x32">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" crossorigin="" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-search@3.0.2/dist/leaflet-search.min.css" crossorigin="" />
   <link rel="stylesheet" type="text/css" href="dist/MapPoster.bundle.css">
 </head>
 <body class="light-theme">
@@ -32,26 +32,35 @@
           </div>
         </div>
       </div>
+      <div class="txt-position-wrapper">
+        <label for="txt-position">Texte en haut</label>
+        <input type="checkbox" id="txt-position" class="switch">
+      </div>
       <div id="map-style" class="map-style">
         <span class="selected" data-style="standard">Standard</span>
         <span data-style="travel">Voyage</span>
         <span data-style="frame">Tableau</span>
         <span data-style="pure">Pur</span>
+        <span data-style="tone">Pantone</span>
+        <span data-style="map">Carte</span>
+        <span data-style="window">Hublot</span>
+        <span data-style="air">Air</span>
+        <span data-style="hipster">Hipster</span>
       </div>
       <h1>Textes</h1>
       <label for="user-title">Titre</label>
       <div class="input-with-color">
-        <input id="user-title" type="text" value="M B P" placeholder="Titre de la carte" maxlength="16">
+        <input id="user-title" type="text" value="M B P" placeholder="Titre de la carte" maxlength="32">
         <input type="color" id="title-color" class="text-edit" data-type="title">
       </div>
       <label for="user-subtitle">Sous-Titre</label>
       <div class="input-with-color">
-        <input id="user-subtitle" type="text" value="France" placeholder="Sous-Titre de la carte" maxlength="16">
+        <input id="user-subtitle" type="text" value="France" placeholder="Sous-Titre de la carte" maxlength="32">
         <input type="color" id="subtitle-color" class="text-edit" data-type="subtitle">
       </div>
       <label for="user-comment">Commentaire</label>
       <div class="input-with-color">
-        <input id="user-comment" type="text" value="44.797°N / 1.542°E" placeholder="Commentaire" maxlength="43">
+        <input id="user-comment" type="text" value="44.797°N / 1.542°E" placeholder="Commentaire" maxlength="42">
         <input type="color" id="comment-color" class="text-edit" data-type="comment">
       </div>
       <hr>
@@ -92,9 +101,10 @@
           <p id="comment"></p>
         </div>
       </div>
+      <p id="map-attribution" class="map-attribution"></p>
     </main>
   </div>
-  <!-- App overlay fpor modal and loading invite -->
+  <!-- App overlay for modal and loading invite -->
   <div id="modal-overlay" class="modal-overlay"></div>
   <div id="print-overlay" class="print-overlay">
     <h1>Votre poster est en cours de préparation</h1>
@@ -102,14 +112,13 @@
     <p id="print-status"></p>
     <div id="print-progress" class="progress"></div>
   </div>
-  <!-- Leaflet script -->
+  <!-- Leaflet script and plugins -->
   <script src="https://unpkg.com/leaflet@latest/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-search@3.0.2/dist/leaflet-search.min.js" crossorigin=""></script>
   <!-- html2canvas script to allow map exporting -->
   <script type="text/javascript" src="assets/lib/html2canvas.min.js"></script>
   <!-- jsPDF script to create 'ready to print' images -->
   <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
-  <!-- KolorPick to select text and postr colors -->
-  <script type="text/javascript" src="https://arthurbeaulieu.github.io/KolorPick/dist/KolorPick.bundle.js"></script>
   <!-- Then load HomeMap Js bundle -->
   <script type="text/javascript" src="dist/MapPoster.bundle.js"></script>
   <!-- Finally, start HomeMap instance -->
