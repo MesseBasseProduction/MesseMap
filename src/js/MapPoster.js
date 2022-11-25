@@ -5,7 +5,7 @@ const { jsPDF } = window.jspdf;
 
 
 const CONST = {
-  VERSION: '0.0.5',
+  VERSION: '0.0.6',
   DEBUG: false
 };
 
@@ -68,8 +68,21 @@ class MapPoster {
      * @private
      **/
     this._cssTheme = {};
+    /**
+     * The currently applied language
+     * @type {String}
+     * @private
+     **/
+    this._lang = localStorage.getItem('lang') || 'fr';
+    /**
+     * The nls file that holds language key values
+     * @type {Object}
+     * @private
+     **/
+    this._nls = {};
     // Begin the initialization sequence (interface and events)
     this._initInterface()
+      .then(this._initMap.bind(this))
       .then(this._initEvents.bind(this))
       .catch(error => console.error(error));
   }
@@ -86,6 +99,70 @@ class MapPoster {
    * @private
    * @memberof MapPoster
    * @author Arthur Beaulieu
+   * @since November 2022
+   * @description
+   * <blockquote>
+   * This method will fetch the proper lang file and then will update the interface accordingly
+   * </blockquote>
+   * @returns {Promise} A resolved or rejected Promise
+   **/
+  _initInterface() {
+    return new Promise((resolve, reject) => {
+      if (!localStorage.getItem('lang')) {
+        localStorage.setItem('lang', this._lang);
+      }
+
+      fetch(`assets/nls/${this._lang}.json`).then(data => {
+        data.text().then(lang => {
+          this._nls = JSON.parse(lang);
+          this.replaceString(document.body, '{{TITLE}}', this._nls.title);
+          this.replaceString(document.body, '{{ORIENTATION}}', this._nls.orientation);
+          this.replaceString(document.body, '{{VERTICAL}}', this._nls.vertical);
+          this.replaceString(document.body, '{{HORIZONTAL}}', this._nls.horizontal);
+
+          this.replaceString(document.body, '{{STYLE}}', this._nls.style.title);
+          this.replaceString(document.body, '{{STYLE_STD}}', this._nls.style.std);
+          this.replaceString(document.body, '{{STYLE_TRAVEL}}', this._nls.style.travel);
+          this.replaceString(document.body, '{{STYLE_FRAME}}', this._nls.style.frame);
+          this.replaceString(document.body, '{{STYLE_PURE}}', this._nls.style.pure);
+          this.replaceString(document.body, '{{STYLE_PANTONE}}', this._nls.style.pantone);
+          this.replaceString(document.body, '{{STYLE_MAP}}', this._nls.style.map);
+          this.replaceString(document.body, '{{STYLE_WINDOW}}', this._nls.style.window);
+          this.replaceString(document.body, '{{STYLE_AIR}}', this._nls.style.air);
+          this.replaceString(document.body, '{{STYLE_HIPSTER}}', this._nls.style.hipster);
+          this.replaceString(document.body, '{{DARK_THEME}}', this._nls.style.darkTheme);
+          this.replaceString(document.body, '{{UP_TEXT}}', this._nls.style.upText);
+
+          this.replaceString(document.body, '{{TEXT}}', this._nls.text.title);
+          this.replaceString(document.body, '{{MAP_TITLE}}', this._nls.text.mapTitle);
+          this.replaceString(document.body, '{{MAP_TITLE_PLACEHOLDER}}', this._nls.text.mapTitlePlaceholder);
+          this.replaceString(document.body, '{{MAP_SUBTITLE}}', this._nls.text.mapSubtitle);
+          this.replaceString(document.body, '{{MAP_SUBTITLE_PLACEHOLDER}}', this._nls.text.mapSubtitlePlaceholder);
+          this.replaceString(document.body, '{{MAP_COMMENT}}', this._nls.text.mapComment);
+          this.replaceString(document.body, '{{MAP_COMMENT_PLACEHOLDER}}', this._nls.text.mapCommentPlaceholder);
+
+          this.replaceString(document.body, '{{EXPORT}}', this._nls.export.title);
+          this.replaceString(document.body, '{{EXPORT_DIMENSION}}', this._nls.export.dimension);
+          this.replaceString(document.body, '{{EXPORT_AT}}', this._nls.export.at);
+          this.replaceString(document.body, '{{EXPORT_FORMAT}}', this._nls.export.format);
+          this.replaceString(document.body, '{{EXPORT_BUTTON}}', this._nls.export.button);
+          this.replaceString(document.body, '{{CREDITS}}', this._nls.export.credits);
+
+          this.replaceString(document.body, '{{DOWNLOAD_TITLE}}', this._nls.download.title);
+          this.replaceString(document.body, '{{DOWNLOAD_SUBTITLE}}', this._nls.download.subtitle);
+          resolve();
+        }).catch(reject);
+      }).catch(reject);
+    });
+  }
+
+
+  /**
+   * @method
+   * @name _initMap
+   * @private
+   * @memberof MapPoster
+   * @author Arthur Beaulieu
    * @since October 2022
    * @description
    * <blockquote>
@@ -97,7 +174,7 @@ class MapPoster {
    * </blockquote>
    * @returns {Promise} A resolved or rejected Promise
    **/
-  _initInterface() {
+   _initMap() {
     return new Promise((resolve, reject) => {
       try {
         // Use #map div to inject Leaflet in, use SmoothWheelZoom flags
@@ -117,9 +194,9 @@ class MapPoster {
           marker: false,
           autoCollapse: true,
           firstTipSubmit: true,
-          textPlaceholder: 'Rechercher...',
-          textCancel: 'Annuler',
-          textErr: 'Aucun résultat...'
+          textPlaceholder: this._nls.search.placeholder,
+          textCancel: this._nls.search.cancel,
+          textErr: this._nls.search.error
         });
       } catch (error) {
         // The only error case is Leaflet doesn't exist here
@@ -192,7 +269,7 @@ class MapPoster {
       document.getElementById('credit-modal').addEventListener('click', this._creditModal.bind(this));
       // Load event on map layers for loaded tiles (to ensure the printing occurs with all map tiles)
       for (const layer in MapProviders.layers) {
-        MapProviders.layers[layer].on('load', () => setTimeout(() => this._tilesLoaded = true, 2000));
+        MapProviders.layers[layer].on('load', () => setTimeout(() => this._tilesLoaded = true, 4000));
         MapProviders.layers[layer].on('add', (e) => {
           document.getElementById('map-attribution').innerHTML = e.target.getAttribution();
         });
@@ -211,6 +288,19 @@ class MapPoster {
   // ======================================================================= //
 
 
+  /**
+   * @method
+   * @name _updateMapOrientation
+   * @private
+   * @memberof MapPoster
+   * @author Arthur Beaulieu
+   * @since October 2022
+   * @description
+   * <blockquote>
+   * Will update the poster vertical/horizontal orientation
+   * </blockquote>
+   * @param {Event} e - The click event on the theme checkbox
+   **/
   _updateMapOrientation(e) {
     let previousOrientation = '';
     const orientations = document.getElementById('map-orientation');
@@ -258,6 +348,19 @@ class MapPoster {
   }
 
 
+  /**
+   * @method
+   * @name _updateTextPosition
+   * @private
+   * @memberof MapPoster
+   * @author Arthur Beaulieu
+   * @since October 2022
+   * @description
+   * <blockquote>
+   * Will update the poster text position wether to be top or bottom
+   * </blockquote>
+   * @param {Event} e - The change event on the up text checkbox
+   **/
   _updateTextPosition(e) {
     if (e.target.checked) {
       document.getElementById('map-output').classList.add('txt-reverse');
@@ -338,6 +441,18 @@ class MapPoster {
   }
 
 
+  /**
+   * @method
+   * @name _updateCommentLabel
+   * @private
+   * @memberof MapPoster
+   * @author Arthur Beaulieu
+   * @since October 2022
+   * @description
+   * <blockquote>
+   * Update the comment with map center coordinates, only if user didn't set a text in comment
+   * </blockquote>
+   **/
   _updateCommentLabel() {
     if (!this._commentEdited) {
       const c = this._map.getCenter();
@@ -378,15 +493,47 @@ class MapPoster {
     const height = this.precisionRound(e.target.value * 29.7 / 21, 0);
     e.target.dataset.height = height;
     if (document.getElementById('map-output').classList.contains('horizontal')) {
-      label.innerHTML = `Dimension : ${height} x ${e.target.value} — A${a} à 300dpi`;
+      label.innerHTML = `${this._nls.export.dimension} : ${height} x ${e.target.value} — A${a} ${this._nls.export.at} 300dpi`;
     } else {
-      label.innerHTML = `Dimension : ${e.target.value} x ${height} — A${a} à 300dpi`;
+      label.innerHTML = `${this._nls.export.dimension} : ${e.target.value} x ${height} — A${a} ${this._nls.export.at} 300dpi`;
     }
   }
 
 
+  /**
+   * @method
+   * @name _searchMatch
+   * @private
+   * @memberof MapPoster
+   * @author Arthur Beaulieu
+   * @since November 2022
+   * @description
+   * <blockquote>
+   * Set map view depending on search result
+   * </blockquote>
+   * @param {Object} data - The search data result to set view from
+   **/
   _searchMatch(data) {
     this._map.setView(data.latlng);
+  }
+
+
+  /**
+   * @method
+   * @name _updateLang
+   * @private
+   * @memberof MapPoster
+   * @author Arthur Beaulieu
+   * @since November 2022
+   * @description
+   * <blockquote>
+   * Updates the user interface language according to credit select value then reload page
+   * </blockquote>
+   * @param {Event} e - The input event on the select input
+   **/
+  _updateLang(e) {
+    localStorage.setItem('lang', e.target.value);
+    window.location.reload();
   }
 
 
@@ -455,7 +602,7 @@ class MapPoster {
   **/
   _dlPrepareMap(size, scale, bounds) {
     if (CONST.DEBUG) { console.log('Prepare map style for printing...'); }
-    document.getElementById('print-status').innerHTML = `Préparation du style de la carte pour l'export...`;
+    document.getElementById('print-status').innerHTML = this._nls.download.stylePrep;
     document.getElementById('print-progress').style.width = '10%';
     // Hide Leaflet.js overlays
     document.querySelector('.leaflet-top.leaflet-left').style.display = 'none';
@@ -489,7 +636,7 @@ class MapPoster {
       this._map.invalidateSize();
       this._map.fitBounds(bounds);
       if (CONST.DEBUG) { console.log('Waiting for map tiles to load...'); }
-      document.getElementById('print-status').innerHTML = `En attente du chargement des tuiles de la carte...`;
+      document.getElementById('print-status').innerHTML = this._nls.download.tileLoad;
       document.getElementById('print-progress').style.width = '25%';
     });
   }
@@ -514,7 +661,7 @@ class MapPoster {
     // Perform map print with html2canvas if all tiles are loaded
     if (this._tilesLoaded === true) {
       if (CONST.DEBUG) { console.log('Map tiles loaded, performing printing...'); }
-      document.getElementById('print-status').innerHTML = `Tuiles chargées, démarrage de l'export...`;
+      document.getElementById('print-status').innerHTML = this._nls.download.printStart;
       document.getElementById('print-progress').style.width = '66%';
       clearInterval(this._intervalId);
       this._tilesLoaded = false;
@@ -528,7 +675,7 @@ class MapPoster {
           height: document.getElementById('map-output').offsetHeight,
           imageTimeout: 0,
           onclone: () => {
-            document.getElementById('print-status').innerHTML = `Création du fichier de sortie...`;
+            document.getElementById('print-status').innerHTML = this._nls.download.outputFile;
             document.getElementById('print-progress').style.width = '72%';
           }
         }).then(this._dlMap.bind(this, bounds)).catch((error) => {
@@ -557,7 +704,7 @@ class MapPoster {
   **/
   _dlMap(bounds, canvas) {
     if (CONST.DEBUG) { console.log('Canvas printing done, exporting image to disk...'); }
-    document.getElementById('print-status').innerHTML = `Export terminé. Sauvegarde sur le disque en cours...`;
+    document.getElementById('print-status').innerHTML = this._nls.download.saveToDisk;
     document.getElementById('print-progress').style.width = '88%';
     const file = this.getOutputFileType();
     const link = document.createElement('A');
@@ -598,7 +745,7 @@ class MapPoster {
    **/
   _dlRestoreMap(bounds) {
     if (CONST.DEBUG) { console.log('Restoring map style to default...'); }
-    document.getElementById('print-status').innerHTML = `Remise en état du style initial...`;
+    document.getElementById('print-status').innerHTML = this._nls.download.restoreMap;
     document.getElementById('print-progress').style.width = '100%';
     // Restore Leaflet.js overlays
     document.querySelector('.leaflet-top.leaflet-left').style.display = 'inherit';
@@ -669,20 +816,47 @@ class MapPoster {
 			document.getElementById('modal-overlay').appendChild(dom);
       document.getElementById('modal-overlay').style.display = 'flex';
 			setTimeout(() => document.getElementById('modal-overlay').style.opacity = 1, 50);
-      requestAnimationFrame(_updateInputs.bind(this));
+      requestAnimationFrame(() => {
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_TITLE}}', this._nls.theme.title);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LIGHT_THEME}}', this._nls.theme.lightTheme);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_DARK_THEME}}', this._nls.theme.darkTheme);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_BG_LIGHT}}', this._nls.theme.bg);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_TXT_LIGHT}}', this._nls.theme.txt);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_TXTALT_LIGHT}}', this._nls.theme.txtAlt);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_BG_DARK}}', this._nls.theme.bg);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_TXT_DARK}}', this._nls.theme.txt);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_TXTALT_DARK}}', this._nls.theme.txtAlt);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_RESET}}', this._nls.theme.default);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_CLOSE}}', this._nls.action.close);
+        _updateInputs();
+      });
     });
   }
 
 
-  _creditModal(e) {
-    e.preventDefault();
+  _creditModal() {
     this._fetchModal('credits').then(dom => {
-      // Close modal button event
-			dom.querySelector('#confirm').addEventListener('click', this._closeModal.bind(this, null, true));
       // Modal start animation (close animation handled in _closeModal())
 			document.getElementById('modal-overlay').appendChild(dom);
       document.getElementById('modal-overlay').style.display = 'flex';
 			setTimeout(() => document.getElementById('modal-overlay').style.opacity = 1, 50);
+      requestAnimationFrame(() => {
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_TITLE}}', this._nls.title);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LINE1}}', this._nls.credit.line1);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LINE2}}', this._nls.credit.line2);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LINE3}}', this._nls.credit.line3);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LINE4}}', this._nls.credit.line4);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LANG}}', this._nls.credit.lang);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_FR}}', this._nls.credit.fr);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_EN}}', this._nls.credit.en);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_ES}}', this._nls.credit.es);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_DE}}', this._nls.credit.de);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_CLOSE}}', this._nls.action.close);        
+        // Lang update
+        document.getElementById('lang').addEventListener('change', this._updateLang.bind(this));
+        // Close modal button event
+        document.getElementById('close').addEventListener('click', this._closeModal.bind(this, null, true));
+      });
     });
   }
 
@@ -816,6 +990,11 @@ class MapPoster {
     document.querySelector(':root').style.setProperty('--color-d-txt', this._cssTheme.dtxt);
     document.querySelector(':root').style.setProperty('--color-d-txt-alt', this._cssTheme.dcom);
     this.updateThemeColorInternal();
+  }
+
+
+  replaceString(element, string, value) {
+    element.innerHTML = element.innerHTML.replace(string, value);
   }
 
 

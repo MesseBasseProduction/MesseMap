@@ -1,8 +1,8 @@
 # MapPoster
 
-![](https://badgen.net/badge/version/0.0.5/blue)
+![](https://badgen.net/badge/version/0.0.6/blue)
 [![License](https://img.shields.io/github/license/MesseBasseProduction/MapPoster.svg)](https://github.com/MesseBasseProduction/MapPoster/blob/master/LICENSE.md)
-![](https://badgen.net/badge/documentation/written/green)
+![https://messebasseproduction.github.io/MapPoster/doc/index.html](https://badgen.net/badge/documentation/written/green)
 ![](https://badgen.net/badge/test/wip/orange)
 
 A website to create a map poster, so it can be exported ready to print, with the ability to scale the map for to given size. Different map layers available to create your unique *wall-memory* touch!
