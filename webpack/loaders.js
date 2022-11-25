@@ -8,7 +8,7 @@ const CSSLoader = {
     {
       loader: MiniCssExtractPlugin.loader,
       options: {
-        publicPath: '/dist/'
+        publicPath: '/assets/dist/'
       }
     },
     {

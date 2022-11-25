@@ -6,11 +6,14 @@ const plugins = require('./plugins');
 module.exports = {
   entry: ['./src/js/MapPoster.js'],
   module: {
-    rules: [loaders.JSLoader, loaders.CSSLoader]
+    rules: [
+      loaders.JSLoader,
+      loaders.CSSLoader
+    ]
   },
   output: {
     filename: 'MapPoster.bundle.js',
-    path: path.resolve(__dirname, '../dist/'),
+    path: path.resolve(__dirname, '../assets/dist/'),
     library: 'MapPoster', // We set a library name to bundle the export default of the class
     libraryTarget: 'window', // Make it globally available
     libraryExport: 'default' // Make MapPoster.default become HomeMap
