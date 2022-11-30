@@ -7,7 +7,7 @@ const params = {
   esri: {
     attribution: 'Map tiles by <a href="https://www.esri.com/">Esri</a> &mdash; Map data &copy; Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
     minZoom: 1,
-    maxZoom: 18  
+    maxZoom: 18
   },
   carto: {
     attribution: 'Map tiles by <a href="https://carto.com/attributions">Carto</a> under <a href="http://www.openstreetmap.org/copyright">ODbL</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',

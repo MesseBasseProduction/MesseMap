@@ -1,75 +1,75 @@
 {
   "title": "MapPoster",
-  "orientation": "Orientation",
+  "orientation": "Orientación",
   "vertical": "Vertical",
   "horizontal": "Horizontal",
   "action": {
-    "close": "Close"
+    "close": "Cerca"
   },
   "style": {
-    "title": "Style",
-    "darkTheme": "Dark theme",
-    "upText": "Up text",
-    "std": "Standard",
-    "travel": "Travel",
-    "frame": "Frame",
-    "pure": "Pure",
+    "title": "Estilo",
+    "darkTheme": "Tema oscuro",
+    "upText": "Poner texto encima",
+    "std": "Estándar",
+    "travel": "Viaje",
+    "frame": "Marco",
+    "pure": "Puro",
     "pantone": "Pantone",
-    "map": "Map",
-    "window": "Window",
+    "map": "Mapa",
+    "window": "Ventana",
     "air": "Air",
     "hipster": "Hipster"
   },
   "text": {
-    "title": "Texts",
-    "mapTitle": "Title",
-    "mapTitlePlaceholder": "Map title",
-    "mapSubtitle": "Subtitle",
-    "mapSubtitlePlaceholder": "Map subtitle",
-    "mapComment": "Comment",
-    "mapCommentPlaceholder": "A comment about the map"
+    "title": "Textos",
+    "mapTitle": "Título",
+    "mapTitlePlaceholder": "Título del mapa",
+    "mapSubtitle": "Subtítulos",
+    "mapSubtitlePlaceholder": "Subtítulo del mapa",
+    "mapComment": "Comentario",
+    "mapCommentPlaceholder": "Comentar sobre el mapa"
   },
   "export": {
-    "title": "Export settings",
-    "dimension": "Dimension",
-    "at": "at",
-    "format": "File format",
-    "button": "Export",
-    "credits": "Credits"
+    "title": "Parámetro de exportación",
+    "dimension": "Dimensiones",
+    "at": "a",
+    "format": "Formato de archivo",
+    "button": "Exportar",
+    "credits": "Créditos"
   },
   "download": {
-    "title": "You're poster is being prepared",
-    "subtitle": "Please wait while the app gather all required data",
-    "stylePrep": "Preparing map style for the export...",
-    "tileLoad": "Waiting for all map tiles to load...",
-    "printStart": "Tiles loaded, export started...",
-    "outputFile": "Creating output file...",
-    "saveToDisk": "Export done. Currently saving image to disk...",
-    "restoreMap": "Restore the map initial state..."
+    "title": "Tu cartel está siendo preparado.",
+    "subtitle": "Espere mientras la aplicación recopila todos los datos requeridos",
+    "stylePrep": "Preparando el estilo del mapa para la exportación...",
+    "tileLoad": "Esperando a que se carguen todos los mosaicos del mapa...",
+    "printStart": "Teselas cargadas, exportación iniciada...",
+    "outputFile": "Crear archivo de salida...",
+    "saveToDisk": "Exportación realizada. Actualmente guardando la imagen en el disco...",
+    "restoreMap": "Restaurar el estado inicial del mapa..."
   },
   "search": {
-    "placeholder": "Search...",
-    "cancel": "Cancel",
-    "error": "No result..."
+    "placeholder": "Buscar...",
+    "cancel": "Cancelar",
+    "error": "Sin resultados..."
   },
   "theme": {
-    "title": "Theme modification",
-    "lightTheme": "Light theme",
-    "darkTheme": "Dark theme",
-    "bg": "Background",
-    "txt": "Text",
-    "txtAlt": "Alternative texte",
-    "default": "Restore to default"
+    "title": "Modificación de tema",
+    "lightTheme": "Tema ligero",
+    "darkTheme": "Tema oscuro",
+    "bg": "Fondo",
+    "txt": "Texto",
+    "txtAlt": "Texto alternativo",
+    "default": "Restaurar a los valores predeterminados"
   },
   "credit": {
-    "line1": "An app proposed by <a href=\"https://messe-basse-production.com\" target=\"_blank\" rel=\"noopener noreferer\">Messe Basse Production</a>. No cookies, no trackers, you're safely browsing here.",
-    "line2": "Maps are kindly made by <a href=\"https://www.openstreetmap.fr/\" target=\"_blank\" rel=\"noopener noreferer\">OpenStreetMap</a>, <a href=\"https://www.geoportail.gouv.fr/\" target=\"_blank\" rel=\"noopener noreferer\">GeoPortail</a>, <a href=\"https://www.esri.com/\" target=\"_blank\" rel=\"noopener noreferer\">ESRI</a> et <a href=\"https://www.mapiful.com/\" target=\"_blank\" rel=\"noopener noreferer\">Mapiful</a>. We are very thankful to those providers.",
-    "line3": "MapPoster is licensed with GPL-3.0 open source license, and relies on libraries <a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet</a>, <a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">SmoothWheelZoom</a>, <a href=\"https://html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a> and <a href=\"https://github.com/parallax/jsPDF/\" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>.",
-    "line4": "The source code of this app is available on the <a href=\"https://github.com/MesseBasseProduction/MapPoster/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a> repository, any contribution of any kind is welcome!",
-    "lang": "Langue de l'interface",
-    "fr": "🇫🇷 French",
-    "en": "🇬🇧 English",
-    "es": "🇪🇸 Spanish",
-    "de": "🇩🇪 German"
+    "line1": "Una aplicación propuesta por <a href=\"https://messe-basse-production.com\" target=\"_blank\" rel=\"noopener noreferer\">Messe Basse Production</a>. Sin cookies, sin rastreadores, estás navegando de forma segura aquí.",
+    "line2": "Los mapas son amablemente elaborados por <a href=\"https://www.openstreetmap.fr/\" target=\"_blank\" rel=\"noopener noreferer\">OpenStreetMap</a>, <a href=\"https://www.geoportail.gouv.fr/\" target=\"_blank\" rel=\"noopener noreferer\">GeoPortail</a>, <a href=\"https://www.esri.com/\" target=\"_blank\" rel=\"noopener noreferer\">ESRI</a> y <a href=\"https://www.mapiful.com/\" target=\"_blank\" rel=\"noopener noreferer\">Mapiful</a>. Estamos muy agradecidos con esos proveedores.",
+    "line3": "MapPoster tiene una licencia de código abierto GPL-3.0 y se basa en las bibliotecas <a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet</a>, <a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">SmoothWheelZoom</a>, <a href=\"https://html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a> y <a href=\"https://github.com/parallax/jsPDF/\" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>.",
+    "line4": "El código fuente de esta aplicación está disponible en el repositorio de <a href=\"https://github.com/MesseBasseProduction/MapPoster/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a>, ¡cualquier contribución de cualquier tipo es bienvenida!",
+    "lang": "Lenguaje de interfaz",
+    "fr": "🇫🇷 Francés",
+    "en": "🇬🇧 Inglés",
+    "es": "🇪🇸 Español",
+    "de": "🇩🇪 Alemán"
   }
 }

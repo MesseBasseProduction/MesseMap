@@ -423,7 +423,7 @@ class MapPoster {
   }
 
 
-    /**
+  /**
    * @method
    * @name _textColorEdit
    * @private
@@ -775,6 +775,19 @@ class MapPoster {
   // ======================================================================= //
 
 
+  /**
+   * @method
+   * @name _themeEditModal
+   * @private
+   * @memberof MapPoster
+   * @author Arthur Beaulieu
+   * @since October 2022
+   * @description
+   * <blockquote>
+   * This method will build th theme edit modal into the user interface.
+   * </blockquote>
+   * @param {Event} e - The click event that triggered the modal
+   **/
   _themeEditModal(e) {
     e.preventDefault();
     this._fetchModal('themeedit').then(dom => {
@@ -801,7 +814,7 @@ class MapPoster {
       // Apply current theme
       this.updateThemeColorInternal();
       // Close modal button event
-			dom.querySelector('#close').addEventListener('click', this._closeModal.bind(this, null, true));
+      dom.querySelector('#close').addEventListener('click', this._closeModal.bind(this, null, true));
       dom.querySelector('#reset').addEventListener('click', () => {
         this._cssTheme.lbg = '#FFFFFE';
         this._cssTheme.ltxt = '#000001';
@@ -813,9 +826,9 @@ class MapPoster {
         _updateInputs();
       });
       // Modal start animation (close animation handled in _closeModal())
-			document.getElementById('modal-overlay').appendChild(dom);
+      document.getElementById('modal-overlay').appendChild(dom);
       document.getElementById('modal-overlay').style.display = 'flex';
-			setTimeout(() => document.getElementById('modal-overlay').style.opacity = 1, 50);
+      setTimeout(() => document.getElementById('modal-overlay').style.opacity = 1, 50);
       requestAnimationFrame(() => {
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_TITLE}}', this._nls.theme.title);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LIGHT_THEME}}', this._nls.theme.lightTheme);
@@ -834,12 +847,26 @@ class MapPoster {
   }
 
 
-  _creditModal() {
+  /**
+   * @method
+   * @name _creditModal
+   * @private
+   * @memberof MapPoster
+   * @author Arthur Beaulieu
+   * @since October 2022
+   * @description
+   * <blockquote>
+   * This method will build the credit modal into the user interface.
+   * </blockquote>
+   * @param {Event} e - The click event that triggered the modal
+   **/
+  _creditModal(e) {
+    e.preventDefault();
     this._fetchModal('credits').then(dom => {
       // Modal start animation (close animation handled in _closeModal())
-			document.getElementById('modal-overlay').appendChild(dom);
+      document.getElementById('modal-overlay').appendChild(dom);
       document.getElementById('modal-overlay').style.display = 'flex';
-			setTimeout(() => document.getElementById('modal-overlay').style.opacity = 1, 50);
+      setTimeout(() => document.getElementById('modal-overlay').style.opacity = 1, 50);
       requestAnimationFrame(() => {
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_TITLE}}', this._nls.title);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LINE1}}', this._nls.credit.line1);
@@ -851,8 +878,9 @@ class MapPoster {
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_EN}}', this._nls.credit.en);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_ES}}', this._nls.credit.es);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_DE}}', this._nls.credit.de);
-        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_CLOSE}}', this._nls.action.close);        
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_CLOSE}}', this._nls.action.close);
         // Lang update
+        document.getElementById('lang').value = this._lang;
         document.getElementById('lang').addEventListener('change', this._updateLang.bind(this));
         // Close modal button event
         document.getElementById('close').addEventListener('click', this._closeModal.bind(this, null, true));
@@ -870,7 +898,7 @@ class MapPoster {
    * @since October 2022
    * @description
    * <blockquote>
-   * This method will u_se the fetch API to request the modal HTMl file
+   * This method will use the fetch API to request the modal HTMl file
    * stored in project <code>assets/html</code>.
    * </blockquote>
    * @param {String} url - The modal filename with no extension in /assets/html/
@@ -903,7 +931,7 @@ class MapPoster {
    * @param {Boolean} force - Pass it to true to close the modal no matter the context
    **/
   _closeModal(event, force) {
-		if (force === true || event.target.id === 'modal-overlay' || event.target.id.indexOf('close') !== -1) {
+    if (force === true || event.target.id === 'modal-overlay' || event.target.id.indexOf('close') !== -1) {
       document.getElementById('modal-overlay').style.opacity = 0;
       setTimeout(() => {
         document.getElementById('modal-overlay').style.display = 'none';
@@ -968,6 +996,18 @@ class MapPoster {
   }
 
 
+  /**
+   * @method
+   * @name updateThemeColorInternal
+   * @public
+   * @memberof MapPoster
+   * @author Arthur Beaulieu
+   * @since October 2022
+   * @description
+   * <blockquote>
+   * Get css color and saves them to local storage
+   * </blockquote>
+   **/
   updateThemeColorInternal() {
     // Update input.color values
     this._cssTheme = {
@@ -982,6 +1022,18 @@ class MapPoster {
   }
 
 
+  /**
+   * @method
+   * @name applyThemeColor
+   * @public
+   * @memberof MapPoster
+   * @author Arthur Beaulieu
+   * @since October 2022
+   * @description
+   * <blockquote>
+   * Apply the css variables values to the root style from internal _cssTheme object
+   * </blockquote>
+   **/
   applyThemeColor() {
     document.querySelector(':root').style.setProperty('--color-l-bg', this._cssTheme.lbg);
     document.querySelector(':root').style.setProperty('--color-l-txt', this._cssTheme.ltxt);
@@ -993,6 +1045,21 @@ class MapPoster {
   }
 
 
+  /**
+   * @method
+   * @name replaceString
+   * @public
+   * @memberof MapPoster
+   * @author Arthur Beaulieu
+   * @since October 2022
+   * @description
+   * <blockquote>
+   * Will replace the element text. Useful for translations.
+   * </blockquote>
+   * @param {Nunmber} element - The DOM element for text to be replaced
+   * @param {Number} string - The string to replace
+   * @param {Number} value - The value to apply to the replaced text
+   **/
   replaceString(element, string, value) {
     element.innerHTML = element.innerHTML.replace(string, value);
   }
