@@ -1,15 +1,15 @@
 {
   "title": "MapPoster",
-  "orientation": "Orientation",
-  "vertical": "Vertical",
-  "horizontal": "Horizontal",
+  "orientation": "Ausrichtung",
+  "vertical": "Hochformat",
+  "horizontal": "Querformat",
   "action": {
-    "close": "Close"
+    "close": "Schließen"
   },
   "style": {
-    "title": "Style",
+    "title": "Stil",
     "darkTheme": "Dark theme",
-    "upText": "Up text",
+    "upText": "Text oben",
     "std": "Standard",
     "travel": "Travel",
     "frame": "Frame",
@@ -21,55 +21,55 @@
     "hipster": "Hipster"
   },
   "text": {
-    "title": "Texts",
-    "mapTitle": "Title",
-    "mapTitlePlaceholder": "Map title",
-    "mapSubtitle": "Subtitle",
-    "mapSubtitlePlaceholder": "Map subtitle",
-    "mapComment": "Comment",
-    "mapCommentPlaceholder": "A comment about the map"
+    "title": "Text",
+    "mapTitle": "Titel",
+    "mapTitlePlaceholder": "Karten Titel",
+    "mapSubtitle": "Untertitel",
+    "mapSubtitlePlaceholder": "Karten Untertitel",
+    "mapComment": "Kommentar",
+    "mapCommentPlaceholder": "Ein Kommentar über die Karte"
   },
   "export": {
-    "title": "Export settings",
-    "dimension": "Dimension",
-    "at": "at",
-    "format": "File format",
-    "button": "Export",
+    "title": "Export Eisntellungen",
+    "dimension": "Größe",
+    "at": "bei",
+    "format": "Dateiformat",
+    "button": "Exportieren",
     "credits": "Credits"
   },
   "download": {
-    "title": "You're poster is being prepared",
-    "subtitle": "Please wait while the app gather all required data",
-    "stylePrep": "Preparing map style for the export...",
-    "tileLoad": "Waiting for all map tiles to load...",
-    "printStart": "Tiles loaded, export started...",
-    "outputFile": "Creating output file...",
-    "saveToDisk": "Export done. Currently saving image to disk...",
-    "restoreMap": "Restore the map initial state..."
+    "title": "Das Poster wird erstellt",
+    "subtitle": "Bitte warte bis die App alle erforderlichen Daten zusammengestellt hat",
+    "stylePrep": "Vorbereitung des Kartenstils für den Export...",
+    "tileLoad": "Lädt alle Kartenkacheln...",
+    "printStart": "Kacheln geladen, Export gestartet...",
+    "outputFile": "Ausgabedatei erstellen...",
+    "saveToDisk": "Export fertiggestellt. Bild wird auf der Festplatte gespeichert...",
+    "restoreMap": "Ausgangszustand der Karte wiederherstellen..."
   },
   "search": {
-    "placeholder": "Search...",
-    "cancel": "Cancel",
-    "error": "No result..."
+    "placeholder": "Suche...",
+    "cancel": "Abbrechen",
+    "error": "Kein Ergebnis..."
   },
   "theme": {
-    "title": "Theme modification",
-    "lightTheme": "Light theme",
-    "darkTheme": "Dark theme",
-    "bg": "Background",
+    "title": "Motiv-Anpassung",
+    "lightTheme": "Helles Motiv",
+    "darkTheme": "Dunkles Motiv",
+    "bg": "Hintergrund",
     "txt": "Text",
-    "txtAlt": "Alternative texte",
-    "default": "Restore to default"
+    "txtAlt": "Alternative Texte",
+    "default": "Auf Standardwerte zurücksetzen"
   },
   "credit": {
-    "line1": "An app proposed by <a href=\"https://messe-basse-production.com\" target=\"_blank\" rel=\"noopener noreferer\">Messe Basse Production</a>. No cookies, no trackers, you're safely browsing here.",
-    "line2": "Maps are kindly made by <a href=\"https://www.openstreetmap.fr/\" target=\"_blank\" rel=\"noopener noreferer\">OpenStreetMap</a>, <a href=\"https://www.geoportail.gouv.fr/\" target=\"_blank\" rel=\"noopener noreferer\">GeoPortail</a>, <a href=\"https://www.esri.com/\" target=\"_blank\" rel=\"noopener noreferer\">ESRI</a> et <a href=\"https://www.mapiful.com/\" target=\"_blank\" rel=\"noopener noreferer\">Mapiful</a>. We are very thankful to those providers.",
-    "line3": "MapPoster is licensed with GPL-3.0 open source license, and relies on libraries <a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet</a>, <a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">SmoothWheelZoom</a>, <a href=\"https://html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a> and <a href=\"https://github.com/parallax/jsPDF/\" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>.",
-    "line4": "The source code of this app is available on the <a href=\"https://github.com/MesseBasseProduction/MapPoster/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a> repository, any contribution of any kind is welcome!",
+    "line1": "Eine App vorgeschlagen von <a href=\"https://messe-basse-production.com\" target=\"_blank\" rel=\"noopener noreferer\">Messe Basse Production</a>. Keine Cookies, keine Tracker, hier bist du sicher unterwegs.",
+    "line2": "Karten werden freundlicherweise erstellt von <a href=\"https://www.openstreetmap.fr/\" target=\"_blank\" rel=\"noopener noreferer\">OpenStreetMap</a>, <a href=\"https://www.geoportail.gouv.fr/\" target=\"_blank\" rel=\"noopener noreferer\">GeoPortail</a>, <a href=\"https://www.esri.com/\" target=\"_blank\" rel=\"noopener noreferer\">ESRI</a> et <a href=\"https://www.mapiful.com/\" target=\"_blank\" rel=\"noopener noreferer\">Mapiful</a>. Wir sind diesen Anbietern sehr dankbar.",
+    "line3": "MapPoster ist lizensiert mit der GPL-3.0 Open Source Lizenz, und basiert auf den Bibliotheken <a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet</a>, <a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">SmoothWheelZoom</a>, <a href=\"https://html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a> und <a href=\"https://github.com/parallax/jsPDF/\" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>.",
+    "line4": "Der Quellcode dieser Anwendung ist verfügbar auf dem <a href=\"https://github.com/MesseBasseProduction/MapPoster/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a> Repository. Jeder Beitrag ist willkommen!",
     "lang": "Langue de l'interface",
-    "fr": "🇫🇷 French",
-    "en": "🇬🇧 English",
-    "es": "🇪🇸 Spanish",
-    "de": "🇩🇪 German"
+    "fr": "🇫🇷 Französisch",
+    "en": "🇬🇧 Englisch",
+    "es": "🇪🇸 Spanisch",
+    "de": "🇩🇪 Deutsch"
   }
 }
