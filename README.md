@@ -1,6 +1,6 @@
 # MapPoster
 
-![](https://badgen.net/badge/version/0.0.6/blue)
+![](https://badgen.net/badge/version/0.0.7/blue)
 [![License](https://img.shields.io/github/license/MesseBasseProduction/MapPoster.svg)](https://github.com/MesseBasseProduction/MapPoster/blob/master/LICENSE.md)
 ![https://messebasseproduction.github.io/MapPoster/doc/index.html](https://badgen.net/badge/documentation/written/green)
 ![](https://badgen.net/badge/test/wip/orange)

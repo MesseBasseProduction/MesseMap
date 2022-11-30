@@ -334,7 +334,8 @@ main {
 
     .user-text-wrapper {
       position: absolute;
-      background: linear-gradient(transparent 1%, var(--color-bg) 50%);
+      /* No transparent because Issue #538 on html2canvas, must use 0.01 alpha */
+      background: linear-gradient(rgba(255, 255, 255, .001) 1%, var(--color-bg) 50%);
       bottom: calc(var(--padding) + var(--thick-border));
       height: 35%;
       padding-top: 20%;
@@ -398,7 +399,7 @@ main {
       .user-text-wrapper {
         bottom: inherit;
         top: calc(var(--padding) + var(--thick-border));
-        background: linear-gradient(var(--color-bg) 50%, transparent 100%);
+        background: linear-gradient(var(--color-bg) 50%, rgba(255, 255, 255, .001) 100%);
         display: flex;
         flex-direction: column-reverse;
         padding-top: 0;
@@ -533,7 +534,7 @@ main {
     .user-text-wrapper {
       /* Need to add px to bottom/width because if scaling not round, line appear on print */
       position: absolute;
-      background: linear-gradient(transparent 1%, var(--color-bg) 50%);
+      background: linear-gradient(rgba(255, 255, 255, .001) 1%, var(--color-bg) 50%);
       bottom: 0;
       height: 35%;
       padding-top: 20%;
@@ -583,7 +584,7 @@ main {
       .user-text-wrapper {
         bottom: inherit;
         top: 0;
-        background: linear-gradient(var(--color-bg) 50%, transparent 100%);
+        background: linear-gradient(var(--color-bg) 50%, rgba(255, 255, 255, .001) 100%);
         display: flex;
         flex-direction: column-reverse;
         padding-top: 0;

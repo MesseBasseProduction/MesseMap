@@ -1,6 +1,6 @@
 {
   "name": "mapposter",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "keywords": [],
   "main": "src/js/MapPoster.js",
   "scripts": {
@@ -23,7 +23,7 @@
   "author": "ArthurBeaulieu",
   "license": "GPL-3.0",
   "devDependencies": {
-    "@babel/core": "^7.20.2",
+    "@babel/core": "^7.20.5",
     "@babel/preset-env": "^7.20.2",
     "babel-loader": "^9.1.0",
     "clean-webpack-plugin": "^4.0.0",
@@ -41,11 +41,11 @@
     "karma-jasmine": "^5.1.0",
     "karma-jasmine-html-reporter": "^2.0.0",
     "karma-webpack": "^5.0.0",
-    "mini-css-extract-plugin": "^2.7.0",
+    "mini-css-extract-plugin": "^2.7.1",
     "node-sass": "^8.0.0",
     "postcss": "^8.4.19",
     "postcss-import": "^15.0.0",
-    "postcss-loader": "^7.0.1",
+    "postcss-loader": "^7.0.2",
     "postcss-preset-env": "^7.8.3",
     "sass-loader": "^13.2.0",
     "stylelint": "^14.15.0",
