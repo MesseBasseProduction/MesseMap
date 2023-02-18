@@ -4,7 +4,7 @@ const loaders = require('./loaders');
 const plugins = require('./plugins');
 
 module.exports = {
-  entry: ['./src/js/MapPoster.js'],
+  entry: ['./src/js/MesseMap.js'],
   module: {
     rules: [
       loaders.JSLoader,
@@ -12,11 +12,11 @@ module.exports = {
     ]
   },
   output: {
-    filename: 'MapPoster.bundle.js',
+    filename: 'MesseMap.bundle.js',
     path: path.resolve(__dirname, '../assets/dist/'),
-    library: 'MapPoster', // We set a library name to bundle the export default of the class
+    library: 'MesseMap', // We set a library name to bundle the export default of the class
     libraryTarget: 'window', // Make it globally available
-    libraryExport: 'default' // Make MapPoster.default become HomeMap
+    libraryExport: 'default' // Make MesseMap.default become HomeMap
   },
   plugins: [
     new webpack.ProgressPlugin(),

@@ -5,7 +5,7 @@ const _ESLintPlugin = require('eslint-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const MiniCssExtractPlugin = new _MiniCssExtractPlugin({
-  filename: 'MapPoster.bundle.css',
+  filename: 'MesseMap.bundle.css',
   chunkFilename: '[id].css',
 });
 

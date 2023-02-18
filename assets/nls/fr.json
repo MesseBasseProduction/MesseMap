@@ -1,5 +1,5 @@
 {
-  "title": "MapPoster",
+  "title": "MesseMap",
   "orientation": "Orientation",
   "vertical": "Vertical",
   "horizontal": "Horizontal",
@@ -64,8 +64,8 @@
   "credit": {
     "line1": "Une application proposée par <a href=\"https://messe-basse-production.com\" target=\"_blank\" rel=\"noopener noreferer\">Messe Basse Production</a>. Pas de cookies, pas de trackers rien de tout cela, vous naviguez ici en toute sécurité.",
     "line2": "Les fonds de cartes sont mis à disposition par <a href=\"https://www.openstreetmap.fr/\" target=\"_blank\" rel=\"noopener noreferer\">OpenStreetMap</a>, <a href=\"https://www.geoportail.gouv.fr/\" target=\"_blank\" rel=\"noopener noreferer\">GeoPortail</a>, <a href=\"https://www.esri.com/\" target=\"_blank\" rel=\"noopener noreferer\">ESRI</a> et <a href=\"https://www.mapiful.com/\" target=\"_blank\" rel=\"noopener noreferer\">Mapiful</a>. Notre reconnaissance à l'égard de ces contributeurs est immense et sincère.",
-    "line3": "MapPoster est une application sous licence libre GPL-3.0 qui utilise les librairies <a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet</a>, <a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">SmoothWheelZoom</a>, <a href=\"https://html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a> et <a href=\"https://github.com/parallax/jsPDF/\" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>.",
-    "line4": "Le code source de l'application est disponible sur le dépôt <a href=\"https://github.com/MesseBasseProduction/MapPoster/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a> suivant, toute contribution, idée de fonctionnalité ou report de bug est le bienvenu !",
+    "line3": "MesseMap est une application sous licence libre GPL-3.0 qui utilise les librairies <a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet</a>, <a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">SmoothWheelZoom</a>, <a href=\"https://html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a> et <a href=\"https://github.com/parallax/jsPDF/\" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>.",
+    "line4": "Le code source de l'application est disponible sur le dépôt <a href=\"https://github.com/MesseBasseProduction/MesseMap/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a> suivant, toute contribution, idée de fonctionnalité ou report de bug est le bienvenu !",
     "lang": "Langue de l'interface",
     "fr": "🇫🇷 Français",
     "en": "🇬🇧 Anglais",

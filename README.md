@@ -1,8 +1,8 @@
-# MapPoster
+# MesseMap
 
 ![](https://badgen.net/badge/version/0.0.7/blue)
-[![License](https://img.shields.io/github/license/MesseBasseProduction/MapPoster.svg)](https://github.com/MesseBasseProduction/MapPoster/blob/master/LICENSE.md)
-![https://messebasseproduction.github.io/MapPoster/doc/index.html](https://badgen.net/badge/documentation/written/green)
+[![License](https://img.shields.io/github/license/MesseBasseProduction/MesseMap.svg)](https://github.com/MesseBasseProduction/MesseMap/blob/master/LICENSE.md)
+![https://messebasseproduction.github.io/MesseMap/doc/index.html](https://badgen.net/badge/documentation/written/green)
 ![](https://badgen.net/badge/test/wip/orange)
 
 A website to create a map poster, so it can be exported ready to print, with the ability to scale the map for to given size. Different map layers available to create your unique *wall-memory* touch!
@@ -13,7 +13,7 @@ When exporting the map to disk the user can set the output dimension, the lowest
 
 ## Map data
 
-All maps are released under [ODbL license](https://opendatacommons.org/licenses/odbl/). MapPoster is using open source maps released by [OpenStreetMap](https://www.openstreetmap.fr/), [GeoPortail](https://www.geoportail.gouv.fr/), [ESRI](https://www.esri.com/) and [Mapiful](https://www.mapiful.com/) providing astonishing data ready to use. A very warm thanks to those heroes!
+All maps are released under [ODbL license](https://opendatacommons.org/licenses/odbl/). MesseMap is using open source maps released by [OpenStreetMap](https://www.openstreetmap.fr/), [GeoPortail](https://www.geoportail.gouv.fr/), [ESRI](https://www.esri.com/) and [Mapiful](https://www.mapiful.com/) providing astonishing data ready to use. A very warm thanks to those heroes!
 
 ## Libraries
 

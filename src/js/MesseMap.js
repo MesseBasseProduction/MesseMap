@@ -1,4 +1,4 @@
-import '../scss/MapPoster.scss';
+import '../scss/MesseMap.scss';
 import './SmoothWheelZoom.js';
 import MapProviders from './MapProviders.js';
 const { jsPDF } = window.jspdf;
@@ -15,16 +15,16 @@ const CONST = {
  * @constructor
  * @public
 **/
-class MapPoster {
+class MesseMap {
 
 
   /**
-   * @summary The MapPoster main component
+   * @summary The MesseMap main component
    * @author Arthur Beaulieu
    * @since October 2022
    * @description
    * <blockquote>
-   * The MapPoster class is made to handle the whole application, its interactivity
+   * The MesseMap class is made to handle the whole application, its interactivity
    * and all its user events. It hold the code to generate the poster output and serve
    * it to the user. (see README.md for further details about used libraries).
    * This constructor will initialize the Leaflet map and all its manipulators and will
@@ -97,7 +97,7 @@ class MapPoster {
    * @method
    * @name _initInterface
    * @private
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since November 2022
    * @description
@@ -161,7 +161,7 @@ class MapPoster {
    * @method
    * @name _initMap
    * @private
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since October 2022
    * @description
@@ -227,7 +227,7 @@ class MapPoster {
    * @method
    * @name _initEvents
    * @private
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since October 2022
    * @description
@@ -292,7 +292,7 @@ class MapPoster {
    * @method
    * @name _updateMapOrientation
    * @private
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since October 2022
    * @description
@@ -327,7 +327,7 @@ class MapPoster {
    * @method
    * @name _updateDarkTheme
    * @private
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since October 2022
    * @description
@@ -352,7 +352,7 @@ class MapPoster {
    * @method
    * @name _updateTextPosition
    * @private
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since October 2022
    * @description
@@ -374,7 +374,7 @@ class MapPoster {
    * @method
    * @name _updateMapStyle
    * @private
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since October 2022
    * @description
@@ -405,7 +405,7 @@ class MapPoster {
    * @method
    * @name _applyTexts
    * @private
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since October 2022
    * @description
@@ -427,7 +427,7 @@ class MapPoster {
    * @method
    * @name _textColorEdit
    * @private
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since October 2022
    * @description
@@ -445,7 +445,7 @@ class MapPoster {
    * @method
    * @name _updateCommentLabel
    * @private
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since October 2022
    * @description
@@ -465,7 +465,7 @@ class MapPoster {
    * @method
    * @name _updateDimensionLabel
    * @private
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since October 2022
    * @description
@@ -504,7 +504,7 @@ class MapPoster {
    * @method
    * @name _searchMatch
    * @private
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since November 2022
    * @description
@@ -522,7 +522,7 @@ class MapPoster {
    * @method
    * @name _updateLang
    * @private
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since November 2022
    * @description
@@ -546,7 +546,7 @@ class MapPoster {
    * @method
    * @name _download
    * @private
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since October 2022
    * @description
@@ -585,7 +585,7 @@ class MapPoster {
    * @method
    * @name _dlPrepareMap
    * @private
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since October 2022
    * @description
@@ -646,7 +646,7 @@ class MapPoster {
    * @method
    * @name _dlPerformMapPrint
    * @private
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since October 2022
    * @description
@@ -668,9 +668,9 @@ class MapPoster {
       requestAnimationFrame(() => {
         // Execute html2canvas with output div
         window.html2canvas(document.getElementById('map-output'), {
+          proxy: "/proxy",
           logging: CONST.DEBUG,
-          useCORS: true,
-          allowTaint: true,
+
           width: document.getElementById('map-output').offsetWidth,
           height: document.getElementById('map-output').offsetHeight,
           imageTimeout: 0,
@@ -691,7 +691,7 @@ class MapPoster {
    * @method
    * @name _dlMap
    * @private
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since October 2022
    * @description
@@ -733,7 +733,7 @@ class MapPoster {
    * @method
    * @name _dlRestoreMap
    * @private
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since October 2022
    * @description
@@ -765,6 +765,7 @@ class MapPoster {
       this._map.invalidateSize();
       this._map.fitBounds(bounds);
       document.getElementById('map-output').style.transition = 'all .2s';
+      document.getElementById('print-progress').style.width = '0';
       if (CONST.DEBUG) { console.log('Map properly restored'); }
     }, 200);
   }
@@ -779,7 +780,7 @@ class MapPoster {
    * @method
    * @name _themeEditModal
    * @private
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since October 2022
    * @description
@@ -851,7 +852,7 @@ class MapPoster {
    * @method
    * @name _creditModal
    * @private
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since October 2022
    * @description
@@ -893,7 +894,7 @@ class MapPoster {
    * @method
    * @name _fetchModal
    * @private
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since October 2022
    * @description
@@ -919,7 +920,7 @@ class MapPoster {
    * @method
    * @name _closeModal
    * @private
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since October 2022
    * @description
@@ -950,7 +951,7 @@ class MapPoster {
    * @method
    * @name getOutputFileType
    * @public
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since October 2022
    * @description
@@ -979,7 +980,7 @@ class MapPoster {
    * @method
    * @name precisionRound
    * @public
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since October 2022
    * @description
@@ -1000,7 +1001,7 @@ class MapPoster {
    * @method
    * @name updateThemeColorInternal
    * @public
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since October 2022
    * @description
@@ -1026,7 +1027,7 @@ class MapPoster {
    * @method
    * @name applyThemeColor
    * @public
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since October 2022
    * @description
@@ -1049,7 +1050,7 @@ class MapPoster {
    * @method
    * @name replaceString
    * @public
-   * @memberof MapPoster
+   * @memberof MesseMap
    * @author Arthur Beaulieu
    * @since October 2022
    * @description
@@ -1068,4 +1069,4 @@ class MapPoster {
 }
 
 
-export default MapPoster;
+export default MesseMap;
