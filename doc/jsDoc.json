@@ -13,8 +13,8 @@
     "dictionaries": ["jsdoc", "closure"]
   },
   "templates": {
-    "name": "HomeMap",
-    "footerText": "HomeMap",
+    "name": "MesseMap",
+    "footerText": "MesseMap",
     "cleverLinks": false,
     "monospaceLinks": false
   },

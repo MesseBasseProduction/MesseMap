@@ -16,7 +16,7 @@ module.exports = {
     path: path.resolve(__dirname, '../assets/dist/'),
     library: 'MesseMap', // We set a library name to bundle the export default of the class
     libraryTarget: 'window', // Make it globally available
-    libraryExport: 'default' // Make MesseMap.default become HomeMap
+    libraryExport: 'default' // Make MesseMap.default become MesseMap
   },
   plugins: [
     new webpack.ProgressPlugin(),

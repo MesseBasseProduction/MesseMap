@@ -11,13 +11,21 @@ It features 7 poster styles, that can all be customized (positioning, colors). I
 
 When exporting the map to disk the user can set the output dimension, the lowest resolution being A7 at 300 dpi (600 x 848) and the highest being A2 at 300 dpi (6500 x 9193). The user can also set the output format, between `.png`, `.jpg`, `.webp` and `.pdf` (exports in PDF are done in the CYMK color space so it's ready to print).
 
+In order to let you try it, we are running an [instance](https://messebasseproduction.github.io/MesseMap/index.html). This instance may not work (yet) with all maps because of tainted canvas and proxy issues. If you want to try this with all available maps, you should run a local instance, by doing the following :
+
+- $ `git clone https://github.com/MesseBasseProduction/MesseMap`
+- $ `cd MesseMap && npm install`
+- $ `npm run build && npm run server`
+
+It will expose the application on your localhost, port 1337.
+
 ## Map data
 
 All maps are released under [ODbL license](https://opendatacommons.org/licenses/odbl/). MesseMap is using open source maps released by [OpenStreetMap](https://www.openstreetmap.fr/), [GeoPortail](https://www.geoportail.gouv.fr/), [ESRI](https://www.esri.com/) and [Mapiful](https://www.mapiful.com/) providing astonishing data ready to use. A very warm thanks to those heroes!
 
 ## Libraries
 
-The map handling is done using [Leaflet.js](https://leafletjs.com/) (BSD-2-Clause license), a Leaflet plugin to enable a smooth zooming, [SmoothWheelZoom](https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom) (MIT license), another Leaflet plugin [Leaflet Control Search](https://github.com/stefanocudini/leaflet-search) (MIT license) to perform searches on the map, it uses [html2canvas](https://html2canvas.hertzen.com/) (MIT license) AND [jsPDF](https://github.com/parallax/jsPDF) (MIT license) to allow the exporting in all supported formats.
+The map handling is done using [Leaflet.js](https://leafletjs.com/) (BSD-2-Clause license), a Leaflet plugin to enable a smooth zooming, [SmoothWheelZoom](https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom) (MIT license), another Leaflet plugin [Leaflet Control Search](https://github.com/stefanocudini/leaflet-search) (MIT license) to perform searches on the map, it uses [html2canvas](https://html2canvas.hertzen.com/) (MIT license), [html2canvas-proxy-nodejs](https://github.com/niklasvh/html2canvas-proxy-nodejs) (MIT License) and [jsPDF](https://github.com/parallax/jsPDF) (MIT license) to allow the exporting in all supported formats.
 
 ## For geeks
 
