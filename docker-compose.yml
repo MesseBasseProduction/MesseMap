@@ -1,0 +1,11 @@
+version: "2"
+services:
+  node:
+    image: "node:8"
+    user: "node"
+    working_dir: ./
+    environment:
+      - NODE_ENV=dev
+    expose:
+      - "1337"
+    command: "npm start"
