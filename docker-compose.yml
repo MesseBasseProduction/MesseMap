@@ -1,16 +1,10 @@
 version: "2"
 services:
-  node:
+  messemap:
     container_name: messemap_node
-    build: 
-      context: .
-      dockerfile: ./Dockerfile
+    build: .
+    command: npm run start
     ports:
       - 1337:1337
-    image: "node:8"
-    working_dir: /MesseMap
     environment:
       - NODE_ENV=prod
-    expose:
-      - "1337"
-    command: "npm start"

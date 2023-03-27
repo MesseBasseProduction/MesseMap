@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --config webpack/webpack.prod.js",
     "watch": "webpack --watch --config webpack/webpack.dev.js",
-    "start": "npm run build && node Server.js",
+    "start": "node Server.js",
     "test": "karma start test/karma.config.js",
     "test-dev": "karma start test/karma.config.js --dev=true",
     "doc": "jsdoc -c doc/jsDoc.json",
