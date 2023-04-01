@@ -3,7 +3,7 @@ const proxy = require('html2canvas-proxy');
 const path = require('path');
 // App and preferences
 const app = express();
-const port = 8091;
+const port = 8010;
 // url definitions
 app.use('/assets', express.static('assets')); // Serve static files
 app.use('/proxy', proxy()); // Proxify external assets for html2canvas

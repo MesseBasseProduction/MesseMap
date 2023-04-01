@@ -5,6 +5,6 @@ services:
     build: .
     command: npm run start
     ports:
-      - 8091:8091
+      - 8010:8010
     environment:
       - NODE_ENV=prod
