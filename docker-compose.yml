@@ -1,10 +1,10 @@
-version: "2"
+version: "3"
 services:
   messemap:
     container_name: messemap_node
     build: .
     command: npm run start
     ports:
-      - 1337:1337
+      - 8091:8091
     environment:
       - NODE_ENV=prod
