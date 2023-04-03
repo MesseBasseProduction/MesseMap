@@ -1,5 +1,6 @@
 {
   "title": "MesseMap",
+  "helper": "Welcome on MesseMap!<br><br>Navigate in the map to find the place you want to display (search bar available), then configure the map base layer and its attributes so it reflect the style you aim for your poster. You can collapse or expand the following options categories for better navigation. Finally, click on the export button and enjoy your freshly made poster!",
   "orientation": "Orientation",
   "vertical": "Vertical",
   "horizontal": "Horizontal",

@@ -1,5 +1,6 @@
 {
   "title": "MesseMap",
+  "helper": "Benvenuto su MesseMap!<br><br>Naviga nella mappa per trovare il luogo che desideri visualizzare (barra di ricerca disponibile), quindi configura il livello di base della mappa e i suoi attributi in modo che riflettano lo stile che desideri per il tuo poster. Puoi comprimere o espandere le seguenti categorie di opzioni per una migliore navigazione. Infine, fai clic sul pulsante Esporta e goditi il tuo poster appena creato!",
   "orientation": "Orientamento",
   "vertical": "Verticale",
   "horizontal": "Orizzontale",
@@ -72,6 +73,7 @@
     "en": "🇬🇧 Inglese",
     "es": "🇪🇸 Spagnolo",
     "de": "🇩🇪 Tedesco",
-    "it": "🇮🇹 Italiano"
+    "it": "🇮🇹 Italiano",
+    "pt": "🇵🇹 Portoghese"
   }
 }

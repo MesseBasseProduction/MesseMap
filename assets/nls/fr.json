@@ -1,5 +1,6 @@
 {
   "title": "MesseMap",
+  "helper": "Bienvenu sur MesseMap!<br><br>Explorez la carte pour trouver votre endroit à cadrer (une barre de recherche est à votre disposition), puis configurez le fond de carte et ses attributs pour qu'il reflète au mieux le style que vous cherchez à appliquer. Vous pouvez étendre ou réduire les catégories suivantes pour facilité la navigation. Finallement, clickez sur exporter pour télécharger votre poster, prêt à l'impression!",
   "orientation": "Orientation",
   "vertical": "Vertical",
   "horizontal": "Horizontal",

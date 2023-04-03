@@ -1,5 +1,6 @@
 {
   "title": "MesseMap",
+  "helper": "Bem-vindo ao MesseMap!<br><br>Navegue no mapa para encontrar o local que deseja exibir (barra de pesquisa disponível) e configure a camada base do mapa e seus atributos para que reflitam o estilo que você deseja para o seu pôster. Você pode recolher ou expandir as seguintes categorias de opções para uma melhor navegação. Por fim, clique no botão de exportação e aproveite seu pôster recém-criado!",
   "orientation": "Orientação",
   "vertical": "Vertical",
   "horizontal": "Horizontal",

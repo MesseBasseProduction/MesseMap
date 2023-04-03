@@ -21,7 +21,7 @@
       </header>
       <hr>
       <section>
-        <p class="aside-helper">Welcome on Messe Map!<br><br>Navigate in the map to find the place you want to display (search bar available), then configure the map base layer and its attributes so it reflect the style you aim for your poster. You can collapse or expand the following options categories for better navigation. Finally, click on the export button and enjoy your freshly made poster!</p>
+        <p class="aside-helper">{{HELPER}}</p>
         <h1 id="toggle-orientation" data-id="toggle-orientation-container">{{ORIENTATION}}<span data-id="toggle-orientation-container" class="toggle">▲</span></h1>
         <div id="toggle-orientation-container" class="orientation-container category expanded">
           <span class="click-item selected" data-orientation="vertical">{{VERTICAL}}</span>
@@ -103,7 +103,7 @@
       <footer>
         <button id="map-save">{{EXPORT_BUTTON}}</button>
         <a href="https://messe-basse-production.com" target="_blank" rel="noopener noreferer">Messe Basse Production</a>
-        <p id="credit-modal" class="credit-link">2022/2023 – {{CREDITS}}</p>
+        <p id="credit-modal" class="credit-link">2022 / 2023 – {{CREDITS}}</p>
       </footer>
     </aside>
     <!-- Map view controls and poster -->
@@ -121,8 +121,8 @@
   <!-- App overlay for modal and loading invite -->
   <div id="modal-overlay" class="modal-overlay"></div>
   <div id="print-overlay" class="print-overlay">
-    <h1>{{DOWNLOAD_TITLE}}</h1>
-    <p>{{DOWNLOAD_SUBTITLE}}</p>
+    <h1>MesseMap</h1>
+    <p><a href="messe-basse-production.com" target="_blank" rel="noopener noreferer">messe-basse-production.com</a></p>
     <p id="print-status"></p>
     <div id="print-progress" class="progress"></div>
   </div>

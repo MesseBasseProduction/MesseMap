@@ -56,6 +56,21 @@ button {
   width: fit-content;
 }
 
+a {
+  cursor: pointer;
+  color: #56d45b;
+  text-align: center;
+  text-decoration: none;
+
+  transition: color .2s;
+
+  &:active,
+  &:focus,
+  &:hover {
+    color: #FF7878;
+  }
+}
+
 .app-wrapper {
   align-items: center;
   background: rgba(20, 20, 20, .1);
@@ -81,7 +96,7 @@ aside {
 
   hr {
     border-top: transparent;    
-    color: white;
+    color: #a1a1a1;
     height: 1px;
     margin: 0 1rem;
 
@@ -1083,21 +1098,6 @@ main {
       text-indent: 2rem;
     }
 
-    a {
-      cursor: pointer;
-      color: #56d45b;
-      text-align: center;
-      text-decoration: none;
-  
-      transition: color .2s;
-  
-      &:active,
-      &:focus,
-      &:hover {
-        color: #FF7878;
-      }
-    }
-
     .lang-selection {
       margin-top: 2rem;
     }
@@ -1144,11 +1144,11 @@ main {
   height: 100%;
   justify-content: center;
   left: 0;
-  opacity: 0;
+  opacity: 1;
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: -1;
+  z-index: 99;
   transition: opacity .2s;
 
   h1, p {

@@ -85,7 +85,7 @@ class MesseMap {
     this._initInterface()
       .then(this._initMap.bind(this))
       .then(this._initEvents.bind(this))
-      .then(() => { if (CONST.DEBUG) { console.log('MesseMap construction done'); } })
+      .then(this._endStartup.bind(this))
       .catch(error => console.error(error));
   }
 
@@ -119,6 +119,7 @@ class MesseMap {
         data.text().then(lang => {
           this._nls = JSON.parse(lang);
           this.replaceString(document.body, '{{TITLE}}', this._nls.title);
+          this.replaceString(document.body, '{{HELPER}}', this._nls.helper);
           this.replaceString(document.body, '{{ORIENTATION}}', this._nls.orientation);
           this.replaceString(document.body, '{{VERTICAL}}', this._nls.vertical);
           this.replaceString(document.body, '{{HORIZONTAL}}', this._nls.horizontal);
@@ -152,8 +153,6 @@ class MesseMap {
           this.replaceString(document.body, '{{EXPORT_BUTTON}}', this._nls.export.button);
           this.replaceString(document.body, '{{CREDITS}}', this._nls.export.credits);
 
-          this.replaceString(document.body, '{{DOWNLOAD_TITLE}}', this._nls.download.title);
-          this.replaceString(document.body, '{{DOWNLOAD_SUBTITLE}}', this._nls.download.subtitle);
           resolve();
         }).catch(reject);
       }).catch(reject);
@@ -289,6 +288,33 @@ class MesseMap {
       this._search.on('search:locationfound', this._searchMatch.bind(this));
 
       resolve();
+    });
+  }
+
+
+  /**
+   * @method
+   * @name _endStartup
+   * @private
+   * @memberof MesseMap
+   * @author Arthur Beaulieu
+   * @since October 2022
+   * @description
+   * <blockquote>
+   * This method will hide the print-overlay, and initialize its values
+   * for later exports after splash screen.
+   * </blockquote>
+   **/
+  _endStartup() {
+    if (CONST.DEBUG) { console.log('MesseMap._endStartup called'); } 
+    return new Promise(resolve => {
+      document.getElementById('print-overlay').style.opacity = 0;
+      setTimeout(() => { 
+        document.getElementById('print-overlay').style.zIndex = -1;
+        document.getElementById('print-overlay').children[0].innerHTML = this._nls.download.title;
+        document.getElementById('print-overlay').children[1].innerHTML = this._nls.download.subtitle;
+        resolve();
+      }, 200);
     });
   }
 
