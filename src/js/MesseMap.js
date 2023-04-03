@@ -203,6 +203,10 @@ class MesseMap {
           textCancel: this._nls.search.cancel,
           textErr: this._nls.search.error
         });
+        this._map.setMaxBounds(window.L.latLngBounds(
+          window.L.latLng(-89.98155760646617, -360),
+          window.L.latLng(89.99346179538875, 360)
+        ));
       } catch (error) {
         // The only error case is Leaflet doesn't exist here
         reject(error);
@@ -210,7 +214,6 @@ class MesseMap {
       }
       // Add default layer in map
       MapProviders.layers['Imagery (E)'].addTo(this._map)
-      document.getElementById('map-attribution').innerHTML = MapProviders.layers['Imagery (E)'].getAttribution();
       // Add layer switch radio on bottom right of the map
       window.L.control.layers(MapProviders.layers, MapProviders.overlays, { position: 'topright' }).addTo(this._map);
       // Add search command
@@ -280,9 +283,6 @@ class MesseMap {
       // Load event on map layers for loaded tiles (to ensure the printing occurs with all map tiles)
       for (const layer in MapProviders.layers) {
         MapProviders.layers[layer].on('load', () => setTimeout(() => this._tilesLoaded = true, 4000));
-        MapProviders.layers[layer].on('add', (e) => {
-          document.getElementById('map-attribution').innerHTML = e.target.getAttribution();
-        });
       }
 
       this._map.on('move', this._updateCommentLabel.bind(this));
@@ -553,7 +553,7 @@ class MesseMap {
    **/
   _searchMatch(data) {
     if (CONST.DEBUG) { console.log('MesseMap._searchMatch() called with ', data); }
-    this._map.setView(data.latlng);
+    this._map.setView(data.latlng, 11.5);
   }
 
 
@@ -922,6 +922,8 @@ class MesseMap {
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_EN}}', this._nls.credit.en);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_ES}}', this._nls.credit.es);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_DE}}', this._nls.credit.de);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_IT}}', this._nls.credit.it);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_PT}}', this._nls.credit.pt);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_CLOSE}}', this._nls.action.close);
         // Lang update
         document.getElementById('lang').value = this._lang;

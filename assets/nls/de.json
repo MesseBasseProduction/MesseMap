@@ -9,16 +9,16 @@
   "style": {
     "title": "Stil",
     "mapStyle": "Kartenlayout",
-    "darkTheme": "Dark theme",
+    "darkTheme": "Dunkles Thema",
     "upText": "Text oben",
     "std": "Standard",
-    "travel": "Travel",
-    "frame": "Frame",
-    "pure": "Pure",
+    "travel": "Reisen",
+    "frame": "Rahmen",
+    "pure": "Rein",
     "pantone": "Pantone",
-    "map": "Map",
-    "window": "Window",
-    "air": "Air",
+    "map": "Karte",
+    "window": "Fenster",
+    "air": "Luft",
     "hipster": "Hipster"
   },
   "text": {
@@ -59,18 +59,20 @@
     "darkTheme": "Dunkles Motiv",
     "bg": "Hintergrund",
     "txt": "Text",
-    "txtAlt": "Alternative Texte",
+    "txtAlt": "Alternativer Text",
     "default": "Auf Standardwerte zurücksetzen"
   },
   "credit": {
     "line1": "Eine App vorgeschlagen von <a href=\"https://messe-basse-production.com\" target=\"_blank\" rel=\"noopener noreferer\">Messe Basse Production</a>. Keine Cookies, keine Tracker, hier bist du sicher unterwegs.",
-    "line2": "Karten werden freundlicherweise erstellt von <a href=\"https://www.openstreetmap.fr/\" target=\"_blank\" rel=\"noopener noreferer\">OpenStreetMap</a>, <a href=\"https://www.geoportail.gouv.fr/\" target=\"_blank\" rel=\"noopener noreferer\">GeoPortail</a>, <a href=\"https://www.esri.com/\" target=\"_blank\" rel=\"noopener noreferer\">ESRI</a> et <a href=\"https://www.mapiful.com/\" target=\"_blank\" rel=\"noopener noreferer\">Mapiful</a>. Wir sind diesen Anbietern sehr dankbar.",
-    "line3": "MesseMap ist lizensiert mit der GPL-3.0 Open Source Lizenz, und basiert auf den Bibliotheken <a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet</a>, <a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">SmoothWheelZoom</a>, <a href=\"https://html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a> und <a href=\"https://github.com/parallax/jsPDF/\" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>.",
-    "line4": "Der Quellcode dieser Anwendung ist verfügbar auf dem <a href=\"https://github.com/MesseBasseProduction/MesseMap/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a> Repository. Jeder Beitrag ist willkommen!",
+    "line2": "Karten werden freundlicherweise erstellt von <a href=\"https://www.openstreetmap.fr/\" target=\"_blank\" rel=\"noopener noreferer\">OpenStreetMap</a>, <a href=\"https://www.geoportail.gouv.fr/\" target=\"_blank\" rel=\"noopener noreferer\">GeoPortail</a>, <a href=\"https://www.esri.com/\" target=\"_blank\" rel=\"noopener noreferer\">ESRI</a>, <a href=\"http://stamen.com\" target=\"_blank\" rel=\"noopener noreferer\">Stamen Design</a>, <a href=\"https://carto.com/attributions\" target=\"_blank\" rel=\"noopener noreferer\">Carto</a> und <a href=\"https://www.mapiful.com/\" target=\"_blank\" rel=\"noopener noreferer\">Mapiful</a>, veröffentlicht unter <a href=\"http://www.openstreetmap.org/copyright\" target=\"_blank\" rel=\"noopener noreferer\">ODbL</a>-Lizenz. Wir sind diesen Anbietern sehr dankbar.",
+    "line3": "Kartendaten werden freundlicherweise von ESRI, i-cubed, Mapiful, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, OpenStreetMap, Carto, Stamen Design und der GIS User Community zur Verfügung gestellt.",
+    "line4": "MesseMap ist lizensiert mit der GPL-3.0 Open Source Lizenz, und basiert auf den Bibliotheken <a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet</a>, <a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet.SmoothWheelZoom</a>, <a href=\"https://github.com/stefanocudini/leaflet-search\" target=\"_blank\" rel=\"noopener noreferer\">leaflet-search</a> <a href=\"https://html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a> und <a href=\"https://github.com/parallax/jsPDF/\" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>. Der Quellcode dieser Anwendung ist verfügbar auf dem <a href=\"https://github.com/MesseBasseProduction/MesseMap/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a> Repository. Jeder Beitrag ist willkommen!",
     "lang": "Schnittstellensprache",
     "fr": "🇫🇷 Französisch",
     "en": "🇬🇧 Englisch",
     "es": "🇪🇸 Spanisch",
-    "de": "🇩🇪 Deutsch"
+    "de": "🇩🇪 Deutsch",
+    "it": "🇮🇹 Italienisch",
+    "pt": "🇵🇹 Portugiesisch"
   }
 }

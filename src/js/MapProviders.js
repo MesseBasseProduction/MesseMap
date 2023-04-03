@@ -1,27 +1,28 @@
 const params = {
   osm: {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    minZoom: 1,
+    minZoom: 2,
     maxZoom: 19
   },
   esri: {
     attribution: 'Map tiles by <a href="https://www.esri.com/">Esri</a> &mdash; Map data &copy; Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
-    minZoom: 1,
+    minZoom: 2,
     maxZoom: 18
   },
   carto: {
     attribution: 'Map tiles by <a href="https://carto.com/attributions">Carto</a> under <a href="http://www.openstreetmap.org/copyright">ODbL</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     subdomains: 'abcd',
+    minZoom: 2,
     maxZoom: 20
   },
   stamen: {
     attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a> under <a href="http://www.openstreetmap.org/copyright">ODbL</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    minZoom: 1,
+    minZoom: 2,
     maxZoom: 16
   },
   mapiful: {
     attribution: 'Map tiles by <a href="http://mapiful.com">Mapiful</a> under <a href="http://www.openstreetmap.org/copyright">ODbL</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
-    minZoom: 1,
+    minZoom: 2,
     maxZoom: 21
   }
 };

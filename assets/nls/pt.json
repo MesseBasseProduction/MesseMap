@@ -1,0 +1,78 @@
+{
+  "title": "MesseMap",
+  "orientation": "Orientação",
+  "vertical": "Vertical",
+  "horizontal": "Horizontal",
+  "action": {
+    "close": "Fechar"
+  },
+  "style": {
+    "title": "Estilo",
+    "mapStyle": "Layout do mapa",
+    "darkTheme": "Tema escuro",
+    "upText": "Texto para cima",
+    "std": "Padrão",
+    "travel": "Viagem",
+    "frame": "Quadro",
+    "pure": "Puro",
+    "pantone": "Pantone",
+    "map": "Mapa",
+    "window": "Janela",
+    "air": "Ar",
+    "hipster": "Hipster"
+  },
+  "text": {
+    "title": "Texto",
+    "mapTitle": "Título",
+    "mapTitlePlaceholder": "Título do mapa",
+    "mapSubtitle": "Legenda",
+    "mapSubtitlePlaceholder": "Legenda do mapa",
+    "mapComment": "Comentário",
+    "mapCommentPlaceholder": "Um comentário sobre o mapa"
+  },
+  "export": {
+    "title": "Exportar configurações",
+    "dimension": "Dimensão",
+    "at": "no",
+    "format": "Formato de arquivo",
+    "button": "Exportar",
+    "credits": "Créditos"
+  },
+  "download": {
+    "title": "Seu pôster está sendo preparado",
+    "subtitle": "Aguarde enquanto o aplicativo coleta todos os dados necessários",
+    "stylePrep": "Preparando o estilo do mapa para a exportação...",
+    "tileLoad": "Aguardando o carregamento de todos os blocos de mapa...",
+    "printStart": "Blocos carregados, exportação iniciada...",
+    "outputFile": "Criando arquivo de saída...",
+    "saveToDisk": "Exportação concluída. Atualmente salvando a imagem no disco...",
+    "restoreMap": "Restaurar o estado inicial do mapa..."
+  },
+  "search": {
+    "placeholder": "Procurar...",
+    "cancel": "Cancelar",
+    "error": "Nenhum resultado..."
+  },
+  "theme": {
+    "title": "Modificação do tema",
+    "lightTheme": "Tema claro",
+    "darkTheme": "Tema escuro",
+    "bg": "Fundo",
+    "txt": "Texto",
+    "txtAlt": "Texto alternativo",
+    "default": "Restaurar para o padrão"
+  },
+  "credit": {
+    "line1": "Um aplicativo proposto por <a href=\"https://messe-basse-production.com\" target=\"_blank\" rel=\"noopener noreferer\">Messe Basse Production</a>. Sem cookies, sem rastreadores, você está navegando com segurança aqui.",
+    "line2": "Blocos de mapas são gentilmente feitos por <a href=\"https://www.openstreetmap.fr/\" target=\"_blank\" rel=\"noopener noreferer\">OpenStreetMap</a>, <a href= \"https://www.geoportail.gouv.fr/\" target=\"_blank\" rel=\"noopener noreferer\">GeoPortail</a>, <a href=\"https://www. esri.com/\" target=\"_blank\" rel=\"noopener noreferer\">ESRI</a>, <a href=\"http://stamen.com\" target=\"_blank\" rel=\"noopener noreferer\">Stamen Design</a>, <a href=\"https://carto.com/attributions\" target=\"_blank\" rel=\"noopener noreferer\">Carto </a> e <a href=\"https://www.mapiful.com/\" target=\"_blank\" rel=\"noopener noreferer\">Mapiful</a>, em <a href= \"http://www.openstreetmap.org/copyright\" target=\"_blank\" rel=\"noopener noreferer\">ODbL</a> licença. Somos muito gratos a esses provedores.",
+    "line3": "Os dados do mapa são gentilmente fornecidos por ESRI, i-cubed, Mapiful, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, OpenStreetMap, Carto, Stamen Design e GIS User Community",
+    "line4": "O MesseMap é licenciado com a licença de código aberto GPL-3.0 e depende das bibliotecas <a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Folheto</ a>, <a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet.SmoothWheelZoom</a>, <a href=\"https://github.com/stefanocudini/leaflet-search\" target=\"_blank\" rel=\"noopener noreferer\">folheto-pesquisa</a> <a href=\"https: //html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a> e <a href=\"https://github.com/parallax/jsPDF/ \" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>. O código-fonte deste aplicativo está disponível no <a href=\"https://github.com/MesseBasseProduction/MesseMap/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a > repositório, qualquer contribuição de qualquer tipo é bem vinda!",
+    "lang": "Linguagem",
+    "fr": "🇫🇷 Francês",
+    "en": "🇬🇧 Inglês",
+    "es": "🇪🇸 Espanhol",
+    "de": "🇩🇪 Alemão",
+    "it": "🇮🇹 Italiano",
+    "pt": "🇵🇹 Português"
+  }
+}

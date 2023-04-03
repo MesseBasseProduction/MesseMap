@@ -233,7 +233,7 @@ aside {
           display: flex;
     
           input {
-            margin-right: 1rem;        
+            margin-left: 1rem;        
           }
     
           div {
@@ -342,17 +342,6 @@ main {
   position: absolute;
   top: 0;
   width: calc(100% - 36rem);
-
-  .map-attribution {
-    bottom: 0;
-    font-size: 1.1rem;
-    left: 50%;
-    padding: 1rem 0 ;
-    position: absolute;
-    text-align: center;
-    transform: translateX(-50%);
-    width: 100%;
-  }
 }
 
 .map-container {

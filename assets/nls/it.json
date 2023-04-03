@@ -1,0 +1,77 @@
+{
+  "title": "MesseMap",
+  "orientation": "Orientamento",
+  "vertical": "Verticale",
+  "horizontal": "Orizzontale",
+  "action": {
+    "close": "Vicino"
+  },
+  "style": {
+    "title": "Stile",
+    "mapStyle": "Disposizione della mappa",
+    "darkTheme": "Tema scuro",
+    "upText": "Testo in alto",
+    "std": "Standard",
+    "travel": "Viaggio",
+    "frame": "Telaio",
+    "pure": "Puro",
+    "pantone": "Pantoni",
+    "map": "Carta geografica",
+    "window": "Finestra",
+    "air": "Aria",
+    "hipster": "Hipster"
+  },
+  "text": {
+    "title": "Testi",
+    "mapTitle": "Titolo",
+    "mapTitlePlaceholder": "Titolo della mappa",
+    "mapSubtitle": "Sottotitolo",
+    "mapSubtitlePlaceholder": "Sottotitolo della mappa",
+    "mapComment": "Commento",
+    "mapCommentPlaceholder": "Un commento sulla mappa"
+  },
+  "export": {
+    "title": "Impostazioni di esportazione",
+    "dimension": "Dimensione",
+    "at": "a",
+    "format": "Formato del file",
+    "button": "Esportare",
+    "credits": "Crediti"
+  },
+  "download": {
+    "title": "Il tuo poster è in fase di preparazione",
+    "subtitle": "Attendi mentre l'app sta raccogliendo tutti i dati richiesti",
+    "stylePrep": "Preparazione dello stile della mappa per l'esportazione...",
+    "tileLoad": "In attesa del caricamento di tutti i riquadri della mappa...",
+    "printStart": "Piastrelle caricate, esportazione avviata...",
+    "outputFile": "Creazione del file di output...",
+    "saveToDisk": "Esportazione effettuata. Salvataggio in corso dell'immagine su disco...",
+    "restoreMap": "Ripristina lo stato iniziale della mappa..."
+  },
+  "search": {
+    "placeholder": "Ricerca...",
+    "cancel": "Annulla",
+    "error": "Nessun risultato..."
+  },
+  "theme": {
+    "title": "Modifica del tema",
+    "lightTheme": "Tema chiaro",
+    "darkTheme": "Tema scuro",
+    "bg": "Sfondo",
+    "txt": "Testo",
+    "txtAlt": "Testo alternato",
+    "default": "Ripristina impostazioni predefinite"
+  },
+  "credit": {
+    "line1": "Un'app proposta da <a href=\"https://messe-basse-production.com\" target=\"_blank\" rel=\"noopener noreferer\">Messe Basse Production</a>. Nessun cookie, nessun tracker, stai navigando in sicurezza qui.",
+    "line2": "I riquadri delle mappe sono gentilmente realizzati da <a href=\"https://www.openstreetmap.fr/\" target=\"_blank\" rel=\"noopener noreferer\">OpenStreetMap</a>, <a href= \"https://www.geoportail.gouv.fr/\" target=\"_blank\" rel=\"noopener noreferer\">GeoPortail</a>, <a href=\"https://www. esri.com/\" target=\"_blank\" rel=\"noopener noreferer\">ESRI</a>, <a href=\"http://stamen.com\" target=\"_blank\" rel=\"noopener noreferer\">Stame Design</a>, <a href=\"https://carto.com/attributions\" target=\"_blank\" rel=\"noopener noreferer\">Carto </a> e <a href=\"https://www.mapiful.com/\" target=\"_blank\" rel=\"noopener noreferer\">Mapiful</a>, sotto <a href= \"http://www.openstreetmap.org/copyright\" target=\"_blank\" rel=\"noopener noreferer\">ODbL</a> licenza. Siamo molto grati a quei fornitori.",
+    "line3": "I dati cartografici sono gentilmente forniti da ESRI, i-cubed, Mapiful, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, OpenStreetMap, Carto, Stamen Design e la comunità di utenti GIS.",
+    "line4": "MesseMap è concesso in licenza con licenza open source GPL-3.0 e si basa sulle librerie <a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet</ a>, <a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet.SmoothWheelZoom</a>, <a href=\"https://github.com/stefanocudini/leaflet-search\" target=\"_blank\" rel=\"noopener noreferer\">leaflet-search</a> <a href=\"https: //html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a> e <a href=\"https://github.com/parallax/jsPDF/ \" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>. Il codice sorgente di questa app è disponibile su <a href=\"https://github.com/MesseBasseProduction/MesseMap/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a > repository, qualsiasi contributo di qualsiasi tipo è il benvenuto!",
+    "lang": "Lingua",
+    "fr": "🇫🇷 Francese",
+    "en": "🇬🇧 Inglese",
+    "es": "🇪🇸 Spagnolo",
+    "de": "🇩🇪 Tedesco",
+    "it": "🇮🇹 Italiano"
+  }
+}
