@@ -8,6 +8,7 @@
   },
   "style": {
     "title": "Style",
+    "mapStyle": "Format des éléments",
     "darkTheme": "Dark theme",
     "upText": "Up text",
     "std": "Standard",

@@ -8,6 +8,7 @@
   },
   "style": {
     "title": "Estilo",
+    "mapStyle": "Diseño del mapa",
     "darkTheme": "Tema oscuro",
     "upText": "Poner texto encima",
     "std": "Estándar",

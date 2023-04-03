@@ -1,6 +1,6 @@
 # MesseMap
 
-![](https://badgen.net/badge/version/0.0.8/blue)
+![](https://badgen.net/badge/version/1.0.0/blue)
 [![License](https://img.shields.io/github/license/MesseBasseProduction/MesseMap.svg)](https://github.com/MesseBasseProduction/MesseMap/blob/master/LICENSE.md)
 ![https://messebasseproduction.github.io/MesseMap/doc/index.html](https://badgen.net/badge/documentation/written/green)
 ![](https://badgen.net/badge/test/wip/red)
@@ -17,7 +17,7 @@ In order to let you try it, we are running an [instance](https://messebasseprodu
 - $ `cd MesseMap && npm install`
 - $ `npm run build && npm run server`
 
-It will expose the application on your localhost, port 1337.
+It will expose the application on your localhost, port 8010.
 
 ## Map data
 

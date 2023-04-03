@@ -48,40 +48,12 @@ body {
   font-size: 1.2rem;
 }
 
-input[type="checkbox"].switch {
-  appearance: none;
+button {
   cursor: pointer;
-	height: calc(1.2rem + 2px);
-	background-color: rgb(255, 107, 103);
-  border: solid 1px rgb(127, 127, 127);
-	border-radius: 3rem;
-  margin: 0;
-	position: relative;
-	outline: none;
-  user-select: none;
-  width: 3rem;
-	transition: all .3s ease-in-out;
-
-  &::after {
-    content: '';
-    background: white;
-    border-radius: 50%;
-    box-shadow: 0 0 .25rem rgba(0, 0, 0, .9);
-    height: 1.2rem;
-    left: 0;
-    position: absolute;
-    transform: scale(.7);
-    width: 1.2rem;
-    transition: all .3s ease-in-out;
-  }
-
-  &:checked {
-    background-color: rgb(86, 212, 91);
-  }
-
-  &:checked::after {
-    left: calc(100% - 1.2rem);
-  }
+  margin: 1rem;
+  margin-top: 0;
+  padding: .5rem 2rem;
+  width: fit-content;
 }
 
 .app-wrapper {
@@ -95,7 +67,7 @@ input[type="checkbox"].switch {
   width: 100%;
 }
 
-aside.editor-wrapper {
+aside {
   background-color: #333;
   box-shadow: .5rem 0px 2rem rgba(0, 0, 0, .3);
   color: #fff;
@@ -103,103 +75,18 @@ aside.editor-wrapper {
   flex-direction: column;
   height: 100%;
   left: 0;
-  padding: 2rem;
   position: absolute;
   top: 0;
-  width: 30rem;
+  width: 36rem;
 
-  h1 {
-    margin-bottom: 1rem;
+  hr {
+    border-top: transparent;    
+    color: white;
+    height: 1px;
+    margin: 0 1rem;
 
-    &.title {
-      text-align: center;
-      font-size: 2.8rem;
-      padding-bottom: 2rem;
-      border-bottom: solid 1px white;
-      margin-bottom: 2rem;
-    }
-  }
-
-  .map-style, .map-orientation {
-    display: flex;
-    flex-wrap: wrap;
-    grid-gap: 1rem;
-    justify-content: space-between;
-    margin-bottom: 2rem;
-
-    span {
-      border: solid 1px white;
-      border-radius: .5rem;      
-      color: inherit;
-      cursor: pointer;
-      padding: .2rem .8rem;
-      transition: all .2s;
-    }
-
-    .selected {
-      border-color: #56d45b;
-      color: #56d45b;
-    }
-  }
-
-  .map-orientation {
-    justify-content: left;
-
-    span {
-      margin: 0 .5rem;
-
-      &:first-child {
-        margin-left: 0;
-      }
-
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-  }
-
-  .dark-theme-wrapper, .txt-position-wrapper {
-    display: flex;
-    justify-content: space-between;
-    margin: 0 0 1rem;
-
-    div.theme-input-holder {
-      display: flex;
-
-      input {
-        margin-right: 1rem;        
-      }
-
-      div {
-        cursor: pointer;
-        width: calc(1.2rem + 2px);
-      }
-    }
-  }
-  
-  label {
-    font-style: italic;
-    margin-left: .5rem;
-  }
-
-  .input-with-color {
-    align-items: center;
-    display: flex;
-    height: 3rem;
-    margin: .2rem 0;
-    margin-bottom: 1rem;    
-    width: 100%;
-
-    input[type="text"] {
-      background-color: transparent;
-      border: solid 1px;
-      border-color: white;
-      color: white;
-      border-radius: .3rem;      
-      height: 100%;
-      margin-right: .5rem;
-      padding-left: 1rem;
-      width: inherit;
+    &:first-of-type {
+      margin-top: 2rem;
     }
 
     &:last-of-type {
@@ -207,53 +94,240 @@ aside.editor-wrapper {
     }
   }
 
-  .text-edit {
-    aspect-ratio: 1 / 1;
-    background-color: transparent;
-    border: solid 1px;
-    border-color: white;
-    border-radius: .3rem;
-    cursor: pointer;
-    height: 3rem;
-    width: 3rem;
-  }
+  header {
+    padding-top: 2rem;
 
-  hr {
-    border-top: transparent;    
-    color: white;
-    height: 1px;
-    margin-bottom: 2rem;
-  }
-
-  fieldset {
-    border: solid 1px;
-    border-color: white;
-    border-radius: .3rem;    
-    margin: 2rem 0;
-  }
-
-  button {
-    cursor: pointer;
-    margin-bottom: auto;
-  }
-
-  /* Credit link */
-  a, .credit-link {
-    cursor: pointer;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-
-    transition: color .2s;
-
-    &:active,
-    &:focus,
-    &:hover {
-      color: #56d45b;
+    h1 {
+      font-size: 2.8rem;
+      margin: 0;
+      padding: 0 1rem;
+      text-align: center;
     }
+  }
 
-    &:first-child {
-      margin-top: 1rem;      
+  section {
+    margin-top: auto;
+    margin-bottom: auto;
+    overflow-y: auto;
+    /* Header text to describe what to do in MesseMap */
+    .aside-helper {
+      font-size: 1.4rem;
+      margin-bottom: 4rem;
+      margin-top: 2rem;
+      padding: 0 1rem;
+      text-align: center;
+    }
+    /* Category title */
+    h1 {
+      cursor: pointer;
+      display: flex;
+      font-size: 2.2rem;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      padding: 0 1.5rem;
+  
+      span {
+        user-select: none;
+      }
+    }
+    /* Category baseline class*/
+    .category {
+      height: 0;
+      overflow: hidden;
+  
+      &.expanded {
+        height: auto;
+      }
+
+      /* Input label inside categories */
+      label {
+        font-style: italic;
+        margin-left: 1rem;
+      }
+    }
+    /* Item that can be selected (radio buttons) */
+    .click-item {
+      border: solid 1px white;
+      border-radius: .5rem;      
+      color: inherit;
+      cursor: pointer;
+      padding: .2rem .8rem;
+      transition: all .2s;
+
+      &.selected {
+        border-color: #56d45b;
+        color: #56d45b;
+      }
+    }
+    /* Specific to orientation category */
+    .orientation-container {
+      display: flex;
+      flex-wrap: wrap;
+      grid-gap: .5rem;
+      justify-content: flex-start;
+      margin: 0;
+      padding: 0 1rem;
+  
+      span {
+        margin-bottom: 2rem;
+      }
+    }
+    /* Specific to style category */
+    .style-container {
+      input[type="checkbox"].switch {
+        appearance: none;
+        cursor: pointer;
+        height: calc(1.2rem + 2px);
+        background-color: rgb(255, 107, 103);
+        border: solid 1px rgb(127, 127, 127);
+        border-radius: 3rem;
+        margin: 0;
+        position: relative;
+        outline: none;
+        user-select: none;
+        width: 3rem;
+        transition: all .3s ease-in-out;
+      
+        &::after {
+          content: '';
+          background: white;
+          border-radius: 50%;
+          box-shadow: 0 0 .25rem rgba(0, 0, 0, .9);
+          height: 1.2rem;
+          left: 0;
+          position: absolute;
+          transform: scale(.7);
+          width: 1.2rem;
+          transition: all .3s ease-in-out;
+        }
+      
+        &:checked {
+          background-color: rgb(86, 212, 91);
+        }
+      
+        &:checked::after {
+          left: calc(100% - 1.2rem);
+        }
+      }
+
+      .map-style {
+        display: flex;
+        flex-wrap: wrap;
+        grid-gap: .5rem;
+        justify-content: flex-start;
+        margin: .2rem 0 1rem;
+        padding: 0 1rem;
+      }
+
+      .dark-theme-wrapper, .txt-position-wrapper {
+        display: flex;
+        justify-content: space-between;
+        margin: 0 0 1rem;
+        padding: 0 1rem;
+    
+        label {
+          margin: 0;
+        }
+
+        div.theme-input-holder {
+          display: flex;
+    
+          input {
+            margin-right: 1rem;        
+          }
+    
+          div {
+            cursor: pointer;
+            width: calc(1.2rem + 2px);
+          }
+        }
+      }
+
+      .txt-position-wrapper {
+        margin-bottom: 2rem;
+      }
+    }
+    /* Specific to texts category */
+    .texts-container {
+      .input-with-color {
+        align-items: center;
+        display: flex;
+        height: 2.5rem;
+        margin: .2rem 0;
+        margin-bottom: 1rem;
+        padding: 0 1rem;
+        width: 100%;
+    
+        &:last-of-type {
+          margin-bottom: 2rem;
+        }
+
+        input[type="text"] {
+          background-color: transparent;
+          border: solid 1px;
+          border-color: #a1a1a1;
+          color: white;
+          border-top-left-radius: .3rem;
+          border-bottom-left-radius: .3rem;
+          font-weight: bold;
+          height: 100%;
+          width: inherit;
+        }
+
+        .text-edit {
+          aspect-ratio: 1 / 1;
+          background-color: transparent;
+          border: solid 1px;
+          border-color: #a1a1a1;
+          border-left: none;
+          border-top-right-radius: .3rem;
+          border-bottom-right-radius: .3rem;
+          cursor: pointer;
+          height: 100%;
+          padding: .2rem;
+          width: 2.5rem;
+        }
+      }
+    }
+    /* Specific to export category */
+    .export-container {
+      input[type="range"] {
+        margin: 0 1rem;
+        width: calc(100% - 2rem);
+      }
+    
+      fieldset {
+        border: solid 1px;
+        border-color: #a1a1a1;
+        border-radius: .3rem;    
+        margin: 2rem 1rem;
+      }
+    }
+  }
+
+  footer {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 2rem;
+    /* Credit link */
+    a, .credit-link {
+      cursor: pointer;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+
+      transition: color .2s;
+
+      &:active,
+      &:focus,
+      &:hover {
+        color: #56d45b;
+      }
+
+      &:first-child {
+        margin-top: 1rem;      
+      }
     }
   }
 }
@@ -264,10 +338,10 @@ main {
   flex-direction: column;
   height: 100%;
   justify-content: center;
-  left: 30rem;
+  left: 36rem;
   position: absolute;
   top: 0;
-  width: calc(100% - 30rem);
+  width: calc(100% - 36rem);
 
   .map-attribution {
     bottom: 0;
@@ -866,7 +940,7 @@ main {
 
   &.hipster-style {
     --padding: 1rem;
-    --thick-border: 3px;
+    --thick-border: 1px;
     --small-border: 1px;
 
     padding: var(--padding);
@@ -962,10 +1036,10 @@ main {
   transition: opacity .2s;
 
   [class$="-modal"] {
-		background: rgba(255, 255, 255, .9);
+		background: rgb(255, 255, 255);
 		border-radius: .5rem;
 		box-shadow: 0px 0px 10px #424242;
-		padding: 3rem 4rem;
+		padding: 3rem;
 		position: relative;
 		text-align: center;
 
@@ -975,6 +1049,7 @@ main {
 
 		button {
 			margin-top: 3rem;
+      margin-bottom: 0;
 		}
 
 		.modal-close {
@@ -1032,6 +1107,10 @@ main {
       &:hover {
         color: #FF7878;
       }
+    }
+
+    .lang-selection {
+      margin-top: 2rem;
     }
   }
   

@@ -5,7 +5,7 @@ const { jsPDF } = window.jspdf;
 
 
 const CONST = {
-  VERSION: '0.0.8',
+  VERSION: '1.0.0',
   DEBUG: false
 };
 
@@ -32,6 +32,7 @@ class MesseMap {
    * </blockquote>
    **/
   constructor() {
+    if (CONST.DEBUG) { console.log('MesseMap constructor called'); }
     /**
      * The core Leaflet.js map
      * @type {Object}
@@ -84,6 +85,7 @@ class MesseMap {
     this._initInterface()
       .then(this._initMap.bind(this))
       .then(this._initEvents.bind(this))
+      .then(() => { if (CONST.DEBUG) { console.log('MesseMap construction done'); } })
       .catch(error => console.error(error));
   }
 
@@ -107,6 +109,7 @@ class MesseMap {
    * @returns {Promise} A resolved or rejected Promise
    **/
   _initInterface() {
+    if (CONST.DEBUG) { console.log('MesseMap._initInterface() called'); }
     return new Promise((resolve, reject) => {
       if (!localStorage.getItem('lang')) {
         localStorage.setItem('lang', this._lang);
@@ -121,6 +124,7 @@ class MesseMap {
           this.replaceString(document.body, '{{HORIZONTAL}}', this._nls.horizontal);
 
           this.replaceString(document.body, '{{STYLE}}', this._nls.style.title);
+          this.replaceString(document.body, '{{MAP_STYLE}}', this._nls.style.mapStyle);
           this.replaceString(document.body, '{{STYLE_STD}}', this._nls.style.std);
           this.replaceString(document.body, '{{STYLE_TRAVEL}}', this._nls.style.travel);
           this.replaceString(document.body, '{{STYLE_FRAME}}', this._nls.style.frame);
@@ -175,6 +179,7 @@ class MesseMap {
    * @returns {Promise} A resolved or rejected Promise
    **/
    _initMap() {
+    if (CONST.DEBUG) { console.log('MesseMap._initMap() called'); }
     return new Promise((resolve, reject) => {
       try {
         // Use #map div to inject Leaflet in, use SmoothWheelZoom flags
@@ -210,8 +215,8 @@ class MesseMap {
       window.L.control.layers(MapProviders.layers, MapProviders.overlays, { position: 'topright' }).addTo(this._map);
       // Add search command
       this._map.addControl(this._search);
-      // Apply default input text to poster
-      this._applyTexts();
+      // Apply default input text to poster, empty object
+      this._applyTexts({});
       // Load user theme overrides
       const cssTheme = localStorage.getItem('theme');
       if (cssTheme && JSON.parse(cssTheme)) {
@@ -239,12 +244,16 @@ class MesseMap {
    * @returns {Promise} A resolved Promise
    **/
   _initEvents() {
+    if (CONST.DEBUG) { console.log('MesseMap._initEvents() called'); }
     return new Promise(resolve => {
-      // Map style
-      const orientations = document.getElementById('map-orientation');
+      // Orientation
+      document.getElementById('toggle-orientation').addEventListener('click', this._toggleCategory.bind(this));
+      const orientations = document.getElementById('toggle-orientation-container');
       for (let i = 0; i < orientations.children.length; ++i) {
         orientations.children[i].addEventListener('click', this._updateMapOrientation.bind(this));
       }
+      // Style
+      document.getElementById('toggle-style').addEventListener('click', this._toggleCategory.bind(this));
       const styles = document.getElementById('map-style');
       for (let i = 0; i < styles.children.length; ++i) {
         styles.children[i].addEventListener('click', this._updateMapStyle.bind(this));
@@ -253,19 +262,20 @@ class MesseMap {
       document.getElementById('txt-position').addEventListener('change', this._updateTextPosition.bind(this));
       document.getElementById('theme-editor').addEventListener('click', this._themeEditModal.bind(this));
       // Text modification events (color, style etc.)
+      document.getElementById('toggle-texts').addEventListener('click', this._toggleCategory.bind(this));
       document.getElementById('title-color').addEventListener('input', this._textColorEdit.bind(this));
       document.getElementById('subtitle-color').addEventListener('input', this._textColorEdit.bind(this));
       document.getElementById('comment-color').addEventListener('input', this._textColorEdit.bind(this));
-      // Listening to close modal event
-      document.getElementById('modal-overlay').addEventListener('click', this._closeModal.bind(this));
-      // Input text events
       document.getElementById('user-title').addEventListener('input', this._applyTexts.bind(this));
       document.getElementById('user-subtitle').addEventListener('input', this._applyTexts.bind(this));
       document.getElementById('user-comment').addEventListener('input', this._applyTexts.bind(this));
       // Export settings
+      document.getElementById('toggle-export').addEventListener('click', this._toggleCategory.bind(this));
       document.getElementById('image-width').addEventListener('input', this._updateDimensionLabel.bind(this));
       document.getElementById('map-save').addEventListener('click', this._download.bind(this));
 
+      // Listening to close modal event
+      document.getElementById('modal-overlay').addEventListener('click', this._closeModal.bind(this));
       document.getElementById('credit-modal').addEventListener('click', this._creditModal.bind(this));
       // Load event on map layers for loaded tiles (to ensure the printing occurs with all map tiles)
       for (const layer in MapProviders.layers) {
@@ -302,8 +312,9 @@ class MesseMap {
    * @param {Event} e - The click event on the theme checkbox
    **/
   _updateMapOrientation(e) {
+    if (CONST.DEBUG) { console.log('MesseMap._updateMapOrientation() called with ', e); }
     let previousOrientation = '';
-    const orientations = document.getElementById('map-orientation');
+    const orientations = document.getElementById('toggle-orientation-container');
     for (let i = 0; i < orientations.children.length; ++i) {
       if (orientations.children[i].classList.contains('selected')) {
         previousOrientation = orientations.children[i].dataset.orientation;
@@ -323,6 +334,26 @@ class MesseMap {
   }
 
 
+  _toggleCategory(e) {
+    if (CONST.DEBUG) { console.log('MesseMap._toggleCategory() called with ', e); }
+    const element = document.getElementById(e.target.dataset.id);
+    if (element) {
+      element.classList.toggle('expanded');
+      // Select the span inside h1 if not the one clicked
+      let expandCollapse = e.target;
+      if (expandCollapse.className !== 'toggle') {
+        expandCollapse = expandCollapse.lastElementChild;
+      }
+      // Update expand/collapse text
+      if (element.classList.contains('expanded')) {
+        expandCollapse.innerHTML = '▲';
+      } else {
+        expandCollapse.innerHTML = '▼';
+      }
+    }
+  }
+
+
   /**
    * @method
    * @name _updateDarkTheme
@@ -338,6 +369,7 @@ class MesseMap {
    * @param {Event} e - The change event on the theme checkbox
    **/
   _updateDarkTheme(e) {
+    if (CONST.DEBUG) { console.log('MesseMap._updateDarkTheme() called with ', e); }
     if (e.target.checked) {
       document.body.classList.remove('light-theme');
       document.body.classList.add('dark-theme');
@@ -362,6 +394,7 @@ class MesseMap {
    * @param {Event} e - The change event on the up text checkbox
    **/
   _updateTextPosition(e) {
+    if (CONST.DEBUG) { console.log('MesseMap._updateTextPosition() called with ', e); }
     if (e.target.checked) {
       document.getElementById('map-output').classList.add('txt-reverse');
     } else {
@@ -385,6 +418,7 @@ class MesseMap {
    * @param {Event} e - The click event on the style button
    **/
   _updateMapStyle(e) {
+    if (CONST.DEBUG) { console.log('MesseMap._updateMapStyle() called with ', e); }
     let previousStyle = '';
     const styles = document.getElementById('map-style');
     for (let i = 0; i < styles.children.length; ++i) {
@@ -414,6 +448,7 @@ class MesseMap {
    * </blockquote>
    **/
   _applyTexts(e) {
+    if (CONST.DEBUG) { console.log('MesseMap._applyTexts() called with ', e); }
     document.getElementById('title').innerHTML = document.getElementById('user-title').value;
     document.getElementById('subtitle').innerHTML = document.getElementById('user-subtitle').value;
     document.getElementById('comment').innerHTML = document.getElementById('user-comment').value;
@@ -437,6 +472,7 @@ class MesseMap {
    * @param {Event} e - The input color change
    **/
   _textColorEdit(e) {
+    if (CONST.DEBUG) { console.log('MesseMap._textColorEdit() called with ', e); }
     document.getElementById(e.target.dataset.type).style.color = e.target.value;
   }
 
@@ -454,6 +490,7 @@ class MesseMap {
    * </blockquote>
    **/
   _updateCommentLabel() {
+    if (CONST.DEBUG) { console.log('MesseMap._updateCommentLabel() called'); }
     if (!this._commentEdited) {
       const c = this._map.getCenter();
       document.getElementById('comment').innerHTML = `${this.precisionRound(c.lat, 3)}°N / ${this.precisionRound(c.lng, 3)}° E`;
@@ -476,6 +513,7 @@ class MesseMap {
    * @param {Event} e - The input event on the resolution slider
    **/
   _updateDimensionLabel(e) {
+    if (CONST.DEBUG) { console.log('MesseMap._updateDimensionLabel() called with ', e); }
     const label = e.target.previousElementSibling;
     let a = '7';
     if (e.target.value > 4961) {
@@ -514,6 +552,7 @@ class MesseMap {
    * @param {Object} data - The search data result to set view from
    **/
   _searchMatch(data) {
+    if (CONST.DEBUG) { console.log('MesseMap._searchMatch() called with ', data); }
     this._map.setView(data.latlng);
   }
 
@@ -532,6 +571,7 @@ class MesseMap {
    * @param {Event} e - The input event on the select input
    **/
   _updateLang(e) {
+    if (CONST.DEBUG) { console.log('MesseMap._updateLang() called with ', e); }
     localStorage.setItem('lang', e.target.value);
     window.location.reload();
   }
@@ -559,6 +599,7 @@ class MesseMap {
    * </blockquote>
   **/
   _download() {
+    if (CONST.DEBUG) { console.log('MesseMap._download() called'); }
     document.getElementById('print-overlay').style.zIndex = 99;
     document.getElementById('print-overlay').style.opacity = 1;
     document.getElementById('map-output').style.transition = 'none';
@@ -601,7 +642,7 @@ class MesseMap {
    * @param {Object} bounds - The map bounds requested for the printing
   **/
   _dlPrepareMap(size, scale, bounds) {
-    if (CONST.DEBUG) { console.log('Prepare map style for printing...'); }
+    if (CONST.DEBUG) { console.log('MesseMap._dlPrepareMap() : Prepare map style for printing'); }
     document.getElementById('print-status').innerHTML = this._nls.download.stylePrep;
     document.getElementById('print-progress').style.width = '10%';
     // Hide Leaflet.js overlays
@@ -635,7 +676,7 @@ class MesseMap {
     requestAnimationFrame(() => {
       this._map.invalidateSize();
       this._map.fitBounds(bounds);
-      if (CONST.DEBUG) { console.log('Waiting for map tiles to load...'); }
+      if (CONST.DEBUG) { console.log('MesseMap._dlPrepareMap() : Waiting for map tiles to load'); }
       document.getElementById('print-status').innerHTML = this._nls.download.tileLoad;
       document.getElementById('print-progress').style.width = '25%';
     });
@@ -660,7 +701,7 @@ class MesseMap {
   _dlPerformMapPrint(bounds) {
     // Perform map print with html2canvas if all tiles are loaded
     if (this._tilesLoaded === true) {
-      if (CONST.DEBUG) { console.log('Map tiles loaded, performing printing...'); }
+      if (CONST.DEBUG) { console.log('MesseMap._dlPerformMapPrint() : Map tiles loaded, performing printing'); }
       document.getElementById('print-status').innerHTML = this._nls.download.printStart;
       document.getElementById('print-progress').style.width = '66%';
       clearInterval(this._intervalId);
@@ -670,7 +711,6 @@ class MesseMap {
         window.html2canvas(document.getElementById('map-output'), {
           proxy: "/proxy",
           logging: CONST.DEBUG,
-
           width: document.getElementById('map-output').offsetWidth,
           height: document.getElementById('map-output').offsetHeight,
           imageTimeout: 0,
@@ -703,7 +743,7 @@ class MesseMap {
    * @param {Object} canvas - The canvas that holds the poster data to be exported to disk
   **/
   _dlMap(bounds, canvas) {
-    if (CONST.DEBUG) { console.log('Canvas printing done, exporting image to disk...'); }
+    if (CONST.DEBUG) { console.log('MesseMap._dlMap() : Canvas printing done, exporting image to disk'); }
     document.getElementById('print-status').innerHTML = this._nls.download.saveToDisk;
     document.getElementById('print-progress').style.width = '88%';
     const file = this.getOutputFileType();
@@ -744,7 +784,7 @@ class MesseMap {
    * @param {Object} bounds - The map bounds requested for the printing to restore the map with proper viewport
    **/
   _dlRestoreMap(bounds) {
-    if (CONST.DEBUG) { console.log('Restoring map style to default...'); }
+    if (CONST.DEBUG) { console.log('MesseMap._dlRestoreMap() : Restoring map style to default'); }
     document.getElementById('print-status').innerHTML = this._nls.download.restoreMap;
     document.getElementById('print-progress').style.width = '100%';
     // Restore Leaflet.js overlays
@@ -790,6 +830,7 @@ class MesseMap {
    * @param {Event} e - The click event that triggered the modal
    **/
   _themeEditModal(e) {
+    if (CONST.DEBUG) { console.log('MesseMap._themeEditModal() called with ', e); }
     e.preventDefault();
     this._fetchModal('themeedit').then(dom => {
       const _updateInputs = () => {
@@ -862,6 +903,7 @@ class MesseMap {
    * @param {Event} e - The click event that triggered the modal
    **/
   _creditModal(e) {
+    if (CONST.DEBUG) { console.log('MesseMap._creditModal() called with ', e); }
     e.preventDefault();
     this._fetchModal('credits').then(dom => {
       // Modal start animation (close animation handled in _closeModal())
@@ -869,11 +911,12 @@ class MesseMap {
       document.getElementById('modal-overlay').style.display = 'flex';
       setTimeout(() => document.getElementById('modal-overlay').style.opacity = 1, 50);
       requestAnimationFrame(() => {
-        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_TITLE}}', this._nls.title);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_TITLE}}', `${this._nls.title} – ${CONST.VERSION}`);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LINE1}}', this._nls.credit.line1);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LINE2}}', this._nls.credit.line2);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LINE3}}', this._nls.credit.line3);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LINE4}}', this._nls.credit.line4);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LINE5}}', this._nls.credit.line5);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LANG}}', this._nls.credit.lang);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_FR}}', this._nls.credit.fr);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_EN}}', this._nls.credit.en);
@@ -906,6 +949,7 @@ class MesseMap {
    * @returns {Promise} A resolved or rejected Promise
    **/
   _fetchModal(url) {
+    if (CONST.DEBUG) { console.log('MesseMap._fetchModal() called with ', url); }
     return new Promise(resolve => {
       fetch(`assets/html/${url}.html`).then(data => {
         data.text().then(html => {
@@ -932,6 +976,7 @@ class MesseMap {
    * @param {Boolean} force - Pass it to true to close the modal no matter the context
    **/
   _closeModal(event, force) {
+    if (CONST.DEBUG) { console.log('MesseMap._closeModal() called with ', event, 'force : ', force); }
     if (force === true || event.target.id === 'modal-overlay' || event.target.id.indexOf('close') !== -1) {
       document.getElementById('modal-overlay').style.opacity = 0;
       setTimeout(() => {
@@ -962,6 +1007,7 @@ class MesseMap {
    * @returns {Object} An object that contains extension and type string for selected output type
    **/
   getOutputFileType() {
+    if (CONST.DEBUG) { console.log('MesseMap.getOutputFileType() called'); }
     const file = {
       extension: 'png',
       type: 'png'
@@ -992,6 +1038,7 @@ class MesseMap {
    * @return {Number} - The rounded value
    **/
   precisionRound(value, precision) {
+    if (CONST.DEBUG) { console.log('MesseMap.precisionRound() called with ', value, 'precision : ', precision); }
     const multiplier = Math.pow(10, precision || 0);
     return Math.round(value * multiplier) / multiplier;
   }
@@ -1010,6 +1057,7 @@ class MesseMap {
    * </blockquote>
    **/
   updateThemeColorInternal() {
+    if (CONST.DEBUG) { console.log('MesseMap.updateThemeColorInternal() called'); }
     // Update input.color values
     this._cssTheme = {
       lbg: window.getComputedStyle(document.querySelector(':root')).getPropertyValue('--color-l-bg'),
@@ -1036,6 +1084,7 @@ class MesseMap {
    * </blockquote>
    **/
   applyThemeColor() {
+    if (CONST.DEBUG) { console.log('MesseMap.applyThemeColor() called'); }
     document.querySelector(':root').style.setProperty('--color-l-bg', this._cssTheme.lbg);
     document.querySelector(':root').style.setProperty('--color-l-txt', this._cssTheme.ltxt);
     document.querySelector(':root').style.setProperty('--color-l-txt-alt', this._cssTheme.lcom);
@@ -1062,6 +1111,7 @@ class MesseMap {
    * @param {Number} value - The value to apply to the replaced text
    **/
   replaceString(element, string, value) {
+    if (CONST.DEBUG) { console.log('MesseMap.replaceString() called with ', element, 'string : ', string, 'value : ', value); }
     element.innerHTML = element.innerHTML.replace(string, value);
   }
 

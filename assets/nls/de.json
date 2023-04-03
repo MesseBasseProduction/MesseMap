@@ -8,6 +8,7 @@
   },
   "style": {
     "title": "Stil",
+    "mapStyle": "Kartenlayout",
     "darkTheme": "Dark theme",
     "upText": "Text oben",
     "std": "Standard",
@@ -66,7 +67,7 @@
     "line2": "Karten werden freundlicherweise erstellt von <a href=\"https://www.openstreetmap.fr/\" target=\"_blank\" rel=\"noopener noreferer\">OpenStreetMap</a>, <a href=\"https://www.geoportail.gouv.fr/\" target=\"_blank\" rel=\"noopener noreferer\">GeoPortail</a>, <a href=\"https://www.esri.com/\" target=\"_blank\" rel=\"noopener noreferer\">ESRI</a> et <a href=\"https://www.mapiful.com/\" target=\"_blank\" rel=\"noopener noreferer\">Mapiful</a>. Wir sind diesen Anbietern sehr dankbar.",
     "line3": "MesseMap ist lizensiert mit der GPL-3.0 Open Source Lizenz, und basiert auf den Bibliotheken <a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet</a>, <a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">SmoothWheelZoom</a>, <a href=\"https://html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a> und <a href=\"https://github.com/parallax/jsPDF/\" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>.",
     "line4": "Der Quellcode dieser Anwendung ist verfügbar auf dem <a href=\"https://github.com/MesseBasseProduction/MesseMap/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a> Repository. Jeder Beitrag ist willkommen!",
-    "lang": "Langue de l'interface",
+    "lang": "Schnittstellensprache",
     "fr": "🇫🇷 Französisch",
     "en": "🇬🇧 Englisch",
     "es": "🇪🇸 Spanisch",
