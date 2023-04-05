@@ -20,83 +20,93 @@
         <h1 class="title">{{TITLE}}</h1>
       </header>
       <hr>
-      <section>
-        <p class="aside-helper">{{HELPER}}</p>
-        <h1 id="toggle-orientation" data-id="toggle-orientation-container">{{ORIENTATION}}<span data-id="toggle-orientation-container" class="toggle">▲</span></h1>
-        <div id="toggle-orientation-container" class="orientation-container category expanded">
-          <span class="click-item selected" data-orientation="vertical">{{VERTICAL}}</span>
-          <span class="click-item" data-orientation="horizontal">{{HORIZONTAL}}</span>
-        </div>
-        <h1 id="toggle-style" data-id="toggle-style-container">{{STYLE}}<span data-id="toggle-style-container" class="toggle">▼</span></h1>
-        <div id="toggle-style-container" class="style-container category">
-          <label for="dark-theme">{{MAP_STYLE}}</label>
-          <div id="map-style" class="map-style">
-            <span class="click-item selected" data-style="standard">{{STYLE_STD}}</span>
-            <span class="click-item" data-style="travel">{{STYLE_TRAVEL}}</span>
-            <span class="click-item" data-style="frame">{{STYLE_FRAME}}</span>
-            <span class="click-item" data-style="pure">{{STYLE_PURE}}</span>
-            <span class="click-item" data-style="tone">{{STYLE_PANTONE}}</span>
-            <span class="click-item" data-style="map">{{STYLE_MAP}}</span>
-            <span class="click-item" data-style="window">{{STYLE_WINDOW}}</span>
-            <span class="click-item" data-style="air">{{STYLE_AIR}}</span>
-            <span class="click-item" data-style="hipster">{{STYLE_HIPSTER}}</span>
+      <section id="scrollable-aside">
+        <div class="aside-content-wrapper">
+          <p class="aside-helper">{{HELPER}}</p>
+          <h1 id="toggle-orientation" data-id="toggle-orientation-container">{{ORIENTATION}}<span data-id="toggle-orientation-container" class="toggle">▲</span></h1>
+          <div id="toggle-orientation-container" class="orientation-container category expanded">
+            <span class="click-item selected" data-orientation="vertical">{{VERTICAL}}</span>
+            <span class="click-item" data-orientation="horizontal">{{HORIZONTAL}}</span>
           </div>
-          <div class="dark-theme-wrapper">
-            <label for="dark-theme">{{DARK_THEME}}</label>
-            <div class="theme-input-holder">
-              <div id="theme-editor" class="theme-editor">
-                <img src="./assets/img/option.svg" alt="theme-editor-option">
+          <h1 id="toggle-style" data-id="toggle-style-container">{{STYLE}}<span data-id="toggle-style-container" class="toggle">▼</span></h1>
+          <div id="toggle-style-container" class="style-container category expanded">
+            <label for="dark-theme">{{MAP_STYLE}}</label>
+            <div id="map-style" class="map-style">
+              <span class="click-item selected" data-style="standard">{{STYLE_STD}}</span>
+              <span class="click-item" data-style="travel">{{STYLE_TRAVEL}}</span>
+              <span class="click-item" data-style="frame">{{STYLE_FRAME}}</span>
+              <span class="click-item" data-style="pure">{{STYLE_PURE}}</span>
+              <span class="click-item" data-style="tone">{{STYLE_PANTONE}}</span>
+              <span class="click-item" data-style="map">{{STYLE_MAP}}</span>
+              <span class="click-item" data-style="window">{{STYLE_WINDOW}}</span>
+              <span class="click-item" data-style="air">{{STYLE_AIR}}</span>
+              <span class="click-item" data-style="hipster">{{STYLE_HIPSTER}}</span>
+            </div>
+            <div class="dark-theme-wrapper">
+              <label for="dark-theme">{{DARK_THEME}}</label>
+              <div class="theme-input-holder">
+                <div id="theme-editor" class="theme-editor">
+                  <img src="./assets/img/option.svg" alt="theme-editor-option">
+                </div>
+                <input type="checkbox" id="dark-theme" class="switch">
               </div>
-              <input type="checkbox" id="dark-theme" class="switch">
+            </div>
+            <div class="txt-position-wrapper">
+              <label for="txt-position">{{UP_TEXT}}</label>
+              <input type="checkbox" id="txt-position" class="switch">
+            </div>    
+          </div>
+          <h1 id="toggle-texts" data-id="toggle-texts-container">{{TEXT}}<span data-id="toggle-texts-container" class="toggle">▼</span></h1>
+          <div id="toggle-texts-container" class="texts-container category expanded">
+            <label for="user-title">{{MAP_TITLE}}</label>
+            <div class="input-with-color">
+              <input id="user-title" type="text" value="Messe Basse" placeholder="{{MAP_TITLE_PLACEHOLDER}}" maxlength="32">
+              <input type="color" id="title-color" class="text-edit" data-type="title">
+            </div>
+            <label for="user-subtitle">{{MAP_SUBTITLE}}</label>
+            <div class="input-with-color">
+              <input id="user-subtitle" type="text" value="France" placeholder="{{MAP_SUBTITLE_PLACEHOLDER}}" maxlength="32">
+              <input type="color" id="subtitle-color" class="text-edit" data-type="subtitle">
+            </div>
+            <label for="user-comment">{{MAP_COMMENT}}</label>
+            <div class="input-with-color">
+              <input id="user-comment" type="text" value="44.797°N / 1.542°E" placeholder="{{MAP_COMMENT_PLACEHOLDER}}" maxlength="42">
+              <input type="color" id="comment-color" class="text-edit" data-type="comment">
             </div>
           </div>
-          <div class="txt-position-wrapper">
-            <label for="txt-position">{{UP_TEXT}}</label>
-            <input type="checkbox" id="txt-position" class="switch">
-          </div>    
-        </div>
-        <h1 id="toggle-texts" data-id="toggle-texts-container">{{TEXT}}<span data-id="toggle-texts-container" class="toggle">▼</span></h1>
-        <div id="toggle-texts-container" class="texts-container category">
-          <label for="user-title">{{MAP_TITLE}}</label>
-          <div class="input-with-color">
-            <input id="user-title" type="text" value="Messe Basse" placeholder="{{MAP_TITLE_PLACEHOLDER}}" maxlength="32">
-            <input type="color" id="title-color" class="text-edit" data-type="title">
+          <h1 id="toggle-export" data-id="toggle-export-container">{{EXPORT}}<span data-id="toggle-export-container" class="toggle">▼</span></h1>
+          <div id="toggle-export-container" class="export-container category expanded">
+            <!-- https://fr.wikipedia.org/wiki/Point_par_pouce -->
+            <label for="image-width" id="image-width-label">{{EXPORT_DIMENSION}} : 600 x 848 — A7 {{EXPORT_AT}} 300dpi</label>
+            <input type="range" id="image-width" name="width" min="600" max="6500" value="600" data-height="848">
+            <div id="size-container" class="size-container">
+              <span class="click-item selected" data-size="A7">A7</span>
+              <span class="click-item" data-size="A6">A6</span>
+              <span class="click-item" data-size="A5">A5</span>
+              <span class="click-item" data-size="A4">A4</span>
+              <span class="click-item" data-size="A3">A3</span>
+              <span class="click-item" data-size="A2">A2</span>
+            </div>
+            <fieldset id="image-type">
+              <legend>{{EXPORT_FORMAT}}</legend>
+              <div>
+                <input type="radio" id="png" name="image-type" data-type="png" data-extension="png" checked>
+                <label for="png">.png</label>
+              </div>
+              <div>
+                <input type="radio" id="jpg" name="image-type" data-type="jpeg" data-extension="jpg">
+                <label for="jpg">.jpg</label>
+              </div>
+              <div>
+                <input type="radio" id="webp" name="image-type" data-type="webp" data-extension="webp">
+                <label for="webp">.webp</label>
+              </div>
+              <div>
+                <input type="radio" id="pdf" name="image-type" data-type="pdf" data-extension="pdf">
+                <label for="pdf">.pdf</label>
+              </div>
+            </fieldset>
           </div>
-          <label for="user-subtitle">{{MAP_SUBTITLE}}</label>
-          <div class="input-with-color">
-            <input id="user-subtitle" type="text" value="France" placeholder="{{MAP_SUBTITLE_PLACEHOLDER}}" maxlength="32">
-            <input type="color" id="subtitle-color" class="text-edit" data-type="subtitle">
-          </div>
-          <label for="user-comment">{{MAP_COMMENT}}</label>
-          <div class="input-with-color">
-            <input id="user-comment" type="text" value="44.797°N / 1.542°E" placeholder="{{MAP_COMMENT_PLACEHOLDER}}" maxlength="42">
-            <input type="color" id="comment-color" class="text-edit" data-type="comment">
-          </div>
-        </div>
-        <h1 id="toggle-export" data-id="toggle-export-container">{{EXPORT}}<span data-id="toggle-export-container" class="toggle">▼</span></h1>
-        <div id="toggle-export-container" class="export-container category">
-          <!-- https://fr.wikipedia.org/wiki/Point_par_pouce -->
-          <label for="image-width" id="image-width-label">{{EXPORT_DIMENSION}} : 600 x 848 — A7 {{EXPORT_AT}} 300dpi</label>
-          <input type="range" id="image-width" name="width" min="600" max="6500" value="600" data-height="848">
-          <fieldset id="image-type">
-            <legend>{{EXPORT_FORMAT}}</legend>
-            <div>
-              <input type="radio" id="png" name="image-type" data-type="png" data-extension="png" checked>
-              <label for="png">.png</label>
-            </div>
-            <div>
-              <input type="radio" id="jpg" name="image-type" data-type="jpeg" data-extension="jpg">
-              <label for="jpg">.jpg</label>
-            </div>
-            <div>
-              <input type="radio" id="webp" name="image-type" data-type="webp" data-extension="webp">
-              <label for="webp">.webp</label>
-            </div>
-            <div>
-              <input type="radio" id="pdf" name="image-type" data-type="pdf" data-extension="pdf">
-              <label for="pdf">.pdf</label>
-            </div>
-          </fieldset>
         </div>
       </section>
       <hr>

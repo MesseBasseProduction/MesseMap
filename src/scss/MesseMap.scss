@@ -48,6 +48,43 @@ body {
   font-size: 1.2rem;
 }
 
+input[type="checkbox"],
+input[type="radio"] {
+  appearance: none;
+  cursor: pointer;
+  height: calc(1.2rem + 2px);
+  background-color: rgb(255, 107, 103);
+  border: solid 1px rgb(127, 127, 127);
+  border-radius: 3rem;
+  margin: 0;
+  position: relative;
+  outline: none;
+  user-select: none;
+  width: 3rem;
+  transition: all .3s ease-in-out;
+
+  &::after {
+    content: '';
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 .25rem rgba(0, 0, 0, .9);
+    height: 1.2rem;
+    left: 0;
+    position: absolute;
+    transform: scale(.7);
+    width: 1.2rem;
+    transition: all .3s ease-in-out;
+  }
+
+  &:checked {
+    background-color: rgb(86, 212, 91);
+  }
+
+  &:checked::after {
+    left: calc(100% - 1.2rem);
+  }
+}
+
 button {
   cursor: pointer;
   margin: 1rem;
@@ -73,7 +110,7 @@ a {
 
 .app-wrapper {
   align-items: center;
-  background: rgba(20, 20, 20, .1);
+  background: linear-gradient(126deg, rgba(251, 255, 144, 0.1), rgba(255, 107, 103, 0.2));
   display: flex;
   height: 100%;
   justify-content: center;
@@ -99,6 +136,7 @@ aside {
     color: #a1a1a1;
     height: 1px;
     margin: 0 1rem;
+    width: 90%;
 
     &:first-of-type {
       margin-top: 2rem;
@@ -121,9 +159,17 @@ aside {
   }
 
   section {
-    margin-top: auto;
-    margin-bottom: auto;
+    height: calc(100% - 17.5rem);
+    overflow-x: hidden;
     overflow-y: auto;
+    position: relative;
+    width: 100%;
+
+    .aside-content-wrapper {
+      padding-right: calc(var(--default-scroll-size) - 1px);
+      width: 100%;
+    }
+
     /* Header text to describe what to do in MesseMap */
     .aside-helper {
       font-size: 1.4rem;
@@ -152,6 +198,13 @@ aside {
   
       &.expanded {
         height: auto;
+        
+        &.orientation-container span,
+        .txt-position-wrapper,
+        .input-with-color:last-of-type,
+        fieldset {
+          margin-bottom: 4rem;
+        }
       }
 
       /* Input label inside categories */
@@ -167,6 +220,7 @@ aside {
       color: inherit;
       cursor: pointer;
       padding: .2rem .8rem;
+      user-select: none;
       transition: all .2s;
 
       &.selected {
@@ -189,42 +243,6 @@ aside {
     }
     /* Specific to style category */
     .style-container {
-      input[type="checkbox"].switch {
-        appearance: none;
-        cursor: pointer;
-        height: calc(1.2rem + 2px);
-        background-color: rgb(255, 107, 103);
-        border: solid 1px rgb(127, 127, 127);
-        border-radius: 3rem;
-        margin: 0;
-        position: relative;
-        outline: none;
-        user-select: none;
-        width: 3rem;
-        transition: all .3s ease-in-out;
-      
-        &::after {
-          content: '';
-          background: white;
-          border-radius: 50%;
-          box-shadow: 0 0 .25rem rgba(0, 0, 0, .9);
-          height: 1.2rem;
-          left: 0;
-          position: absolute;
-          transform: scale(.7);
-          width: 1.2rem;
-          transition: all .3s ease-in-out;
-        }
-      
-        &:checked {
-          background-color: rgb(86, 212, 91);
-        }
-      
-        &:checked::after {
-          left: calc(100% - 1.2rem);
-        }
-      }
-
       .map-style {
         display: flex;
         flex-wrap: wrap;
@@ -308,7 +326,18 @@ aside {
     .export-container {
       input[type="range"] {
         margin: 0 1rem;
+        margin-bottom: 1rem;
         width: calc(100% - 2rem);
+      }
+
+      .size-container {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 1rem;
+
+        span {
+          padding: .2rem 1.2rem;
+        }
       }
     
       fieldset {
@@ -349,6 +378,7 @@ aside {
 
 main {
   align-items: center;
+  background: linear-gradient(204deg,rgba(255, 255, 255, .3),rgba(86, 212, 91, .2));
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -374,7 +404,7 @@ main {
   transition: all .2s;
 
   &.shadow {
-    box-shadow: .5rem .5rem 5rem rgba(0, 0, 0, .4);
+    box-shadow: .5rem .5rem 3rem rgba(0, 0, 0, .3);
   }
 
   /* Leaflet overrides to move controls and zoom position */

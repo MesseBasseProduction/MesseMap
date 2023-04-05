@@ -1,0 +1,74 @@
+/* scrollbar-container class is added to DOM target */
+.scrollbar-container {
+  --default-scroll-size: 18px;
+  --scroll-color: rgb(155, 155, 155);
+  --scroll-size: 10px;
+  --scroll-radius: calc(var(--scroll-size) / 2);
+  --scroll-low-opacity: .2;
+  --scroll-high-opacity: .8;
+  --scroll-transition-duration: .2s;
+  /* The wrapper encapsulate the scrollbar-content element */
+  .scrollbar-wrapper {
+    float: left;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    /* Then the scrollbar-content hides the default browser scrollbar */
+    .scrollbar-content,
+    .horizontal-scrollbar-content {
+      box-sizing: border-box;
+      padding: 0;
+      position: relative;
+    }
+    /* Overflow hidden on x axis for vertical scrollbar */
+    .scrollbar-content {
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      width: calc(100% + var(--default-scroll-size));
+    }
+    /* Overflow hidden on y axis for horizontal scrollbar */
+    .horizontal-scrollbar-content {
+      height: calc(100% + var(--default-scroll-size));
+      overflow-x: auto;
+      overflow-y: hidden;	
+      width: 100%;
+    }
+  }
+  /* The scroll element itself, can be customized using Js options.style */
+  .scroll,
+  .horizontal-scroll {
+    background: var(--scroll-color);
+    border-radius: var(--scroll-radius);
+    cursor: pointer;
+    opacity: var(--scroll-low-opacity);
+    position: relative;
+    transition: opacity var(--scroll-transition-duration) ease-in-out;
+  }
+  /* Vertical scrollbar, height is computed in Js according to scrollable content */
+  .scroll {
+    width: var(--scroll-size);
+  }
+  /* Horizontal scrollbar, width is computed in Js according to scrollable content */
+  .horizontal-scroll {
+    height: var(--scroll-size);
+  }
+  /* Update scroll opacity on mouse over the DOm target */
+  &:active .scroll,
+  &:active .horizontal-scroll,
+  &:focus .scroll,
+  &:focus .horizontal-scroll,
+  &:hover .scroll,
+  &:hover .horizontal-scroll {
+    opacity: var(--scroll-high-opacity);
+  }
+  /* Forbid user selection when the scroll is grabbed */
+  .scrollbar-grabbed {
+    user-select: none;
+  }
+  /* Properly hide scrollbar when not required */
+  .hidden {
+    display: none;
+  }
+}

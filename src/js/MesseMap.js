@@ -1,6 +1,9 @@
 import '../scss/MesseMap.scss';
-import './SmoothWheelZoom.js';
-import MapProviders from './MapProviders.js';
+
+import MapProviders from './utils/MapProviders.js';
+import ScrollBar from './utils/ScrollBar.js';
+
+import './utils/SmoothWheelZoom.js';
 const { jsPDF } = window.jspdf;
 
 
@@ -81,6 +84,12 @@ class MesseMap {
      * @private
      **/
     this._nls = {};
+    /**
+     * The aside scrollbar component
+     * @type {Object}
+     * @private
+     **/
+    this._scroll = null;
     // Begin the initialization sequence (interface and events)
     this._initInterface()
       .then(this._initMap.bind(this))
@@ -111,10 +120,11 @@ class MesseMap {
   _initInterface() {
     if (CONST.DEBUG) { console.log('MesseMap._initInterface() called'); }
     return new Promise((resolve, reject) => {
+      // Get lang from storage, or use default
       if (!localStorage.getItem('lang')) {
         localStorage.setItem('lang', this._lang);
       }
-
+      // Then fetch and update UI with proper language
       fetch(`assets/nls/${this._lang}.json`).then(data => {
         data.text().then(lang => {
           this._nls = JSON.parse(lang);
@@ -145,7 +155,6 @@ class MesseMap {
           this.replaceString(document.body, '{{MAP_SUBTITLE_PLACEHOLDER}}', this._nls.text.mapSubtitlePlaceholder);
           this.replaceString(document.body, '{{MAP_COMMENT}}', this._nls.text.mapComment);
           this.replaceString(document.body, '{{MAP_COMMENT_PLACEHOLDER}}', this._nls.text.mapCommentPlaceholder);
-
           this.replaceString(document.body, '{{EXPORT}}', this._nls.export.title);
           this.replaceString(document.body, '{{EXPORT_DIMENSION}}', this._nls.export.dimension);
           this.replaceString(document.body, '{{EXPORT_AT}}', this._nls.export.at);
@@ -225,6 +234,19 @@ class MesseMap {
         this._cssTheme = JSON.parse(cssTheme);
         this.applyThemeColor();
       }
+      // Build scrollbar for aside
+      this._scroll = new ScrollBar({
+        target: document.getElementById('scrollable-aside'),
+        style: {
+          color: '#56d45b',
+          size: '5px',
+          radius: '1px',
+          lowOpacity: '0.5',
+          highOpacity: '1',
+          transitionDuration: '0.1s'
+        }
+      });
+
       resolve();
     });
   }
@@ -275,6 +297,11 @@ class MesseMap {
       document.getElementById('toggle-export').addEventListener('click', this._toggleCategory.bind(this));
       document.getElementById('image-width').addEventListener('input', this._updateDimensionLabel.bind(this));
       document.getElementById('map-save').addEventListener('click', this._download.bind(this));
+      // Update selection buttons
+      const sizes = document.getElementById('size-container');
+      for (let i = 0; i < sizes.children.length; ++i) {
+        sizes.children[i].addEventListener('click', this._updateDimensionClicked.bind(this));
+      }
 
       // Listening to close modal event
       document.getElementById('modal-overlay').addEventListener('click', this._closeModal.bind(this));
@@ -376,6 +403,9 @@ class MesseMap {
       } else {
         expandCollapse.innerHTML = '▼';
       }
+
+      this._scroll.updateScrollbar();
+      requestAnimationFrame(this._scroll.updateScrollbar.bind(this._scroll));
     }
   }
 
@@ -526,6 +556,46 @@ class MesseMap {
 
   /**
    * @method
+   * @name _updateDimensionClicked
+   * @private
+   * @memberof MesseMap
+   * @author Arthur Beaulieu
+   * @since April 2023
+   * @description
+   * <blockquote>
+   * Update the export resolution slider label and buttons according to a click on a button
+   * </blockquote>
+   * @param {Event} e - The input event on the size span
+   **/
+  _updateDimensionClicked(e) {
+    let value = 600;
+    if (e.target.dataset.size === 'A2') {
+      value = 4962;
+    } else if (e.target.dataset.size === 'A3') {
+      value = 3509;
+    } else if (e.target.dataset.size === 'A4') {
+      value = 2481;
+    } else if (e.target.dataset.size === 'A5') {
+      value = 1755;
+    } else if (e.target.dataset.size === 'A6') {
+      value = 1242;
+    }
+
+    this._updateDimensionLabel({
+      target: {
+        value: value,
+        previousElementSibling: document.getElementById('image-width').previousElementSibling,
+        dataset: {
+          height: document.getElementById('image-width').dataset.height
+        }
+      }
+    });
+    document.getElementById('image-width').value = value;
+  }
+
+
+  /**
+   * @method
    * @name _updateDimensionLabel
    * @private
    * @memberof MesseMap
@@ -543,15 +613,15 @@ class MesseMap {
     const label = e.target.previousElementSibling;
     let a = '7';
     if (e.target.value > 4961) {
-      a = '2'
+      a = '2';
     } else if (e.target.value > 3508) {
-      a = '3'
+      a = '3';
     } else if (e.target.value > 2480) {
-      a = '4'
+      a = '4';
     } else if (e.target.value > 1754) {
-      a = '5'
+      a = '5';
     } else if (e.target.value > 1241) {
-      a = '6'
+      a = '6';
     }
     // Update label with slider value, computed height and matching paper format
     const height = this.precisionRound(e.target.value * 29.7 / 21, 0);
@@ -560,6 +630,15 @@ class MesseMap {
       label.innerHTML = `${this._nls.export.dimension} : ${height} x ${e.target.value} — A${a} ${this._nls.export.at} 300dpi`;
     } else {
       label.innerHTML = `${this._nls.export.dimension} : ${e.target.value} x ${height} — A${a} ${this._nls.export.at} 300dpi`;
+    }
+    // Update selection buttons
+    const sizes = document.getElementById('size-container');
+    for (let i = 0; i < sizes.children.length; ++i) {
+      if (sizes.children[i].dataset.size === `A${a}`) {
+        sizes.children[i].classList.add('selected');
+      } else {
+        sizes.children[i].classList.remove('selected');
+      }
     }
   }
 
