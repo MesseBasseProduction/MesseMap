@@ -44,24 +44,24 @@
 
     <section>
         <article><h1>MesseMap</h1>
-<p><img src="https://badgen.net/badge/version/0.0.8/blue" alt="">
+<p><img src="https://badgen.net/badge/version/1.0.0/blue" alt="">
 <a href="https://github.com/MesseBasseProduction/MesseMap/blob/master/LICENSE.md"><img src="https://img.shields.io/github/license/MesseBasseProduction/MesseMap.svg" alt="License"></a>
 <img src="https://badgen.net/badge/documentation/written/green" alt="https://messebasseproduction.github.io/MesseMap/doc/index.html">
-<img src="https://badgen.net/badge/test/wip/orange" alt=""></p>
+<img src="https://badgen.net/badge/test/wip/red" alt=""></p>
 <p>A website to create a map poster, so it can be exported ready to print, with the ability to scale the map for to given size. Different map layers available to create your unique <em>wall-memory</em> touch!</p>
 <p>It features 7 poster styles, that can all be customized (positioning, colors). It allows user to define a title, a subtitle and a comment for their map. Each of these text's color can also be modified.</p>
 <p>When exporting the map to disk the user can set the output dimension, the lowest resolution being A7 at 300 dpi (600 x 848) and the highest being A2 at 300 dpi (6500 x 9193). The user can also set the output format, between <code>.png</code>, <code>.jpg</code>, <code>.webp</code> and <code>.pdf</code> (exports in PDF are done in the CYMK color space so it's ready to print).</p>
-<p>In order to let you try it, we are running an <a href="https://messebasseproduction.github.io/MesseMap/index.html">instance</a>. This instance may not work (yet) with all maps because of tainted canvas and proxy issues. If you want to try this with all available maps, you should run a local instance, by doing the following :</p>
+<p>In order to let you try it, we are running an <a href="https://messebasseproduction.github.io/MesseMap/index.html">instance</a>. This instance may not work (yet) because of tainted canvas and proxy issues, we're working on providing a new one asap. If you want to try this with all available maps, you should run a local instance, by doing the following :</p>
 <ul>
 <li>$ <code>git clone https://github.com/MesseBasseProduction/MesseMap</code></li>
 <li>$ <code>cd MesseMap &amp;&amp; npm install</code></li>
 <li>$ <code>npm run build &amp;&amp; npm run server</code></li>
 </ul>
-<p>It will expose the application on your localhost, port 1337.</p>
+<p>It will expose the application on your localhost, port 8010.</p>
 <h2>Map data</h2>
 <p>All maps are released under <a href="https://opendatacommons.org/licenses/odbl/">ODbL license</a>. MesseMap is using open source maps released by <a href="https://www.openstreetmap.fr/">OpenStreetMap</a>, <a href="https://www.geoportail.gouv.fr/">GeoPortail</a>, <a href="https://www.esri.com/">ESRI</a> and <a href="https://www.mapiful.com/">Mapiful</a> providing astonishing data ready to use. A very warm thanks to those heroes!</p>
 <h2>Libraries</h2>
-<p>The map handling is done using <a href="https://leafletjs.com/">Leaflet.js</a> (BSD-2-Clause license), a Leaflet plugin to enable a smooth zooming, <a href="https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom">SmoothWheelZoom</a> (MIT license), another Leaflet plugin <a href="https://github.com/stefanocudini/leaflet-search">Leaflet Control Search</a> (MIT license) to perform searches on the map, it uses <a href="https://html2canvas.hertzen.com/">html2canvas</a> (MIT license), <a href="https://github.com/niklasvh/html2canvas-proxy-nodejs">html2canvas-proxy-nodejs</a> (MIT License) and <a href="https://github.com/parallax/jsPDF">jsPDF</a> (MIT license) to allow the exporting in all supported formats.</p>
+<p>The map handling is done using <a href="https://leafletjs.com/">Leaflet.js</a> (BSD-2-Clause license), a Leaflet plugin to enable a smooth zooming, <a href="https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom">SmoothWheelZoom</a> (MIT license), another Leaflet plugin <a href="https://github.com/stefanocudini/leaflet-search">Leaflet Control Search</a> (MIT license) to perform searches on the map, it uses <a href="https://html2canvas.hertzen.com/">html2canvas</a> (MIT license), <a href="https://github.com/niklasvh/html2canvas-proxy-nodejs">html2canvas-proxy-nodejs</a> (MIT license) and <a href="https://github.com/parallax/jsPDF">jsPDF</a> (MIT license) to allow the exporting in all supported formats.</p>
 <h2>For geeks</h2>
 <p>This repository also includes a Python script, that will fetch and save to your disk tiles for a given map. It features several options, to download the map tiles by zone (Lat/Lng min and max point and zoom range) or as a whole (but beware, maps are huge in size terms). Just start the script with no arguments to begin <code>python ./MapDownloader.py</code>.</p></article>
     </section>
@@ -74,13 +74,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="MesseMap.html">MesseMap</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="MesseMap.html">MesseMap</a></li><li><a href="ScrollBar.html">ScrollBar</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.1</a> on Sat Feb 18 2023 13:17:03 GMT+0100 (Central European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Apr 11 2023 16:17:18 GMT+0200 (Central European Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>

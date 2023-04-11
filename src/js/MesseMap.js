@@ -90,6 +90,15 @@ class MesseMap {
      * @private
      **/
     this._scroll = null;
+
+    this._data = {
+      orientation: 'horizontal',
+      style: 'standard',
+      darkTheme: false,
+      upText: false,
+      layer: 'Imagery (E)'
+    };
+
     // Begin the initialization sequence (interface and events)
     this._initInterface()
       .then(this._initMap.bind(this))
@@ -186,7 +195,7 @@ class MesseMap {
    * </blockquote>
    * @returns {Promise} A resolved or rejected Promise
    **/
-   _initMap() {
+  _initMap() {
     if (CONST.DEBUG) { console.log('MesseMap._initMap() called'); }
     return new Promise((resolve, reject) => {
       try {
@@ -312,6 +321,10 @@ class MesseMap {
       }
 
       this._map.on('move', this._updateCommentLabel.bind(this));
+      this._map.on('baselayerchange', e => {
+        this._data.layer = e.name;
+      });
+
       this._search.on('search:locationfound', this._searchMatch.bind(this));
 
       resolve();
@@ -353,6 +366,42 @@ class MesseMap {
 
   /**
    * @method
+   * @name _toggleCategory
+   * @private
+   * @memberof MesseMap
+   * @author Arthur Beaulieu
+   * @since April 2023
+   * @description
+   * <blockquote>
+   * Expand or colapse a given map modifiers category
+   * </blockquote>
+   * @param {Event} e - The click event on the category expander/collapser
+   **/
+  _toggleCategory(e) {
+    if (CONST.DEBUG) { console.log('MesseMap._toggleCategory() called with ', e); }
+    const element = document.getElementById(e.target.dataset.id);
+    if (element) {
+      element.classList.toggle('expanded');
+      // Select the span inside h1 if not the one clicked
+      let expandCollapse = e.target;
+      if (expandCollapse.className !== 'toggle') {
+        expandCollapse = expandCollapse.lastElementChild;
+      }
+      // Update expand/collapse text
+      if (element.classList.contains('expanded')) {
+        expandCollapse.innerHTML = '▲';
+      } else {
+        expandCollapse.innerHTML = '▼';
+      }
+
+      this._scroll.updateScrollbar();
+      requestAnimationFrame(this._scroll.updateScrollbar.bind(this._scroll));
+    }
+  }
+
+
+  /**
+   * @method
    * @name _updateMapOrientation
    * @private
    * @memberof MesseMap
@@ -379,34 +428,12 @@ class MesseMap {
     e.target.classList.add('selected');
     document.getElementById('map-output').classList.remove(`${previousOrientation}`);
     document.getElementById('map-output').classList.add(`${e.target.dataset.orientation}`);
+    this._data.orientation = e.target.dataset.orientation; // Update internal data
     setTimeout(() => { // Transition all .2s avoidance
       const bounds = this._map.getBounds(); // Map bound before scaling
       this._map.invalidateSize();
       this._map.fitBounds(bounds);
     }, 200);
-  }
-
-
-  _toggleCategory(e) {
-    if (CONST.DEBUG) { console.log('MesseMap._toggleCategory() called with ', e); }
-    const element = document.getElementById(e.target.dataset.id);
-    if (element) {
-      element.classList.toggle('expanded');
-      // Select the span inside h1 if not the one clicked
-      let expandCollapse = e.target;
-      if (expandCollapse.className !== 'toggle') {
-        expandCollapse = expandCollapse.lastElementChild;
-      }
-      // Update expand/collapse text
-      if (element.classList.contains('expanded')) {
-        expandCollapse.innerHTML = '▲';
-      } else {
-        expandCollapse.innerHTML = '▼';
-      }
-
-      this._scroll.updateScrollbar();
-      requestAnimationFrame(this._scroll.updateScrollbar.bind(this._scroll));
-    }
   }
 
 
@@ -429,9 +456,11 @@ class MesseMap {
     if (e.target.checked) {
       document.body.classList.remove('light-theme');
       document.body.classList.add('dark-theme');
+      this._data.darkTheme = true;
     } else {
       document.body.classList.remove('dark-theme');
       document.body.classList.add('light-theme');
+      this._data.darkTheme = false;
     }
   }
 
@@ -453,8 +482,10 @@ class MesseMap {
     if (CONST.DEBUG) { console.log('MesseMap._updateTextPosition() called with ', e); }
     if (e.target.checked) {
       document.getElementById('map-output').classList.add('txt-reverse');
+      this._data.upText = true;
     } else {
       document.getElementById('map-output').classList.remove('txt-reverse');
+      this._data.upText = false;
     }
   }
 
@@ -488,6 +519,7 @@ class MesseMap {
     e.target.classList.add('selected');
     document.getElementById('map-output').classList.remove(`${previousStyle}-style`);
     document.getElementById('map-output').classList.add(`${e.target.dataset.style}-style`);
+    this._data.style = e.target.dataset.style; // Update internal data
   }
 
 
@@ -869,6 +901,8 @@ class MesseMap {
       link.href = canvas.toDataURL(`image/${file.type}`, 1.0);
       link.click();
     }
+    // Send data parameters to server after user download
+    this._sendImageParameters();
     // Restore map to default value
     this._dlRestoreMap(bounds);
   }
@@ -913,6 +947,31 @@ class MesseMap {
       document.getElementById('print-progress').style.width = '0';
       if (CONST.DEBUG) { console.log('Map properly restored'); }
     }, 200);
+  }
+
+
+  /**
+   * @method
+   * @name _sendImageParameters
+   * @private
+   * @memberof MesseMap
+   * @author Arthur Beaulieu
+   * @since April 2023
+   * @description
+   * <blockquote>
+   * Perform a POST call to the server to save map parameters as JSON
+   * </blockquote>
+   **/
+  _sendImageParameters() {
+    // Discrete saving, no then/catch as error is handled in backend log.
+    fetch('/upload', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(this.formatImageParameters()),
+    });
   }
 
 
@@ -1220,6 +1279,47 @@ class MesseMap {
   replaceString(element, string, value) {
     if (CONST.DEBUG) { console.log('MesseMap.replaceString() called with ', element, 'string : ', string, 'value : ', value); }
     element.innerHTML = element.innerHTML.replace(string, value);
+  }
+
+
+  /**
+   * @method
+   * @name formatImageParameters
+   * @public
+   * @memberof MesseMap
+   * @author Arthur Beaulieu
+   * @since April 2023
+   * @description
+   * <blockquote>
+   * Will format all map parameters into a JSON object ready to send
+   * </blockquote>
+   * @return {Object} - The map parameters
+   **/
+  formatImageParameters() {
+    return {
+      style: {
+        orientation: this._data.orientation,
+        style: this._data.style,
+        darkTheme: this._data.darkTheme,
+        upText: this._data.upText,
+        colors: this._cssTheme,
+      },
+      text: {
+        title: document.getElementById('user-title').value,
+        subtitle: document.getElementById('user-subtitle').value,
+        comment: document.getElementById('user-comment').value
+      },
+      map: {
+        layer: this._data.layer,
+        center: this._map.getCenter(),
+        zoom: this._map.getZoom()
+      },
+      export: {
+        width: document.getElementById('image-width').value,
+        height: document.getElementById('image-width').dataset.height,
+        filtetype: this.getOutputFileType()
+      }
+    };
   }
 
 

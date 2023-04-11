@@ -27,13 +27,16 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import '../scss/MesseMap.scss';
-import './SmoothWheelZoom.js';
-import MapProviders from './MapProviders.js';
+
+import MapProviders from './utils/MapProviders.js';
+import ScrollBar from './utils/ScrollBar.js';
+
+import './utils/SmoothWheelZoom.js';
 const { jsPDF } = window.jspdf;
 
 
 const CONST = {
-  VERSION: '0.0.8',
+  VERSION: '1.0.0',
   DEBUG: false
 };
 
@@ -60,6 +63,7 @@ class MesseMap {
    * &lt;/blockquote>
    **/
   constructor() {
+    if (CONST.DEBUG) { console.log('MesseMap constructor called'); }
     /**
      * The core Leaflet.js map
      * @type {Object}
@@ -108,10 +112,26 @@ class MesseMap {
      * @private
      **/
     this._nls = {};
+    /**
+     * The aside scrollbar component
+     * @type {Object}
+     * @private
+     **/
+    this._scroll = null;
+
+    this._data = {
+      orientation: 'horizontal',
+      style: 'standard',
+      darkTheme: false,
+      upText: false,
+      layer: 'Imagery (E)'
+    };
+
     // Begin the initialization sequence (interface and events)
     this._initInterface()
       .then(this._initMap.bind(this))
       .then(this._initEvents.bind(this))
+      .then(this._endStartup.bind(this))
       .catch(error => console.error(error));
   }
 
@@ -135,20 +155,24 @@ class MesseMap {
    * @returns {Promise} A resolved or rejected Promise
    **/
   _initInterface() {
+    if (CONST.DEBUG) { console.log('MesseMap._initInterface() called'); }
     return new Promise((resolve, reject) => {
+      // Get lang from storage, or use default
       if (!localStorage.getItem('lang')) {
         localStorage.setItem('lang', this._lang);
       }
-
+      // Then fetch and update UI with proper language
       fetch(`assets/nls/${this._lang}.json`).then(data => {
         data.text().then(lang => {
           this._nls = JSON.parse(lang);
           this.replaceString(document.body, '{{TITLE}}', this._nls.title);
+          this.replaceString(document.body, '{{HELPER}}', this._nls.helper);
           this.replaceString(document.body, '{{ORIENTATION}}', this._nls.orientation);
           this.replaceString(document.body, '{{VERTICAL}}', this._nls.vertical);
           this.replaceString(document.body, '{{HORIZONTAL}}', this._nls.horizontal);
 
           this.replaceString(document.body, '{{STYLE}}', this._nls.style.title);
+          this.replaceString(document.body, '{{MAP_STYLE}}', this._nls.style.mapStyle);
           this.replaceString(document.body, '{{STYLE_STD}}', this._nls.style.std);
           this.replaceString(document.body, '{{STYLE_TRAVEL}}', this._nls.style.travel);
           this.replaceString(document.body, '{{STYLE_FRAME}}', this._nls.style.frame);
@@ -168,7 +192,6 @@ class MesseMap {
           this.replaceString(document.body, '{{MAP_SUBTITLE_PLACEHOLDER}}', this._nls.text.mapSubtitlePlaceholder);
           this.replaceString(document.body, '{{MAP_COMMENT}}', this._nls.text.mapComment);
           this.replaceString(document.body, '{{MAP_COMMENT_PLACEHOLDER}}', this._nls.text.mapCommentPlaceholder);
-
           this.replaceString(document.body, '{{EXPORT}}', this._nls.export.title);
           this.replaceString(document.body, '{{EXPORT_DIMENSION}}', this._nls.export.dimension);
           this.replaceString(document.body, '{{EXPORT_AT}}', this._nls.export.at);
@@ -176,8 +199,6 @@ class MesseMap {
           this.replaceString(document.body, '{{EXPORT_BUTTON}}', this._nls.export.button);
           this.replaceString(document.body, '{{CREDITS}}', this._nls.export.credits);
 
-          this.replaceString(document.body, '{{DOWNLOAD_TITLE}}', this._nls.download.title);
-          this.replaceString(document.body, '{{DOWNLOAD_SUBTITLE}}', this._nls.download.subtitle);
           resolve();
         }).catch(reject);
       }).catch(reject);
@@ -202,7 +223,8 @@ class MesseMap {
    * &lt;/blockquote>
    * @returns {Promise} A resolved or rejected Promise
    **/
-   _initMap() {
+  _initMap() {
+    if (CONST.DEBUG) { console.log('MesseMap._initMap() called'); }
     return new Promise((resolve, reject) => {
       try {
         // Use #map div to inject Leaflet in, use SmoothWheelZoom flags
@@ -226,6 +248,10 @@ class MesseMap {
           textCancel: this._nls.search.cancel,
           textErr: this._nls.search.error
         });
+        this._map.setMaxBounds(window.L.latLngBounds(
+          window.L.latLng(-89.98155760646617, -360),
+          window.L.latLng(89.99346179538875, 360)
+        ));
       } catch (error) {
         // The only error case is Leaflet doesn't exist here
         reject(error);
@@ -233,19 +259,31 @@ class MesseMap {
       }
       // Add default layer in map
       MapProviders.layers['Imagery (E)'].addTo(this._map)
-      document.getElementById('map-attribution').innerHTML = MapProviders.layers['Imagery (E)'].getAttribution();
       // Add layer switch radio on bottom right of the map
       window.L.control.layers(MapProviders.layers, MapProviders.overlays, { position: 'topright' }).addTo(this._map);
       // Add search command
       this._map.addControl(this._search);
-      // Apply default input text to poster
-      this._applyTexts();
+      // Apply default input text to poster, empty object
+      this._applyTexts({});
       // Load user theme overrides
       const cssTheme = localStorage.getItem('theme');
       if (cssTheme &amp;&amp; JSON.parse(cssTheme)) {
         this._cssTheme = JSON.parse(cssTheme);
         this.applyThemeColor();
       }
+      // Build scrollbar for aside
+      this._scroll = new ScrollBar({
+        target: document.getElementById('scrollable-aside'),
+        style: {
+          color: '#56d45b',
+          size: '5px',
+          radius: '1px',
+          lowOpacity: '0.5',
+          highOpacity: '1',
+          transitionDuration: '0.1s'
+        }
+      });
+
       resolve();
     });
   }
@@ -267,12 +305,16 @@ class MesseMap {
    * @returns {Promise} A resolved Promise
    **/
   _initEvents() {
+    if (CONST.DEBUG) { console.log('MesseMap._initEvents() called'); }
     return new Promise(resolve => {
-      // Map style
-      const orientations = document.getElementById('map-orientation');
+      // Orientation
+      document.getElementById('toggle-orientation').addEventListener('click', this._toggleCategory.bind(this));
+      const orientations = document.getElementById('toggle-orientation-container');
       for (let i = 0; i &lt; orientations.children.length; ++i) {
         orientations.children[i].addEventListener('click', this._updateMapOrientation.bind(this));
       }
+      // Style
+      document.getElementById('toggle-style').addEventListener('click', this._toggleCategory.bind(this));
       const styles = document.getElementById('map-style');
       for (let i = 0; i &lt; styles.children.length; ++i) {
         styles.children[i].addEventListener('click', this._updateMapStyle.bind(this));
@@ -281,29 +323,36 @@ class MesseMap {
       document.getElementById('txt-position').addEventListener('change', this._updateTextPosition.bind(this));
       document.getElementById('theme-editor').addEventListener('click', this._themeEditModal.bind(this));
       // Text modification events (color, style etc.)
+      document.getElementById('toggle-texts').addEventListener('click', this._toggleCategory.bind(this));
       document.getElementById('title-color').addEventListener('input', this._textColorEdit.bind(this));
       document.getElementById('subtitle-color').addEventListener('input', this._textColorEdit.bind(this));
       document.getElementById('comment-color').addEventListener('input', this._textColorEdit.bind(this));
-      // Listening to close modal event
-      document.getElementById('modal-overlay').addEventListener('click', this._closeModal.bind(this));
-      // Input text events
       document.getElementById('user-title').addEventListener('input', this._applyTexts.bind(this));
       document.getElementById('user-subtitle').addEventListener('input', this._applyTexts.bind(this));
       document.getElementById('user-comment').addEventListener('input', this._applyTexts.bind(this));
       // Export settings
+      document.getElementById('toggle-export').addEventListener('click', this._toggleCategory.bind(this));
       document.getElementById('image-width').addEventListener('input', this._updateDimensionLabel.bind(this));
       document.getElementById('map-save').addEventListener('click', this._download.bind(this));
+      // Update selection buttons
+      const sizes = document.getElementById('size-container');
+      for (let i = 0; i &lt; sizes.children.length; ++i) {
+        sizes.children[i].addEventListener('click', this._updateDimensionClicked.bind(this));
+      }
 
+      // Listening to close modal event
+      document.getElementById('modal-overlay').addEventListener('click', this._closeModal.bind(this));
       document.getElementById('credit-modal').addEventListener('click', this._creditModal.bind(this));
       // Load event on map layers for loaded tiles (to ensure the printing occurs with all map tiles)
       for (const layer in MapProviders.layers) {
         MapProviders.layers[layer].on('load', () => setTimeout(() => this._tilesLoaded = true, 4000));
-        MapProviders.layers[layer].on('add', (e) => {
-          document.getElementById('map-attribution').innerHTML = e.target.getAttribution();
-        });
       }
 
       this._map.on('move', this._updateCommentLabel.bind(this));
+      this._map.on('baselayerchange', e => {
+        this._data.layer = e.name;
+      });
+
       this._search.on('search:locationfound', this._searchMatch.bind(this));
 
       resolve();
@@ -311,9 +360,72 @@ class MesseMap {
   }
 
 
+  /**
+   * @method
+   * @name _endStartup
+   * @private
+   * @memberof MesseMap
+   * @author Arthur Beaulieu
+   * @since October 2022
+   * @description
+   * &lt;blockquote>
+   * This method will hide the print-overlay, and initialize its values
+   * for later exports after splash screen.
+   * &lt;/blockquote>
+   **/
+  _endStartup() {
+    if (CONST.DEBUG) { console.log('MesseMap._endStartup called'); } 
+    return new Promise(resolve => {
+      document.getElementById('print-overlay').style.opacity = 0;
+      setTimeout(() => { 
+        document.getElementById('print-overlay').style.zIndex = -1;
+        document.getElementById('print-overlay').children[0].innerHTML = this._nls.download.title;
+        document.getElementById('print-overlay').children[1].innerHTML = this._nls.download.subtitle;
+        resolve();
+      }, 200);
+    });
+  }
+
+
   // ======================================================================= //
   // ----------------------- Input events callbacks ------------------------ //
   // ======================================================================= //
+
+
+  /**
+   * @method
+   * @name _toggleCategory
+   * @private
+   * @memberof MesseMap
+   * @author Arthur Beaulieu
+   * @since April 2023
+   * @description
+   * &lt;blockquote>
+   * Expand or colapse a given map modifiers category
+   * &lt;/blockquote>
+   * @param {Event} e - The click event on the category expander/collapser
+   **/
+  _toggleCategory(e) {
+    if (CONST.DEBUG) { console.log('MesseMap._toggleCategory() called with ', e); }
+    const element = document.getElementById(e.target.dataset.id);
+    if (element) {
+      element.classList.toggle('expanded');
+      // Select the span inside h1 if not the one clicked
+      let expandCollapse = e.target;
+      if (expandCollapse.className !== 'toggle') {
+        expandCollapse = expandCollapse.lastElementChild;
+      }
+      // Update expand/collapse text
+      if (element.classList.contains('expanded')) {
+        expandCollapse.innerHTML = '▲';
+      } else {
+        expandCollapse.innerHTML = '▼';
+      }
+
+      this._scroll.updateScrollbar();
+      requestAnimationFrame(this._scroll.updateScrollbar.bind(this._scroll));
+    }
+  }
 
 
   /**
@@ -330,8 +442,9 @@ class MesseMap {
    * @param {Event} e - The click event on the theme checkbox
    **/
   _updateMapOrientation(e) {
+    if (CONST.DEBUG) { console.log('MesseMap._updateMapOrientation() called with ', e); }
     let previousOrientation = '';
-    const orientations = document.getElementById('map-orientation');
+    const orientations = document.getElementById('toggle-orientation-container');
     for (let i = 0; i &lt; orientations.children.length; ++i) {
       if (orientations.children[i].classList.contains('selected')) {
         previousOrientation = orientations.children[i].dataset.orientation;
@@ -343,6 +456,7 @@ class MesseMap {
     e.target.classList.add('selected');
     document.getElementById('map-output').classList.remove(`${previousOrientation}`);
     document.getElementById('map-output').classList.add(`${e.target.dataset.orientation}`);
+    this._data.orientation = e.target.dataset.orientation; // Update internal data
     setTimeout(() => { // Transition all .2s avoidance
       const bounds = this._map.getBounds(); // Map bound before scaling
       this._map.invalidateSize();
@@ -366,12 +480,15 @@ class MesseMap {
    * @param {Event} e - The change event on the theme checkbox
    **/
   _updateDarkTheme(e) {
+    if (CONST.DEBUG) { console.log('MesseMap._updateDarkTheme() called with ', e); }
     if (e.target.checked) {
       document.body.classList.remove('light-theme');
       document.body.classList.add('dark-theme');
+      this._data.darkTheme = true;
     } else {
       document.body.classList.remove('dark-theme');
       document.body.classList.add('light-theme');
+      this._data.darkTheme = false;
     }
   }
 
@@ -390,10 +507,13 @@ class MesseMap {
    * @param {Event} e - The change event on the up text checkbox
    **/
   _updateTextPosition(e) {
+    if (CONST.DEBUG) { console.log('MesseMap._updateTextPosition() called with ', e); }
     if (e.target.checked) {
       document.getElementById('map-output').classList.add('txt-reverse');
+      this._data.upText = true;
     } else {
       document.getElementById('map-output').classList.remove('txt-reverse');
+      this._data.upText = false;
     }
   }
 
@@ -413,6 +533,7 @@ class MesseMap {
    * @param {Event} e - The click event on the style button
    **/
   _updateMapStyle(e) {
+    if (CONST.DEBUG) { console.log('MesseMap._updateMapStyle() called with ', e); }
     let previousStyle = '';
     const styles = document.getElementById('map-style');
     for (let i = 0; i &lt; styles.children.length; ++i) {
@@ -426,6 +547,7 @@ class MesseMap {
     e.target.classList.add('selected');
     document.getElementById('map-output').classList.remove(`${previousStyle}-style`);
     document.getElementById('map-output').classList.add(`${e.target.dataset.style}-style`);
+    this._data.style = e.target.dataset.style; // Update internal data
   }
 
 
@@ -442,6 +564,7 @@ class MesseMap {
    * &lt;/blockquote>
    **/
   _applyTexts(e) {
+    if (CONST.DEBUG) { console.log('MesseMap._applyTexts() called with ', e); }
     document.getElementById('title').innerHTML = document.getElementById('user-title').value;
     document.getElementById('subtitle').innerHTML = document.getElementById('user-subtitle').value;
     document.getElementById('comment').innerHTML = document.getElementById('user-comment').value;
@@ -465,6 +588,7 @@ class MesseMap {
    * @param {Event} e - The input color change
    **/
   _textColorEdit(e) {
+    if (CONST.DEBUG) { console.log('MesseMap._textColorEdit() called with ', e); }
     document.getElementById(e.target.dataset.type).style.color = e.target.value;
   }
 
@@ -482,10 +606,51 @@ class MesseMap {
    * &lt;/blockquote>
    **/
   _updateCommentLabel() {
+    if (CONST.DEBUG) { console.log('MesseMap._updateCommentLabel() called'); }
     if (!this._commentEdited) {
       const c = this._map.getCenter();
       document.getElementById('comment').innerHTML = `${this.precisionRound(c.lat, 3)}°N / ${this.precisionRound(c.lng, 3)}° E`;
     }
+  }
+
+
+  /**
+   * @method
+   * @name _updateDimensionClicked
+   * @private
+   * @memberof MesseMap
+   * @author Arthur Beaulieu
+   * @since April 2023
+   * @description
+   * &lt;blockquote>
+   * Update the export resolution slider label and buttons according to a click on a button
+   * &lt;/blockquote>
+   * @param {Event} e - The input event on the size span
+   **/
+  _updateDimensionClicked(e) {
+    let value = 600;
+    if (e.target.dataset.size === 'A2') {
+      value = 4962;
+    } else if (e.target.dataset.size === 'A3') {
+      value = 3509;
+    } else if (e.target.dataset.size === 'A4') {
+      value = 2481;
+    } else if (e.target.dataset.size === 'A5') {
+      value = 1755;
+    } else if (e.target.dataset.size === 'A6') {
+      value = 1242;
+    }
+
+    this._updateDimensionLabel({
+      target: {
+        value: value,
+        previousElementSibling: document.getElementById('image-width').previousElementSibling,
+        dataset: {
+          height: document.getElementById('image-width').dataset.height
+        }
+      }
+    });
+    document.getElementById('image-width').value = value;
   }
 
 
@@ -504,18 +669,19 @@ class MesseMap {
    * @param {Event} e - The input event on the resolution slider
    **/
   _updateDimensionLabel(e) {
+    if (CONST.DEBUG) { console.log('MesseMap._updateDimensionLabel() called with ', e); }
     const label = e.target.previousElementSibling;
     let a = '7';
     if (e.target.value > 4961) {
-      a = '2'
+      a = '2';
     } else if (e.target.value > 3508) {
-      a = '3'
+      a = '3';
     } else if (e.target.value > 2480) {
-      a = '4'
+      a = '4';
     } else if (e.target.value > 1754) {
-      a = '5'
+      a = '5';
     } else if (e.target.value > 1241) {
-      a = '6'
+      a = '6';
     }
     // Update label with slider value, computed height and matching paper format
     const height = this.precisionRound(e.target.value * 29.7 / 21, 0);
@@ -524,6 +690,15 @@ class MesseMap {
       label.innerHTML = `${this._nls.export.dimension} : ${height} x ${e.target.value} — A${a} ${this._nls.export.at} 300dpi`;
     } else {
       label.innerHTML = `${this._nls.export.dimension} : ${e.target.value} x ${height} — A${a} ${this._nls.export.at} 300dpi`;
+    }
+    // Update selection buttons
+    const sizes = document.getElementById('size-container');
+    for (let i = 0; i &lt; sizes.children.length; ++i) {
+      if (sizes.children[i].dataset.size === `A${a}`) {
+        sizes.children[i].classList.add('selected');
+      } else {
+        sizes.children[i].classList.remove('selected');
+      }
     }
   }
 
@@ -542,7 +717,8 @@ class MesseMap {
    * @param {Object} data - The search data result to set view from
    **/
   _searchMatch(data) {
-    this._map.setView(data.latlng);
+    if (CONST.DEBUG) { console.log('MesseMap._searchMatch() called with ', data); }
+    this._map.setView(data.latlng, 11.5);
   }
 
 
@@ -560,6 +736,7 @@ class MesseMap {
    * @param {Event} e - The input event on the select input
    **/
   _updateLang(e) {
+    if (CONST.DEBUG) { console.log('MesseMap._updateLang() called with ', e); }
     localStorage.setItem('lang', e.target.value);
     window.location.reload();
   }
@@ -587,6 +764,7 @@ class MesseMap {
    * &lt;/blockquote>
   **/
   _download() {
+    if (CONST.DEBUG) { console.log('MesseMap._download() called'); }
     document.getElementById('print-overlay').style.zIndex = 99;
     document.getElementById('print-overlay').style.opacity = 1;
     document.getElementById('map-output').style.transition = 'none';
@@ -629,7 +807,7 @@ class MesseMap {
    * @param {Object} bounds - The map bounds requested for the printing
   **/
   _dlPrepareMap(size, scale, bounds) {
-    if (CONST.DEBUG) { console.log('Prepare map style for printing...'); }
+    if (CONST.DEBUG) { console.log('MesseMap._dlPrepareMap() : Prepare map style for printing'); }
     document.getElementById('print-status').innerHTML = this._nls.download.stylePrep;
     document.getElementById('print-progress').style.width = '10%';
     // Hide Leaflet.js overlays
@@ -663,7 +841,7 @@ class MesseMap {
     requestAnimationFrame(() => {
       this._map.invalidateSize();
       this._map.fitBounds(bounds);
-      if (CONST.DEBUG) { console.log('Waiting for map tiles to load...'); }
+      if (CONST.DEBUG) { console.log('MesseMap._dlPrepareMap() : Waiting for map tiles to load'); }
       document.getElementById('print-status').innerHTML = this._nls.download.tileLoad;
       document.getElementById('print-progress').style.width = '25%';
     });
@@ -688,7 +866,7 @@ class MesseMap {
   _dlPerformMapPrint(bounds) {
     // Perform map print with html2canvas if all tiles are loaded
     if (this._tilesLoaded === true) {
-      if (CONST.DEBUG) { console.log('Map tiles loaded, performing printing...'); }
+      if (CONST.DEBUG) { console.log('MesseMap._dlPerformMapPrint() : Map tiles loaded, performing printing'); }
       document.getElementById('print-status').innerHTML = this._nls.download.printStart;
       document.getElementById('print-progress').style.width = '66%';
       clearInterval(this._intervalId);
@@ -698,7 +876,6 @@ class MesseMap {
         window.html2canvas(document.getElementById('map-output'), {
           proxy: "/proxy",
           logging: CONST.DEBUG,
-
           width: document.getElementById('map-output').offsetWidth,
           height: document.getElementById('map-output').offsetHeight,
           imageTimeout: 0,
@@ -731,7 +908,7 @@ class MesseMap {
    * @param {Object} canvas - The canvas that holds the poster data to be exported to disk
   **/
   _dlMap(bounds, canvas) {
-    if (CONST.DEBUG) { console.log('Canvas printing done, exporting image to disk...'); }
+    if (CONST.DEBUG) { console.log('MesseMap._dlMap() : Canvas printing done, exporting image to disk'); }
     document.getElementById('print-status').innerHTML = this._nls.download.saveToDisk;
     document.getElementById('print-progress').style.width = '88%';
     const file = this.getOutputFileType();
@@ -752,6 +929,8 @@ class MesseMap {
       link.href = canvas.toDataURL(`image/${file.type}`, 1.0);
       link.click();
     }
+    // Send data parameters to server after user download
+    this._sendImageParameters();
     // Restore map to default value
     this._dlRestoreMap(bounds);
   }
@@ -772,7 +951,7 @@ class MesseMap {
    * @param {Object} bounds - The map bounds requested for the printing to restore the map with proper viewport
    **/
   _dlRestoreMap(bounds) {
-    if (CONST.DEBUG) { console.log('Restoring map style to default...'); }
+    if (CONST.DEBUG) { console.log('MesseMap._dlRestoreMap() : Restoring map style to default'); }
     document.getElementById('print-status').innerHTML = this._nls.download.restoreMap;
     document.getElementById('print-progress').style.width = '100%';
     // Restore Leaflet.js overlays
@@ -799,6 +978,31 @@ class MesseMap {
   }
 
 
+  /**
+   * @method
+   * @name _sendImageParameters
+   * @private
+   * @memberof MesseMap
+   * @author Arthur Beaulieu
+   * @since April 2023
+   * @description
+   * &lt;blockquote>
+   * Perform a POST call to the server to save map parameters as JSON
+   * &lt;/blockquote>
+   **/
+  _sendImageParameters() {
+    // Discrete saving, no then/catch as error is handled in backend log.
+    fetch('/upload', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(this.formatImageParameters()),
+    });
+  }
+
+
   // ======================================================================= //
   // --------------------------- Modal methods ----------------------------- //
   // ======================================================================= //
@@ -818,6 +1022,7 @@ class MesseMap {
    * @param {Event} e - The click event that triggered the modal
    **/
   _themeEditModal(e) {
+    if (CONST.DEBUG) { console.log('MesseMap._themeEditModal() called with ', e); }
     e.preventDefault();
     this._fetchModal('themeedit').then(dom => {
       const _updateInputs = () => {
@@ -890,6 +1095,7 @@ class MesseMap {
    * @param {Event} e - The click event that triggered the modal
    **/
   _creditModal(e) {
+    if (CONST.DEBUG) { console.log('MesseMap._creditModal() called with ', e); }
     e.preventDefault();
     this._fetchModal('credits').then(dom => {
       // Modal start animation (close animation handled in _closeModal())
@@ -897,16 +1103,19 @@ class MesseMap {
       document.getElementById('modal-overlay').style.display = 'flex';
       setTimeout(() => document.getElementById('modal-overlay').style.opacity = 1, 50);
       requestAnimationFrame(() => {
-        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_TITLE}}', this._nls.title);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_TITLE}}', `${this._nls.title} – ${CONST.VERSION}`);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LINE1}}', this._nls.credit.line1);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LINE2}}', this._nls.credit.line2);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LINE3}}', this._nls.credit.line3);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LINE4}}', this._nls.credit.line4);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LINE5}}', this._nls.credit.line5);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LANG}}', this._nls.credit.lang);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_FR}}', this._nls.credit.fr);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_EN}}', this._nls.credit.en);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_ES}}', this._nls.credit.es);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_DE}}', this._nls.credit.de);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_IT}}', this._nls.credit.it);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_PT}}', this._nls.credit.pt);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_CLOSE}}', this._nls.action.close);
         // Lang update
         document.getElementById('lang').value = this._lang;
@@ -934,6 +1143,7 @@ class MesseMap {
    * @returns {Promise} A resolved or rejected Promise
    **/
   _fetchModal(url) {
+    if (CONST.DEBUG) { console.log('MesseMap._fetchModal() called with ', url); }
     return new Promise(resolve => {
       fetch(`assets/html/${url}.html`).then(data => {
         data.text().then(html => {
@@ -960,6 +1170,7 @@ class MesseMap {
    * @param {Boolean} force - Pass it to true to close the modal no matter the context
    **/
   _closeModal(event, force) {
+    if (CONST.DEBUG) { console.log('MesseMap._closeModal() called with ', event, 'force : ', force); }
     if (force === true || event.target.id === 'modal-overlay' || event.target.id.indexOf('close') !== -1) {
       document.getElementById('modal-overlay').style.opacity = 0;
       setTimeout(() => {
@@ -990,6 +1201,7 @@ class MesseMap {
    * @returns {Object} An object that contains extension and type string for selected output type
    **/
   getOutputFileType() {
+    if (CONST.DEBUG) { console.log('MesseMap.getOutputFileType() called'); }
     const file = {
       extension: 'png',
       type: 'png'
@@ -1020,6 +1232,7 @@ class MesseMap {
    * @return {Number} - The rounded value
    **/
   precisionRound(value, precision) {
+    if (CONST.DEBUG) { console.log('MesseMap.precisionRound() called with ', value, 'precision : ', precision); }
     const multiplier = Math.pow(10, precision || 0);
     return Math.round(value * multiplier) / multiplier;
   }
@@ -1038,6 +1251,7 @@ class MesseMap {
    * &lt;/blockquote>
    **/
   updateThemeColorInternal() {
+    if (CONST.DEBUG) { console.log('MesseMap.updateThemeColorInternal() called'); }
     // Update input.color values
     this._cssTheme = {
       lbg: window.getComputedStyle(document.querySelector(':root')).getPropertyValue('--color-l-bg'),
@@ -1064,6 +1278,7 @@ class MesseMap {
    * &lt;/blockquote>
    **/
   applyThemeColor() {
+    if (CONST.DEBUG) { console.log('MesseMap.applyThemeColor() called'); }
     document.querySelector(':root').style.setProperty('--color-l-bg', this._cssTheme.lbg);
     document.querySelector(':root').style.setProperty('--color-l-txt', this._cssTheme.ltxt);
     document.querySelector(':root').style.setProperty('--color-l-txt-alt', this._cssTheme.lcom);
@@ -1090,7 +1305,49 @@ class MesseMap {
    * @param {Number} value - The value to apply to the replaced text
    **/
   replaceString(element, string, value) {
+    if (CONST.DEBUG) { console.log('MesseMap.replaceString() called with ', element, 'string : ', string, 'value : ', value); }
     element.innerHTML = element.innerHTML.replace(string, value);
+  }
+
+
+  /**
+   * @method
+   * @name formatImageParameters
+   * @public
+   * @memberof MesseMap
+   * @author Arthur Beaulieu
+   * @since April 2023
+   * @description
+   * &lt;blockquote>
+   * Will format all map parameters into a JSON object ready to send
+   * &lt;/blockquote>
+   * @return {Object} - The map parameters
+   **/
+  formatImageParameters() {
+    return {
+      style: {
+        orientation: this._data.orientation,
+        style: this._data.style,
+        darkTheme: this._data.darkTheme,
+        upText: this._data.upText,
+        colors: this._cssTheme,
+      },
+      text: {
+        title: document.getElementById('user-title').value,
+        subtitle: document.getElementById('user-subtitle').value,
+        comment: document.getElementById('user-comment').value
+      },
+      map: {
+        layer: this._data.layer,
+        center: this._map.getCenter(),
+        zoom: this._map.getZoom()
+      },
+      export: {
+        width: document.getElementById('image-width').value,
+        height: document.getElementById('image-width').dataset.height,
+        filtetype: this.getOutputFileType()
+      }
+    };
   }
 
 
@@ -1108,13 +1365,13 @@ export default MesseMap;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="MesseMap.html">MesseMap</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="MesseMap.html">MesseMap</a></li><li><a href="ScrollBar.html">ScrollBar</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.1</a> on Sat Feb 18 2023 13:17:03 GMT+0100 (Central European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Apr 11 2023 16:17:18 GMT+0200 (Central European Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>
