@@ -317,7 +317,7 @@ class MesseMap {
       document.getElementById('credit-modal').addEventListener('click', this._creditModal.bind(this));
       // Load event on map layers for loaded tiles (to ensure the printing occurs with all map tiles)
       for (const layer in MapProviders.layers) {
-        MapProviders.layers[layer].on('load', () => setTimeout(() => this._tilesLoaded = true, 4000));
+        MapProviders.layers[layer].on('load', () => this._tilesLoaded = true);
       }
 
       this._map.on('move', this._updateCommentLabel.bind(this));
@@ -754,7 +754,8 @@ class MesseMap {
       this._dlPrepareMap(size, scale, bounds);
       // setInterval on mapPrint to ensure tiles are loaded before downloading (tilesLoaded flag)
       if (scale === 1) { this._tilesLoaded = true; } // Set tiles loaded if no upscale is requested on export
-      this._intervalId = setInterval(this._dlPerformMapPrint.bind(this, bounds), 1000);
+      // Set tiles loaded flag to false to wait for reframe to occur
+      this._intervalId = setInterval(this._dlPerformMapPrint.bind(this, bounds), 2000);
     }, 200);
   }
 
@@ -795,8 +796,6 @@ class MesseMap {
     document.getElementById('map-output').style.setProperty('--thick-border', `${cssVars.thickBorder * scale}px`);
     document.getElementById('map-output').style.setProperty('--small-border', `${cssVars.smallBorder * scale}px`);
     document.body.style.fontSize = `${1.2 * scale}rem`;
-    // Set tiles loaded flag to false to wait for reframe to occur
-    this._tilesLoaded = false;
     // Scale map dimension and attributes
     if (document.getElementById('map-output').classList.contains('horizontal')) {
       document.getElementById('map-output').style.height = `${size}px`;
@@ -812,10 +811,11 @@ class MesseMap {
     document.getElementById('map-output').style.boxShadow = 'none';
     requestAnimationFrame(() => {
       this._map.invalidateSize();
-      this._map.fitBounds(bounds);
+      this._map.fitBounds(bounds, { duration: 0 });
       if (CONST.DEBUG) { console.log('MesseMap._dlPrepareMap() : Waiting for map tiles to load'); }
       document.getElementById('print-status').innerHTML = this._nls.download.tileLoad;
       document.getElementById('print-progress').style.width = '25%';
+      this._tilesLoaded = false;
     });
   }
 
@@ -842,11 +842,10 @@ class MesseMap {
       document.getElementById('print-status').innerHTML = this._nls.download.printStart;
       document.getElementById('print-progress').style.width = '66%';
       clearInterval(this._intervalId);
-      this._tilesLoaded = false;
       requestAnimationFrame(() => {
         // Execute html2canvas with output div
         window.html2canvas(document.getElementById('map-output'), {
-          proxy: "/proxy",
+          proxy: '/proxy',
           logging: CONST.DEBUG,
           width: document.getElementById('map-output').offsetWidth,
           height: document.getElementById('map-output').offsetHeight,

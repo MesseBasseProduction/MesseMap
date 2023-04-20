@@ -2,7 +2,7 @@
 
 ![](https://badgen.net/badge/version/1.0.0/blue)
 [![License](https://img.shields.io/github/license/MesseBasseProduction/MesseMap.svg)](https://github.com/MesseBasseProduction/MesseMap/blob/master/LICENSE.md)
-![https://messebasseproduction.github.io/MesseMap/doc/index.html](https://badgen.net/badge/documentation/written/green)
+![](https://badgen.net/badge/documentation/written/green)
 ![](https://badgen.net/badge/test/wip/red)
 
 A website to create a map poster, so it can be exported ready to print, with the ability to scale the map for to given size. Different map layers available to create your unique *wall-memory* touch!
@@ -11,7 +11,7 @@ It features 7 poster styles, that can all be customized (positioning, colors). I
 
 When exporting the map to disk the user can set the output dimension, the lowest resolution being A7 at 300 dpi (600 x 848) and the highest being A2 at 300 dpi (6500 x 9193). The user can also set the output format, between `.png`, `.jpg`, `.webp` and `.pdf` (exports in PDF are done in the CYMK color space so it's ready to print).
 
-In order to let you try it, we are running an [instance](https://messebasseproduction.github.io/MesseMap/index.html). This instance may not work (yet) because of tainted canvas and proxy issues, we're working on providing a new one asap. If you want to try this with all available maps, you should run a local instance, by doing the following :
+In order to let you try it, we are running an [instance](https://messemap.org). This instance may not work (yet) because of tainted canvas and proxy issues, we're working on providing a new one asap. If you want to try this with all available maps, you should run a local instance, by doing the following :
 
 - $ `git clone https://github.com/MesseBasseProduction/MesseMap`
 - $ `cd MesseMap && npm install`
