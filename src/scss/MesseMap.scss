@@ -1206,11 +1206,11 @@ main {
   width: 513px !important;
   height: 513px !important;
 }
-/* Put scrollbar in layer menu for smoother navigation */
+
 .leaflet-control-layers-expanded {
   max-height: 28rem;
   overflow-y: auto;
-  width: 16rem;
+  width: 18rem;
 }
 
 @import 'responsive';

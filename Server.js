@@ -32,7 +32,8 @@ app.listen(port, () => {
 // Internal method to process input Js object into JSON file
 const saveDataToDisk = data => {
   let date = new Date();
-  fs.writeFile(`${exportPath}/MesseMap-v${version}-Export-${date.toISOString().replace(/[T:]/g, '-').replace(/[^0-9-]/g, '').slice(0, -3)}.json`, JSON.stringify(data), 'utf8', err => {
+  const formattedDate = date.toISOString().replace(/[T:]/g, '-').replace(/[^0-9-]/g, '').slice(0, -3);
+  fs.writeFile(`${exportPath}/MesseMap-v${version}-Export-${formattedDate}.json`, JSON.stringify(data), 'utf8', err => {
     date = new Date();
     if (err) {
       console.error(`${date.toISOString()} | MesseMap v${version} | Poster data couldn't be saved to server`);

@@ -3,19 +3,22 @@
 ![](https://badgen.net/badge/version/1.0.0/blue)
 [![License](https://img.shields.io/github/license/MesseBasseProduction/MesseMap.svg)](https://github.com/MesseBasseProduction/MesseMap/blob/master/LICENSE.md)
 ![](https://badgen.net/badge/documentation/written/green)
-![](https://badgen.net/badge/test/wip/red)
 
-A website to create a map poster, so it can be exported ready to print, with the ability to scale the map for to given size. Different map layers available to create your unique *wall-memory* touch!
+A website that help you to create a map poster, so it can be exported ready to print, with the ability to scale the map for to given size. Different map layers available to create your unique *wall-memory* touch!
 
 It features 7 poster styles, that can all be customized (positioning, colors). It allows user to define a title, a subtitle and a comment for their map. Each of these text's color can also be modified.
 
-When exporting the map to disk the user can set the output dimension, the lowest resolution being A7 at 300 dpi (600 x 848) and the highest being A2 at 300 dpi (6500 x 9193). The user can also set the output format, between `.png`, `.jpg`, `.webp` and `.pdf` (exports in PDF are done in the CYMK color space so it's ready to print).
+Wanna try it ? We are running a [MesseMap instance](https://messemap.org) just for you! 
 
-In order to let you try it, we are running an [instance](https://messemap.org). This instance may not work (yet) because of tainted canvas and proxy issues, we're working on providing a new one asap. If you want to try this with all available maps, you should run a local instance, by doing the following :
+![Interface Screenshot](./assets/img/demo.png)
+
+When exporting the map to disk the user can set the output dimension, the lowest resolution being A7 at 300 dpi (600 x 848) and the highest being A2 at 300 dpi (6500 x 9193). The user can also set the output format, between `.png`, `.jpg`, `.webp` and `.pdf` (exports in PDF are done in the CYMK color space so they're ready to print). On Google Chrome, exproting large maps may lead to grey tiles. Unfortunatly this is a ressource issue with Chrome ; maybe try with Firefox or else ?
+
+If you want to try this with all available maps, you should run a local instance, by doing the following :
 
 - $ `git clone https://github.com/MesseBasseProduction/MesseMap`
-- $ `cd MesseMap && npm install`
-- $ `npm run build && npm run server`
+- $ `cd MesseMap`
+- $ `docker-compose build && docker-compose up -d`
 
 It will expose the application on your localhost, port 8010.
 

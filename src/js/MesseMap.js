@@ -348,13 +348,7 @@ class MesseMap {
   _endStartup() {
     if (CONST.DEBUG) { console.log('MesseMap._endStartup called'); } 
     return new Promise(resolve => {
-      document.getElementById('print-overlay').style.opacity = 0;
-      setTimeout(() => { 
-        document.getElementById('print-overlay').style.zIndex = -1;
-        document.getElementById('print-overlay').children[0].innerHTML = this._nls.download.title;
-        document.getElementById('print-overlay').children[1].innerHTML = this._nls.download.subtitle;
-        resolve();
-      }, 200);
+      this.unblockInterface().then(resolve);
     });
   }
 
@@ -737,10 +731,7 @@ class MesseMap {
   **/
   _download() {
     if (CONST.DEBUG) { console.log('MesseMap._download() called'); }
-    document.getElementById('print-overlay').style.zIndex = 99;
-    document.getElementById('print-overlay').style.opacity = 1;
-    document.getElementById('map-output').style.transition = 'none';
-    setTimeout(() => {
+    this.blockInterface().then(() => {
       // First we get the user desired size
       let size = document.getElementById('image-width').value;
       let scale = size / 600;
@@ -756,7 +747,7 @@ class MesseMap {
       if (scale === 1) { this._tilesLoaded = true; } // Set tiles loaded if no upscale is requested on export
       // Set tiles loaded flag to false to wait for reframe to occur
       this._intervalId = setInterval(this._dlPerformMapPrint.bind(this, bounds), 2000);
-    }, 200);
+    });
   }
 
 
@@ -937,14 +928,13 @@ class MesseMap {
     // Restore map container box shadow
     document.getElementById('map-output').classList.add('shadow');
     // Remove print overlay
-    document.getElementById('print-overlay').style.opacity = 0;
     setTimeout(() => {
-      document.getElementById('print-overlay').style.zIndex = -1;
       this._map.invalidateSize();
-      this._map.fitBounds(bounds);
-      document.getElementById('map-output').style.transition = 'all .2s';
-      document.getElementById('print-progress').style.width = '0';
-      if (CONST.DEBUG) { console.log('Map properly restored'); }
+      this._map.fitBounds(bounds, { duration: 0 });
+      this.unblockInterface().then(() => {
+        if (CONST.DEBUG) { console.log('MesseMap._dlRestoreMap() : Map properly restored'); }
+        document.getElementById('print-progress').style.width = '0';
+      });
     }, 200);
   }
 
@@ -1319,6 +1309,57 @@ class MesseMap {
         filtetype: this.getOutputFileType()
       }
     };
+  }
+
+
+  /**
+   * @method
+   * @name blockInterface
+   * @public
+   * @memberof MesseMap
+   * @author Arthur Beaulieu
+   * @since April 2023
+   * @description
+   * <blockquote>
+   * Will add a modal over the whole app to hide the page content
+   * </blockquote>
+   * @return {Promise} - A promise resolved when UI is blocked
+   **/
+  blockInterface() {
+    if (CONST.DEBUG) { console.log('MesseMap.blockInterface called'); } 
+    return new Promise(resolve => {
+      document.getElementById('print-overlay').style.zIndex = 99;
+      document.getElementById('print-overlay').style.opacity = 1;
+      document.getElementById('map-output').style.transition = 'none';
+      setTimeout(resolve, 200);
+    });
+  }
+
+
+  /**
+   * @method
+   * @name unblockInterface
+   * @public
+   * @memberof MesseMap
+   * @author Arthur Beaulieu
+   * @since April 2023
+   * @description
+   * <blockquote>
+   * Will remove the modal over the whole app
+   * </blockquote>
+   * @return {Promise} - A promise resolved when UI is unblocked
+   **/
+  unblockInterface() {
+    if (CONST.DEBUG) { console.log('MesseMap.unblockInterface called'); } 
+    return new Promise(resolve => {
+      document.getElementById('print-overlay').style.opacity = 0;
+      setTimeout(() => { 
+        document.getElementById('print-overlay').style.zIndex = -1;
+        document.getElementById('print-overlay').children[0].innerHTML = this._nls.download.title;
+        document.getElementById('print-overlay').children[1].innerHTML = this._nls.download.subtitle;
+        resolve();
+      }, 200);
+    });
   }
 
 

@@ -1,5 +1,8 @@
-node_modules
-__pycache__
 .idea
+__pycache__
+node_modules
+
 saved
 saved/**
+assets/dist
+assets/dist/**
