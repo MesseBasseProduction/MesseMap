@@ -1,8 +1,8 @@
 # MesseMap
 
 ![](https://badgen.net/badge/version/1.0.0/blue)
-[![License](https://img.shields.io/github/license/MesseBasseProduction/MesseMap.svg)](https://github.com/MesseBasseProduction/MesseMap/blob/master/LICENSE.md)
-![](https://badgen.net/badge/documentation/written/green)
+[![License](https://img.shields.io/github/license/MesseBasseProduction/MesseMap.svg)](https://github.com/MesseBasseProduction/MesseMap/blob/main/LICENSE)
+[![Doc](https://badgen.net/badge/documentation/written/green)](https://messebasseproduction.github.io/MesseMap/doc/index.html)
 
 A website that help you to create a map poster, so it can be exported ready to print, with the ability to scale the map for to given size. Different map layers available to create your unique *wall-memory* touch!
 
