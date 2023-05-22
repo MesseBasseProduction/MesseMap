@@ -12,7 +12,7 @@ from src.py.utils import *
 global mapInfo
 global savedPath
 global scriptVersion
-scriptVersion = '0.0.1'
+scriptVersion = '1.0.0'
 
 class MapDownloader:
     def __init__(self):

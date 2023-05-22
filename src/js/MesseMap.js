@@ -29,7 +29,8 @@ class MesseMap {
    * <blockquote>
    * The MesseMap class is made to handle the whole application, its interactivity
    * and all its user events. It hold the code to generate the poster output and serve
-   * it to the user. (see README.md for further details about used libraries).
+   * it to the user. (see README.md for further details about used libraries). It also
+   * handle the data exchange with server to store saved posters as JSON.
    * This constructor will initialize the Leaflet map and all its manipulators and will
    * then listen to user events for text and export settings.
    * </blockquote>
@@ -71,7 +72,14 @@ class MesseMap {
      * @type {Object}
      * @private
      **/
-    this._cssTheme = {};
+    this._cssTheme = {
+      lbg: '#FFFFFE',
+      ltxt: '#000001',
+      lcom: '#999998',
+      dbg: '#000001',
+      dtxt: '#FFFFFE',
+      dcom: '#999998'      
+    };
     /**
      * The currently applied language
      * @type {String}

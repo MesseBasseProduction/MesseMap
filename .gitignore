@@ -2,7 +2,6 @@
 __pycache__
 node_modules
 
-saved
-saved/**
+saved/*json
 assets/dist
 assets/dist/**

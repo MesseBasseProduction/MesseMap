@@ -10,17 +10,21 @@ It features 7 poster styles, that can all be customized (positioning, colors). I
 
 Wanna try it ? We are running a [MesseMap instance](https://messemap.org) just for you! 
 
-![Interface Screenshot](./assets/img/demo.png)
+[![Interface Screenshot](./assets/img/demo.png)](https://messemap.org)
 
-When exporting the map to disk the user can set the output dimension, the lowest resolution being A7 at 300 dpi (600 x 848) and the highest being A2 at 300 dpi (6500 x 9193). The user can also set the output format, between `.png`, `.jpg`, `.webp` and `.pdf` (exports in PDF are done in the CYMK color space so they're ready to print). On Google Chrome, exproting large maps may lead to grey tiles. Unfortunatly this is a ressource issue with Chrome ; maybe try with Firefox or else ?
+When exporting the map to disk the user can set the output dimension, the lowest resolution being A7 at 300 dpi (600 x 848) and the highest being A2 at 300 dpi (6500 x 9193). The user can also set the output format, between `.png`, `.jpg`, `.webp` and `.pdf` (exports in PDF are done in the CYMK color space so they're ready to print). 
 
-If you want to try this with all available maps, you should run a local instance, by doing the following :
+**On Google Chrome, exproting large maps may lead to grey tiles. Unfortunatly this is a known ressource issue with Chrome ; please try with Firefox or non-webkit based browsers in the meantime.**
+
+## Get started
+
+If you want to run a local instance, you may proceed as follows :
 
 - $ `git clone https://github.com/MesseBasseProduction/MesseMap`
 - $ `cd MesseMap`
 - $ `docker-compose build && docker-compose up -d`
 
-It will expose the application on your localhost, port 8010.
+It will expose the application on your localhost, port 8010. Saved posters will be stored as JSON files in `./saved` folder. You turn to configure the web server to expose this app to the world (feel welcome to let us know if you run one).
 
 ## Map data
 

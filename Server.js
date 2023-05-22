@@ -5,9 +5,10 @@ const fs = require('fs');
 // App and preferences
 const version = '1.0.0';
 const port = 8010;
-const exportPath = 'saved/'; // TODO .env file plz
-fs.mkdir(exportPath, { recursive: true }, () => {}); // Create export path if not existing
+const exportPath = 'saved/'; // Must match Dockerfile value
 const app = express();
+// Log
+console.log(`${(new Date()).toISOString()} | MesseMap v${version} | Starting server and proxy`);
 // url definitions
 app.use('/assets', express.static('assets')); // Serve static files
 app.use('/proxy', proxy()); // Proxify external assets for html2canvas, avoid canvas tainting
@@ -26,20 +27,17 @@ app.post('/upload', express.json(), (req, res) => {
 });
 // Start server console
 app.listen(port, () => {
-  const date = new Date();
-  console.log(`${date.toISOString()} | MesseMap v${version} | Server started and listening on port ${port}`);
+  console.log(`${(new Date()).toISOString()} | MesseMap v${version} | Server started and listening on port ${port}`);
 });
 // Internal method to process input Js object into JSON file
 const saveDataToDisk = data => {
-  let date = new Date();
-  const formattedDate = date.toISOString().replace(/[T:]/g, '-').replace(/[^0-9-]/g, '').slice(0, -3);
+  const formattedDate = (new Date()).toISOString().replace(/[T:]/g, '-').replace(/[^0-9-]/g, '').slice(0, -3);
   fs.writeFile(`${exportPath}/MesseMap-v${version}-Export-${formattedDate}.json`, JSON.stringify(data), 'utf8', err => {
-    date = new Date();
     if (err) {
-      console.error(`${date.toISOString()} | MesseMap v${version} | Poster data couldn't be saved to server`);
-      console.error(err);
+      console.error(`${(new Date()).toISOString()} | MesseMap v${version} | Poster data couldn't be saved to server`);
+      console.error(`${(new Date()).toISOString()} | MesseMap v${version} | ${err}`);
     } else {
-      console.log(`${date.toISOString()} | MesseMap v${version} | Poster data successfully saved to server`);
+      console.log(`${(new Date()).toISOString()} | MesseMap v${version} | Poster data successfully saved to server`);
     }
   });
 };

@@ -166,7 +166,7 @@ aside {
     width: 100%;
 
     .aside-content-wrapper {
-      padding-right: calc(var(--default-scroll-size) - 1px);
+      padding-right: calc((2 * var(--default-scroll-size)) - 1px);
       width: 100%;
     }
 
@@ -368,10 +368,12 @@ aside {
       &:hover {
         color: #56d45b;
       }
+    }
 
-      &:first-child {
-        margin-top: 1rem;      
-      }
+    .mbp-link {
+      font-family: 'catamaran', sans-serif;
+      font-size: 1.6rem;
+      margin-top: 1rem;
     }
   }
 }
@@ -1118,8 +1120,8 @@ main {
 	}
 
   .credit-modal {
-    max-width: 90%;
-    width: 45rem;
+    max-width: 100%;
+    width: 66rem;
 
     p {
       padding-bottom: 1rem;
@@ -1183,7 +1185,12 @@ main {
   h1, p {
     margin-bottom: 1rem;
   }
-  
+
+  .mbp-link {
+    font-family: 'catamaran', sans-serif;
+    font-size: 3.6rem;
+  }
+
   .progress {
     background-color: #56d45b;
     bottom: 0;

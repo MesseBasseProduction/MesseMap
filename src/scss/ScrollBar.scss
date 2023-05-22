@@ -1,8 +1,8 @@
 /* scrollbar-container class is added to DOM target */
 .scrollbar-container {
-  --default-scroll-size: 18px;
+  --default-scroll-size: 12px;
   --scroll-color: rgb(155, 155, 155);
-  --scroll-size: 10px;
+  --scroll-size: 12px;
   --scroll-radius: calc(var(--scroll-size) / 2);
   --scroll-low-opacity: .2;
   --scroll-high-opacity: .8;
