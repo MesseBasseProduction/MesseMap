@@ -311,7 +311,6 @@ class MesseMap {
       for (let i = 0; i < sizes.children.length; ++i) {
         sizes.children[i].addEventListener('click', this._updateDimensionClicked.bind(this));
       }
-
       // Listening to close modal event
       document.getElementById('modal-overlay').addEventListener('click', this._closeModal.bind(this));
       document.getElementById('credit-modal').addEventListener('click', this._creditModal.bind(this));
@@ -742,11 +741,12 @@ class MesseMap {
       }
       const bounds = this._map.getBounds(); // Map bound before scaling
       // Scale map elements according to user desired size
-      this._dlPrepareMap(size, scale, bounds);
-      // setInterval on mapPrint to ensure tiles are loaded before downloading (tilesLoaded flag)
-      if (scale === 1) { this._tilesLoaded = true; } // Set tiles loaded if no upscale is requested on export
-      // Set tiles loaded flag to false to wait for reframe to occur
-      this._intervalId = setInterval(this._dlPerformMapPrint.bind(this, bounds), 2000);
+      this._dlPrepareMap(size, scale, bounds).then(() => {
+        // setInterval on mapPrint to ensure tiles are loaded before downloading (tilesLoaded flag)
+        if (scale === 1) { this._tilesLoaded = true; } // Set tiles loaded if no upscale is requested on export
+        // Set tiles loaded flag to false to wait for reframe to occur
+        this._intervalId = setInterval(this._dlPerformMapPrint.bind(this, bounds), 2000);
+      });
     });
   }
 
@@ -772,41 +772,44 @@ class MesseMap {
   **/
   _dlPrepareMap(size, scale, bounds) {
     if (CONST.DEBUG) { console.log('MesseMap._dlPrepareMap() : Prepare map style for printing'); }
-    document.getElementById('print-status').innerHTML = this._nls.download.stylePrep;
-    document.getElementById('print-progress').style.width = '10%';
-    // Hide Leaflet.js overlays
-    document.querySelector('.leaflet-top.leaflet-left').style.display = 'none';
-    document.querySelector('.leaflet-top.leaflet-right').style.display = 'none';
-    // Scale CSS variables
-    const cssVars = {
-      padding: parseInt(window.getComputedStyle(document.getElementById('map-output')).getPropertyValue('--padding').replace('rem', '')),
-      thickBorder: parseInt(window.getComputedStyle(document.getElementById('map-output')).getPropertyValue('--thick-border').replace('px', '')),
-      smallBorder: parseInt(window.getComputedStyle(document.getElementById('map-output')).getPropertyValue('--small-border').replace('px', ''))
-    };
-    document.getElementById('map-output').style.setProperty('--padding', `${cssVars.padding * scale}rem`);
-    document.getElementById('map-output').style.setProperty('--thick-border', `${cssVars.thickBorder * scale}px`);
-    document.getElementById('map-output').style.setProperty('--small-border', `${cssVars.smallBorder * scale}px`);
-    document.body.style.fontSize = `${1.2 * scale}rem`;
-    // Scale map dimension and attributes
-    if (document.getElementById('map-output').classList.contains('horizontal')) {
-      document.getElementById('map-output').style.height = `${size}px`;
-    } else {
-      document.getElementById('map-output').style.width = `${size}px`;
-    }
-    if (document.body.clientWidth < 1150) {
-      document.querySelector('.user-text-wrapper').style.fontSize = 'inherit';
-    }
-    document.getElementById('map-output').style.position = 'absolute';
-    // Remove box shadow from map container
-    document.getElementById('map-output').classList.remove('shadow');
-    document.getElementById('map-output').style.boxShadow = 'none';
-    requestAnimationFrame(() => {
-      this._map.invalidateSize();
-      this._map.fitBounds(bounds, { duration: 0 });
-      if (CONST.DEBUG) { console.log('MesseMap._dlPrepareMap() : Waiting for map tiles to load'); }
-      document.getElementById('print-status').innerHTML = this._nls.download.tileLoad;
-      document.getElementById('print-progress').style.width = '25%';
-      this._tilesLoaded = false;
+    return new Promise(resolve => {
+      document.getElementById('print-status').innerHTML = this._nls.download.stylePrep;
+      document.getElementById('print-progress').style.width = '10%';
+      // Hide Leaflet.js overlays
+      document.querySelector('.leaflet-top.leaflet-left').style.display = 'none';
+      document.querySelector('.leaflet-top.leaflet-right').style.display = 'none';
+      // Scale CSS variables
+      const cssVars = {
+        padding: parseInt(window.getComputedStyle(document.getElementById('map-output')).getPropertyValue('--padding').replace('rem', '')),
+        thickBorder: parseInt(window.getComputedStyle(document.getElementById('map-output')).getPropertyValue('--thick-border').replace('px', '')),
+        smallBorder: parseInt(window.getComputedStyle(document.getElementById('map-output')).getPropertyValue('--small-border').replace('px', ''))
+      };
+      document.getElementById('map-output').style.setProperty('--padding', `${cssVars.padding * scale}rem`);
+      document.getElementById('map-output').style.setProperty('--thick-border', `${cssVars.thickBorder * scale}px`);
+      document.getElementById('map-output').style.setProperty('--small-border', `${cssVars.smallBorder * scale}px`);
+      document.body.style.fontSize = `${1.2 * scale}rem`;
+      // Scale map dimension and attributes
+      if (document.getElementById('map-output').classList.contains('horizontal')) {
+        document.getElementById('map-output').style.height = `${size}px`;
+      } else {
+        document.getElementById('map-output').style.width = `${size}px`;
+      }
+      if (document.body.clientWidth < 1150) {
+        document.querySelector('.user-text-wrapper').style.fontSize = 'inherit';
+      }
+      document.getElementById('map-output').style.position = 'absolute';
+      // Remove box shadow from map container
+      document.getElementById('map-output').classList.remove('shadow');
+      document.getElementById('map-output').style.boxShadow = 'none';
+      requestAnimationFrame(() => {
+        this._map.invalidateSize();
+        this._map.fitBounds(bounds, { duration: 0 });
+        if (CONST.DEBUG) { console.log('MesseMap._dlPrepareMap() : Waiting for map tiles to load'); }
+        document.getElementById('print-status').innerHTML = this._nls.download.tileLoad;
+        document.getElementById('print-progress').style.width = '25%';
+        this._tilesLoaded = false;
+        resolve();
+      });
     });
   }
 
