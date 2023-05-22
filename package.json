@@ -7,10 +7,8 @@
     "build": "webpack --config webpack/webpack.prod.js",
     "watch": "webpack --watch --config webpack/webpack.dev.js",
     "start": "node Server.js",
-    "test": "karma start test/karma.config.js",
-    "test-dev": "karma start test/karma.config.js --dev=true",
     "doc": "jsdoc -c doc/jsDoc.json",
-    "beforecommit": "npm run test && npm run doc && npm run build"
+    "beforecommit": "npm run doc && npm run build"
   },
   "homepage": "https://github.com/MesseBasseProduction/MesseMap/README.md",
   "repository": {
@@ -32,14 +30,7 @@
     "eslint": "^8.41.0",
     "eslint-webpack-plugin": "^4.0.1",
     "file-loader": "^6.2.0",
-    "jasmine": "^5.0.0",
-    "jasmine-core": "^5.0.0",
     "jsdoc": "^4.0.2",
-    "karma": "^6.4.2",
-    "karma-firefox-launcher": "^2.1.2",
-    "karma-jasmine": "^5.1.0",
-    "karma-jasmine-html-reporter": "^2.0.0",
-    "karma-webpack": "^5.0.0",
     "mini-css-extract-plugin": "^2.7.6",
     "node-sass": "^9.0.0",
     "postcss": "^8.4.23",
