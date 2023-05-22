@@ -8,3 +8,5 @@ services:
       - 8010:8010
     environment:
       - NODE_ENV=prod
+    volumes:
+      - ./saved:/MesseMap/saved
