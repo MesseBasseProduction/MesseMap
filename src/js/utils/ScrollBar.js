@@ -1,4 +1,4 @@
-import '../../scss/ScrollBar.scss';
+import '../../scss/utils/_scrollbar.scss';
 
 
 class ScrollBar {

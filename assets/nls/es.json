@@ -1,5 +1,7 @@
 {
   "title": "MesseMap",
+  "pageTitle": "MesseMap | ¡Enmarca un lugar especial para ti y descárgalo, o imprímelo!",
+  "pageDescription": "¡El sitio perfecto para hacer un cartel de tarjeta original! Navegue hasta el lugar que desea resaltar, ajuste su diseño, textos y colores, luego descargue su póster en la resolución y el formato que desee.",
   "helper": "¡Bienvenido a MesseMap!<br><br>Navegue en el mapa para encontrar el lugar que desea mostrar (barra de búsqueda disponible), luego configure la capa base del mapa y sus atributos para que refleje el estilo que desea para su póster. Puede colapsar o expandir las siguientes categorías de opciones para una mejor navegación. Finalmente, haga clic en el botón exportar y disfrute de su póster recién hecho.",
   "orientation": "Orientación",
   "vertical": "Vertical",
@@ -74,6 +76,7 @@
     "es": "🇪🇸 Español",
     "de": "🇩🇪 Alemán",
     "it": "🇮🇹 Italiano",
-    "pt": "🇵🇹 Portugués"
+    "pt": "🇵🇹 Portugués",
+    "pl": "🇵🇱 Polaco"
   }
 }

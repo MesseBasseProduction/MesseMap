@@ -1,5 +1,7 @@
 {
   "title": "MesseMap",
+  "pageTitle": "MesseMap | Frame a special place for you and download it, or make a print of it !",
+  "pageDescription": "The perfect website to craft an original map poster of your own! Browse the world, adjust your design, texts and colors, then download it at the resolution and filetype you want!",
   "helper": "Welcome on MesseMap!<br><br>Navigate in the map to find the place you want to display (search bar available), then configure the map base layer and its attributes so it reflect the style you aim for your poster. You can collapse or expand the following options categories for better navigation. Finally, click on the export button and enjoy your freshly made poster!",
   "orientation": "Orientation",
   "vertical": "Vertical",
@@ -74,6 +76,7 @@
     "es": "🇪🇸 Spanish",
     "de": "🇩🇪 German",
     "it": "🇮🇹 Italiano",
-    "pt": "🇵🇹 Portuguese"
+    "pt": "🇵🇹 Portuguese",
+    "pl": "🇵🇱 Polish"
   }
 }

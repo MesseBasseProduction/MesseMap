@@ -1,5 +1,7 @@
 {
   "title": "MesseMap",
+  "pageTitle": "MesseMap | Encadrez un endroit qui vous est cher et téléchargez le prêt à tirer !",
+  "pageDescription": "Le site parfait pour réaliser un poster original de carte! Naviguez jusqu'à l'endroit que vous voulez mettre en avant, ajustez votre design, les textes et les couleurs, puis téléchargez votre poster à la résolution et au format que vous souhaitez!",
   "helper": "Bienvenu sur MesseMap!<br><br>Explorez la carte pour trouver votre endroit à cadrer (une barre de recherche est à votre disposition), puis configurez le fond de carte et ses attributs pour qu'il reflète au mieux le style que vous cherchez à appliquer. Vous pouvez étendre ou réduire les catégories suivantes pour facilité la navigation. Finallement, clickez sur exporter pour télécharger votre poster, prêt à l'impression!",
   "orientation": "Orientation",
   "vertical": "Vertical",
@@ -74,6 +76,7 @@
     "es": "🇪🇸 Espagnol",
     "de": "🇩🇪 Allemand",
     "it": "🇮🇹 Italien",
-    "pt": "🇵🇹 Portuguais"
+    "pt": "🇵🇹 Portuguais",
+    "pl": "🇵🇱 Polonais"
   }
 }
