@@ -1,5 +1,7 @@
 {
   "title": "MesseMap",
+  "pageTitle": "MesseMap | Gestalten Sie einen besonderen Ort für Sie und laden Sie ihn herunter oder drucken Sie ihn aus!",
+  "pageDescription": "Die perfekte Seite, um ein originelles Kartenplakat zu erstellen! Navigieren Sie zu dem Ort, den Sie hervorheben möchten, passen Sie Design, Texte und Farben an und laden Sie dann Ihr Poster in der gewünschten Auflösung und im gewünschten Format herunter!",
   "helper": "Willkommen auf MesseMap!<br><br>Navigieren Sie in der Karte, um den Ort zu finden, den Sie anzeigen möchten (Suchleiste verfügbar), und konfigurieren Sie dann die Kartenbasisebene und ihre Attribute so, dass sie den Stil widerspiegeln, den Sie für Ihr Poster anstreben. Sie können die folgenden Optionskategorien für eine bessere Navigation reduzieren oder erweitern. Klicken Sie abschließend auf den Export-Button und genießen Sie Ihr frisch erstelltes Poster!",
   "orientation": "Ausrichtung",
   "vertical": "Hochformat",
@@ -64,16 +66,17 @@
     "default": "Auf Standardwerte zurücksetzen"
   },
   "credit": {
-    "line1": "Eine App vorgeschlagen von <a href=\"https://messe-basse-production.com\" target=\"_blank\" rel=\"noopener noreferer\">Messe Basse Production</a>. Keine Cookies, keine Tracker, hier bist du sicher unterwegs.",
+    "line1": "Eine App vorgeschlagen von <a href=\"https://messe-basse-production.com\" target=\"_blank\" rel=\"noopener noreferer\">Messe Basse Production</a>.",
     "line2": "Karten werden freundlicherweise erstellt von <a href=\"https://www.openstreetmap.fr/\" target=\"_blank\" rel=\"noopener noreferer\">OpenStreetMap</a>, <a href=\"https://www.geoportail.gouv.fr/\" target=\"_blank\" rel=\"noopener noreferer\">GeoPortail</a>, <a href=\"https://www.esri.com/\" target=\"_blank\" rel=\"noopener noreferer\">ESRI</a>, <a href=\"http://stamen.com\" target=\"_blank\" rel=\"noopener noreferer\">Stamen Design</a>, <a href=\"https://carto.com/attributions\" target=\"_blank\" rel=\"noopener noreferer\">Carto</a> und <a href=\"https://www.mapiful.com/\" target=\"_blank\" rel=\"noopener noreferer\">Mapiful</a>, veröffentlicht unter <a href=\"http://www.openstreetmap.org/copyright\" target=\"_blank\" rel=\"noopener noreferer\">ODbL</a>-Lizenz. Wir sind diesen Anbietern sehr dankbar.",
     "line3": "Kartendaten werden freundlicherweise von ESRI, i-cubed, Mapiful, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, OpenStreetMap, Carto, Stamen Design und der GIS User Community zur Verfügung gestellt.",
-    "line4": "MesseMap ist lizensiert mit der GPL-3.0 Open Source Lizenz, und basiert auf den Bibliotheken <a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet</a>, <a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet.SmoothWheelZoom</a>, <a href=\"https://github.com/stefanocudini/leaflet-search\" target=\"_blank\" rel=\"noopener noreferer\">leaflet-search</a> <a href=\"https://html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a> und <a href=\"https://github.com/parallax/jsPDF/\" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>. Der Quellcode dieser Anwendung ist verfügbar auf dem <a href=\"https://github.com/MesseBasseProduction/MesseMap/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a> Repository. Jeder Beitrag ist willkommen!",
+    "line4": "MesseMap ist lizensiert mit der GPL-3.0 Open Source Lizenz, und basiert auf den Bibliotheken <a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet</a>, <a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet.SmoothWheelZoom</a>, <a href=\"https://github.com/stefanocudini/leaflet-search\" target=\"_blank\" rel=\"noopener noreferer\">leaflet-search</a> <a href=\"https://html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a>, <a href=\"https://github.com/niklasvh/html2canvas-proxy-nodejs\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas-proxy-nodejs</a> und <a href=\"https://github.com/parallax/jsPDF/\" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>. Der Quellcode dieser Anwendung ist verfügbar auf dem <a href=\"https://github.com/MesseBasseProduction/MesseMap/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a> Repository. Jeder Beitrag ist willkommen!",
     "lang": "Schnittstellensprache",
     "fr": "🇫🇷 Französisch",
     "en": "🇬🇧 Englisch",
     "es": "🇪🇸 Spanisch",
     "de": "🇩🇪 Deutsch",
     "it": "🇮🇹 Italienisch",
-    "pt": "🇵🇹 Portugiesisch"
+    "pt": "🇵🇹 Portugiesisch",
+    "pl": "🇵🇱 Polieren"
   }
 }

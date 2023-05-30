@@ -29,7 +29,8 @@ class MesseMap {
    * <blockquote>
    * The MesseMap class is made to handle the whole application, its interactivity
    * and all its user events. It hold the code to generate the poster output and serve
-   * it to the user. (see README.md for further details about used libraries).
+   * it to the user. (see README.md for further details about used libraries). It also
+   * handle the data exchange with server to store saved posters as JSON.
    * This constructor will initialize the Leaflet map and all its manipulators and will
    * then listen to user events for text and export settings.
    * </blockquote>
@@ -71,13 +72,20 @@ class MesseMap {
      * @type {Object}
      * @private
      **/
-    this._cssTheme = {};
+    this._cssTheme = {
+      lbg: '#FFFFFE',
+      ltxt: '#000001',
+      lcom: '#999998',
+      dbg: '#000001',
+      dtxt: '#FFFFFE',
+      dcom: '#999998'      
+    };
     /**
      * The currently applied language
      * @type {String}
      * @private
      **/
-    this._lang = localStorage.getItem('lang') || 'fr';
+    this._lang = localStorage.getItem('lang') || 'en';
     /**
      * The nls file that holds language key values
      * @type {Object}
@@ -136,7 +144,14 @@ class MesseMap {
       // Then fetch and update UI with proper language
       fetch(`assets/nls/${this._lang}.json`).then(data => {
         data.text().then(lang => {
-          this._nls = JSON.parse(lang);
+          document.documentElement.setAttribute('lang', this._lang); // Update HTML lang tag
+          this._nls = JSON.parse(lang); // Save language keys/values
+          // Update head content with translations
+          document.title = this._nls.pageTitle;
+          document.querySelector('meta[name="description"]').setAttribute('content', this._nls.pageDescription);
+          document.querySelector('meta[property="og:description"]').setAttribute('content', this._nls.pageDescription);
+          document.querySelector('meta[name="twitter:description"]').setAttribute('content', this._nls.pageDescription);
+          // Update page content with translations
           this.replaceString(document.body, '{{TITLE}}', this._nls.title);
           this.replaceString(document.body, '{{HELPER}}', this._nls.helper);
           this.replaceString(document.body, '{{ORIENTATION}}', this._nls.orientation);
@@ -248,8 +263,8 @@ class MesseMap {
         target: document.getElementById('scrollable-aside'),
         style: {
           color: '#56d45b',
-          size: '5px',
-          radius: '1px',
+          size: '8px',
+          radius: '.333rem',
           lowOpacity: '0.5',
           highOpacity: '1',
           transitionDuration: '0.1s'
@@ -1080,6 +1095,7 @@ class MesseMap {
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_DE}}', this._nls.credit.de);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_IT}}', this._nls.credit.it);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_PT}}', this._nls.credit.pt);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_PL}}', this._nls.credit.pl);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_CLOSE}}', this._nls.action.close);
         // Lang update
         document.getElementById('lang').value = this._lang;

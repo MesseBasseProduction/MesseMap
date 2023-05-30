@@ -1,0 +1,83 @@
+{
+    "title": "MesseMap",
+    "pageTitle": "MesseMap | Wykadruj bliskie Ci miejsce i pobierz gotowe do zdjęcia!",
+    "pageDescription": "Idealne miejsce do stworzenia oryginalnego plakatu z mapą! Przejdź do miejsca, które chcesz wyróżnić, dostosuj projekt, teksty i kolory, a następnie pobierz plakat w wybranej rozdzielczości i formacie!",
+    "helper": "Witamy w MesseMap!<br><br>Przejrzyj mapę, aby znaleźć miejsce do wykadrowania (pasek wyszukiwania jest do Twojej dyspozycji), a następnie skonfiguruj mapę bazową i jej atrybuty, aby jak najlepiej odzwierciedlały styl, który chcesz zastosować. Możesz rozwinąć lub zwinąć następujące kategorie, aby ułatwić nawigację. Na koniec kliknij eksport, aby pobrać plakat gotowy do druku!",
+    "orientation": "Orientacja",
+    "vertical": "Pionowy",
+    "horizontal": "Poziomy",
+    "action": {
+      "close": "Zamknąć"
+    },
+    "style": {
+      "title": "Styl",
+      "mapStyle": "Format elementów",
+      "darkTheme": "Ciemny schemat",
+      "upText": "Tekst na górze",
+      "std": "Standard",
+      "travel": "Podróż",
+      "frame": "Obraz",
+      "pure": "Czysty",
+      "pantone": "Pantone",
+      "map": "Mapa",
+      "window": "Iluminator",
+      "air": "Powietrze",
+      "hipster": "Hipster"
+    },
+    "text": {
+      "title": "Teksty",
+      "mapTitle": "Tytuł",
+      "mapTitlePlaceholder": "Tytuł mapy",
+      "mapSubtitle": "Podtytuł",
+      "mapSubtitlePlaceholder": "Podtytuł mapy",
+      "mapComment": "Komentarz",
+      "mapCommentPlaceholder": "Komentarz do mapy"
+    },
+    "export": {
+      "title": "Eksportuj parametr",
+      "dimension": "Wymiar",
+      "at": "na",
+      "format": "Formatuj pliki",
+      "button": "Eksporter",
+      "credits": "Kredyty"
+    },
+    "download": {
+      "title": "Twój plakat jest przygotowywany",
+      "subtitle": "Proszę czekać na zebranie danych",
+      "stylePrep": "Przygotowuję styl mapy do eksportu...",
+      "tileLoad": "Oczekiwanie na załadowanie kafelków mapy...",
+      "printStart": "Załadowano kafelki, rozpoczyna się eksport...",
+      "outputFile": "Tworzenie pliku wyjściowego...",
+      "saveToDisk": "Eksport zakończony. Trwa zapisywanie na dysku...",
+      "restoreMap": "Przywrócenie pierwotnego stylu..."
+    },
+    "search": {
+      "placeholder": "Do badań...",
+      "cancel": "Anulować",
+      "error": "Brak wyników..."
+    },
+    "theme": {
+      "title": "Edycja motywów",
+      "lightTheme": "Wyczyść motyw",
+      "darkTheme": "Ciemny schemat",
+      "bg": "Spód",
+      "txt": "Tekst",
+      "txtAlt": "Alternatywny tekst",
+      "default": "Domyślny motyw"
+    },
+    "credit": {
+      "line1": "Aplikacja zaproponowana przez <a href=\"https://messe-basse-production.com\" target=\"_blank\" rel=\"noopener noreferer\">Messe Basse Production</a>.",
+      "line2": "Mapy bazowe są dostarczane przez <a href=\"https://www.openstreetmap.fr/\" target=\"_blank\" rel=\"noopener noreferer\">OpenStreetMap</a>, <a href=\" https://www.geoportail.gouv.fr/\" target=\"_blank\" rel=\"noopener noreferer\">GeoPortail</a>, <a href=\"https:/ /www.esri. com/\" target=\"_blank\" rel=\"noopener noreferer\">ESRI</a>, <a href=\"http://stamen.com\" target=\" _blank\" rel= \"noopener noreferer\">Projekt pręcika</a>, <a href=\"https://carto.com/attributions\" target=\"_blank\" rel=\"noopener noreferer\">Carto</ a> i <a href=\"https://www.mapiful.com/\" target=\"_blank\" rel=\"noopener noreferer\">Mapiful</a>, na licencji <a href=\"http://www.openstreetmap.org/copyright\" target=\"_blank\" rel=\"noopener noreferer\">ODbL</a>. Nasza wdzięczność dla tych darczyńców jest ogromna i szczera.",
+      "line3": "Dane map są udostępniane przez ESRI, i-cubed, Mapiful, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, OpenStreetMap, Carto, Stamen Design i GIS User Community.",
+      "line4": "MesseMap to aplikacja na wolnej licencji GPL-3.0, która korzysta z bibliotek <a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet</a >, <a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet.SmoothWheelZoom</a>, <a href =\"https://github.com/stefanocudini/leaflet-search\" target=\"_blank\" rel=\"noopener noreferer\">wyszukiwanie ulotek</a> <a href=\"https:/ /html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a>, <a href=\"https://github.com/niklasvh/html2canvas-proxy-nodejs\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas-proxy-nodejs</a> i <a href=\"https://github.com/parallax/jsPDF/\" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>. Kod źródłowy aplikacji dostępny jest w repozytorium <a href=\"https://github.com/MesseBasseProduction/MesseMap/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a> dalej, każdy wkład, pomysł na funkcję lub zgłoszenie błędu jest mile widziane!",
+      "lang": "Język interfejsu",
+      "fr": "🇫🇷 Francuski",
+      "en": "🇬🇧 Angielski",
+      "es": "🇪🇸 Hiszpański",
+      "de": "🇩🇪 Niemiecki",
+      "it": "🇮🇹 Włoski",
+      "pt": "🇵🇹 Portugalski",
+      "pl": "🇵🇱 Polski"
+    }
+  }
+  

@@ -1,4 +1,4 @@
-@import 'fonts';
+@import 'utils/fonts';
 
 :root {
   --green-border: #246400;
@@ -86,11 +86,21 @@ input[type="radio"] {
 }
 
 button {
+  background-color: rgba(255, 255, 255, .8);
+  border: solid 1px grey;
+  border-radius: .333rem;
   cursor: pointer;
   margin: 1rem;
   margin-top: 0;
-  padding: .5rem 2rem;
+  padding: .8rem 2.2rem;
   width: fit-content;
+  transition: all .2s;
+
+  &:active,
+  &:focus,
+  &:hover {
+    background-color: rgba(255, 255, 255, .9);
+  }
 }
 
 a {
@@ -166,7 +176,7 @@ aside {
     width: 100%;
 
     .aside-content-wrapper {
-      padding-right: calc(var(--default-scroll-size) - 1px);
+      padding-right: calc((2 * var(--default-scroll-size)) - 1px);
       width: 100%;
     }
 
@@ -368,10 +378,12 @@ aside {
       &:hover {
         color: #56d45b;
       }
+    }
 
-      &:first-child {
-        margin-top: 1rem;      
-      }
+    .mbp-link {
+      font-family: 'catamaran', sans-serif;
+      font-size: 1.6rem;
+      margin-top: 1rem;
     }
   }
 }
@@ -459,7 +471,7 @@ main {
         text-transform: uppercase;
       }
   
-      h3 {
+      h2 {
         align-items: center;
         display: flex;
         font-family: 'proxima-nova', sans-serif;
@@ -538,7 +550,7 @@ main {
         width: 70%;
       }
   
-      h3 {
+      h2 {
         display: block;
         float: right;
         font-family: 'proxima-nova', sans-serif;
@@ -567,7 +579,7 @@ main {
       .user-text-wrapper {
         top: calc(var(--padding) - 2px);
 
-        h1, h3 {
+        h1, h2 {
           padding-top: 0;
         }
       }
@@ -603,7 +615,7 @@ main {
         font-weight: 700;
       }
   
-      h3 {
+      h2 {
         display: block;
         font-family: 'proxima-nova', sans-serif;
         font-size: 1.4em;
@@ -658,7 +670,7 @@ main {
         text-transform: uppercase;
       }
   
-      h3 {
+      h2 {
         align-items: center;
         display: flex;
         font-family: 'proxima-nova', sans-serif;
@@ -728,7 +740,7 @@ main {
         font-weight: 700;
       }
   
-      h3 {
+      h2 {
         display: block;
         font-family: 'proxima-nova', sans-serif;
         font-size: 1.3em;
@@ -793,7 +805,7 @@ main {
         text-transform: uppercase;
       }
   
-      h3 {
+      h2 {
         font-family: 'proxima-nova', sans-serif;
         font-size: 1.6em;
         font-weight: 400;
@@ -863,7 +875,7 @@ main {
         text-transform: uppercase;
       }
   
-      h3 {
+      h2 {
         font-family: 'proxima-nova', sans-serif;
         font-size: 1.6em;
         font-weight: 400;
@@ -894,7 +906,7 @@ main {
         margin-top: 0;
         top: calc(var(--padding) - 2px);
 
-        h1, h3 {
+        h1, h2 {
           padding-top: 0;
         }
       }
@@ -934,7 +946,7 @@ main {
         font-weight: 700;
       }
   
-      h3 {
+      h2 {
         display: block;
         font-family: 'proxima-nova', sans-serif;
         font-size: 1.3em;
@@ -1005,7 +1017,7 @@ main {
         font-weight: 700;
       }
   
-      h3 {
+      h2 {
         display: block;
         font-family: 'proxima-nova', sans-serif;
         font-size: 1.4em;
@@ -1118,8 +1130,8 @@ main {
 	}
 
   .credit-modal {
-    max-width: 90%;
-    width: 45rem;
+    max-width: 100%;
+    width: 66rem;
 
     p {
       padding-bottom: 1rem;
@@ -1141,6 +1153,11 @@ main {
       padding-bottom: 1rem;
     }
 
+    input {
+      border: solid 1px grey;
+      border-radius: .333rem;
+    }
+
     .light-theme-container {
       border-right: solid 1px rgba(0, 0, 0, .3);
     }
@@ -1152,11 +1169,12 @@ main {
     .item {
       align-items: center;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       margin: 1rem 0;
 
       label {
         margin-right: 1rem;
+        text-align: right;
       }
     }
   }
@@ -1175,6 +1193,7 @@ main {
   left: 0;
   opacity: 1;
   position: fixed;
+  text-align: center;
   top: 0;
   width: 100%;
   z-index: 99;
@@ -1183,7 +1202,12 @@ main {
   h1, p {
     margin-bottom: 1rem;
   }
-  
+
+  .mbp-link {
+    font-family: 'catamaran', sans-serif;
+    font-size: 3.6rem;
+  }
+
   .progress {
     background-color: #56d45b;
     bottom: 0;
@@ -1213,4 +1237,4 @@ main {
   width: 18rem;
 }
 
-@import 'responsive';
+@import 'utils/responsive';

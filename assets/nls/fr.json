@@ -1,5 +1,7 @@
 {
   "title": "MesseMap",
+  "pageTitle": "MesseMap | Encadrez un endroit qui vous est cher et téléchargez le prêt à tirer !",
+  "pageDescription": "Le site parfait pour réaliser un poster original de carte! Naviguez jusqu'à l'endroit que vous voulez mettre en avant, ajustez votre design, les textes et les couleurs, puis téléchargez votre poster à la résolution et au format que vous souhaitez!",
   "helper": "Bienvenu sur MesseMap!<br><br>Explorez la carte pour trouver votre endroit à cadrer (une barre de recherche est à votre disposition), puis configurez le fond de carte et ses attributs pour qu'il reflète au mieux le style que vous cherchez à appliquer. Vous pouvez étendre ou réduire les catégories suivantes pour facilité la navigation. Finallement, clickez sur exporter pour télécharger votre poster, prêt à l'impression!",
   "orientation": "Orientation",
   "vertical": "Vertical",
@@ -64,16 +66,17 @@
     "default": "Thème par defaut"
   },
   "credit": {
-    "line1": "Une application proposée par <a href=\"https://messe-basse-production.com\" target=\"_blank\" rel=\"noopener noreferer\">Messe Basse Production</a>. Pas de cookies, pas de trackers rien de tout cela, vous naviguez ici en toute sécurité.",
+    "line1": "Une application proposée par <a href=\"https://messe-basse-production.com\" target=\"_blank\" rel=\"noopener noreferer\">Messe Basse Production</a>.",
     "line2": "Les fonds de cartes sont mis à disposition par <a href=\"https://www.openstreetmap.fr/\" target=\"_blank\" rel=\"noopener noreferer\">OpenStreetMap</a>, <a href=\"https://www.geoportail.gouv.fr/\" target=\"_blank\" rel=\"noopener noreferer\">GeoPortail</a>, <a href=\"https://www.esri.com/\" target=\"_blank\" rel=\"noopener noreferer\">ESRI</a>, <a href=\"http://stamen.com\" target=\"_blank\" rel=\"noopener noreferer\">Stamen Design</a>, <a href=\"https://carto.com/attributions\" target=\"_blank\" rel=\"noopener noreferer\">Carto</a> et <a href=\"https://www.mapiful.com/\" target=\"_blank\" rel=\"noopener noreferer\">Mapiful</a>, sous license <a href=\"http://www.openstreetmap.org/copyright\" target=\"_blank\" rel=\"noopener noreferer\">ODbL</a>. Notre reconnaissance à l'égard de ces contributeurs est immense et sincère.",
     "line3": "Les données de carte sont mises à disposition par ESRI, i-cubed, Mapiful, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, OpenStreetMap, Carto, Stamen Design et la GIS User Community.",
-    "line4": "MesseMap est une application sous licence libre GPL-3.0 qui utilise les librairies <a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet</a>, <a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet.SmoothWheelZoom</a>, <a href=\"https://github.com/stefanocudini/leaflet-search\" target=\"_blank\" rel=\"noopener noreferer\">leaflet-search</a> <a href=\"https://html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a> and <a href=\"https://github.com/parallax/jsPDF/\" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>. Le code source de l'application est disponible sur le dépôt <a href=\"https://github.com/MesseBasseProduction/MesseMap/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a> suivant, toute contribution, idée de fonctionnalité ou report de bug est le bienvenu !",
+    "line4": "MesseMap est une application sous licence libre GPL-3.0 qui utilise les librairies <a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet</a>, <a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet.SmoothWheelZoom</a>, <a href=\"https://github.com/stefanocudini/leaflet-search\" target=\"_blank\" rel=\"noopener noreferer\">leaflet-search</a> <a href=\"https://html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a>, <a href=\"https://github.com/niklasvh/html2canvas-proxy-nodejs\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas-proxy-nodejs</a> and <a href=\"https://github.com/parallax/jsPDF/\" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>. Le code source de l'application est disponible sur le dépôt <a href=\"https://github.com/MesseBasseProduction/MesseMap/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a> suivant, toute contribution, idée de fonctionnalité ou report de bug est le bienvenu !",
     "lang": "Langue de l'interface",
     "fr": "🇫🇷 Français",
     "en": "🇬🇧 Anglais",
     "es": "🇪🇸 Espagnol",
     "de": "🇩🇪 Allemand",
     "it": "🇮🇹 Italien",
-    "pt": "🇵🇹 Portuguais"
+    "pt": "🇵🇹 Portuguais",
+    "pl": "🇵🇱 Polonais"
   }
 }

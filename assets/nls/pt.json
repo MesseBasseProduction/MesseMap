@@ -1,5 +1,7 @@
 {
   "title": "MesseMap",
+  "pageTitle": "MesseMap | Enquadre um local especial para você e faça o download ou imprima!",
+  "pageDescription": "O site perfeito para fazer um pôster de cartão original! Navegue até o local que deseja destacar, ajuste seu design, textos e cores e baixe seu pôster na resolução e formato que desejar!",
   "helper": "Bem-vindo ao MesseMap!<br><br>Navegue no mapa para encontrar o local que deseja exibir (barra de pesquisa disponível) e configure a camada base do mapa e seus atributos para que reflitam o estilo que você deseja para o seu pôster. Você pode recolher ou expandir as seguintes categorias de opções para uma melhor navegação. Por fim, clique no botão de exportação e aproveite seu pôster recém-criado!",
   "orientation": "Orientação",
   "vertical": "Vertical",
@@ -64,16 +66,17 @@
     "default": "Restaurar para o padrão"
   },
   "credit": {
-    "line1": "Um aplicativo proposto por <a href=\"https://messe-basse-production.com\" target=\"_blank\" rel=\"noopener noreferer\">Messe Basse Production</a>. Sem cookies, sem rastreadores, você está navegando com segurança aqui.",
+    "line1": "Um aplicativo proposto por <a href=\"https://messe-basse-production.com\" target=\"_blank\" rel=\"noopener noreferer\">Messe Basse Production</a>.",
     "line2": "Blocos de mapas são gentilmente feitos por <a href=\"https://www.openstreetmap.fr/\" target=\"_blank\" rel=\"noopener noreferer\">OpenStreetMap</a>, <a href= \"https://www.geoportail.gouv.fr/\" target=\"_blank\" rel=\"noopener noreferer\">GeoPortail</a>, <a href=\"https://www. esri.com/\" target=\"_blank\" rel=\"noopener noreferer\">ESRI</a>, <a href=\"http://stamen.com\" target=\"_blank\" rel=\"noopener noreferer\">Stamen Design</a>, <a href=\"https://carto.com/attributions\" target=\"_blank\" rel=\"noopener noreferer\">Carto </a> e <a href=\"https://www.mapiful.com/\" target=\"_blank\" rel=\"noopener noreferer\">Mapiful</a>, em <a href= \"http://www.openstreetmap.org/copyright\" target=\"_blank\" rel=\"noopener noreferer\">ODbL</a> licença. Somos muito gratos a esses provedores.",
     "line3": "Os dados do mapa são gentilmente fornecidos por ESRI, i-cubed, Mapiful, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, OpenStreetMap, Carto, Stamen Design e GIS User Community",
-    "line4": "O MesseMap é licenciado com a licença de código aberto GPL-3.0 e depende das bibliotecas <a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Folheto</ a>, <a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet.SmoothWheelZoom</a>, <a href=\"https://github.com/stefanocudini/leaflet-search\" target=\"_blank\" rel=\"noopener noreferer\">folheto-pesquisa</a> <a href=\"https: //html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a> e <a href=\"https://github.com/parallax/jsPDF/ \" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>. O código-fonte deste aplicativo está disponível no <a href=\"https://github.com/MesseBasseProduction/MesseMap/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a > repositório, qualquer contribuição de qualquer tipo é bem vinda!",
+    "line4": "O MesseMap é licenciado com a licença de código aberto GPL-3.0 e depende das bibliotecas <a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Folheto</ a>, <a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet.SmoothWheelZoom</a>, <a href=\"https://github.com/stefanocudini/leaflet-search\" target=\"_blank\" rel=\"noopener noreferer\">folheto-pesquisa</a> <a href=\"https: //html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a>, <a href=\"https://github.com/niklasvh/html2canvas-proxy-nodejs\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas-proxy-nodejs</a> e <a href=\"https://github.com/parallax/jsPDF/ \" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>. O código-fonte deste aplicativo está disponível no <a href=\"https://github.com/MesseBasseProduction/MesseMap/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a > repositório, qualquer contribuição de qualquer tipo é bem vinda!",
     "lang": "Linguagem",
     "fr": "🇫🇷 Francês",
     "en": "🇬🇧 Inglês",
     "es": "🇪🇸 Espanhol",
     "de": "🇩🇪 Alemão",
     "it": "🇮🇹 Italiano",
-    "pt": "🇵🇹 Português"
+    "pt": "🇵🇹 Português",
+    "pl": "🇵🇱 Polonês"
   }
 }

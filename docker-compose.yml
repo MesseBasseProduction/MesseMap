@@ -4,7 +4,10 @@ services:
     container_name: messemap_node
     build: .
     command: npm run start
+    restart: always
     ports:
       - 8010:8010
     environment:
       - NODE_ENV=prod
+    volumes:
+      - ./saved:/MesseMap/saved

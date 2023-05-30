@@ -5,11 +5,11 @@ import urllib.request
 
 def printWelcome(v):
     print('##----------------------------------------##')
-    print('##                                        ##')
+    print('##                MesseMap                ##')
     print('##    MapDownloader.py - version {}    ##'.format(v))
-    print('##                                        ##')
+    print('##         Messe Basse Production         ##')
     print('##----------------------------------------##\n')
-    print('This script will scrap tiles for a given map provider')
+    print('This script will scrap tiles for a given map provider.')
 
 
 def ynQuery(q, default='yes'):

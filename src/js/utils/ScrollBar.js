@@ -1,4 +1,4 @@
-import '../../scss/ScrollBar.scss';
+import '../../scss/utils/_scrollbar.scss';
 
 
 class ScrollBar {
@@ -311,7 +311,6 @@ class ScrollBar {
         this._bar.classList.add('hidden');
         this._container.firstElementChild.style.paddingRight = '';
       } else {
-        this._container.firstElementChild.style.paddingRight = '0';
         let height = (Math.max(this._scrollRatio * 100, this._minSize) * ownHeight) / 100;
         let top = ((this._container.scrollTop / totalHeight) * 100) * ownHeight / 100;
         // ScrollBar has reached its minimum size

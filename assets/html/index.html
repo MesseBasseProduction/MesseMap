@@ -1,28 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <meta content="ie=edge" http-equiv="x-ua-compatible">
-  <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-  <meta content="initial-scale=1" name="viewport">
-  <meta name="Leaflet" content="Leaflet">
   <title>MesseMap | Frame a special place for you and download it, or make a print of it !</title>
-  <link rel="icon" href="https://raw.githubusercontent.com/MesseBasseProduction/messe-basse-production.com/master/assets/img/logo.png" type="image/png" sizes="32x32">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" crossorigin="" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet-search@3.0.2/dist/leaflet-search.min.css" crossorigin="" />
-  <link rel="stylesheet" type="text/css" href="./assets/dist/MesseMap.bundle.css">
-  <!-- Matomo analytics https://matomo.org/ -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta content="ie=edge" http-equiv="x-ua-compatible">
+  <meta name="description" content="The perfect website to craft an original map poster of your own! Browse the world, adjust your design, texts and colors, then download it at the resolution and filetype you want!">
+  <link rel="canonical" href="https://messemap.org/">
+  <!-- Style includes -->
+  <link rel="stylesheet" type="text/css" href="/assets/lib/leaflet.min.css">
+  <link rel="stylesheet" type="text/css" href="/assets/lib/leaflet-search.min.css">
+  <link rel="stylesheet" type="text/css" href="/assets/dist/MesseMap.bundle.css">
+  <!-- Favicon zone -->
+  <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/favicon/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/favicon/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicon/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/favicon/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicon/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/assets/img/favicon/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/assets/img/favicon/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/favicon/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="/assets/img/favicon/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicon/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/assets/img/favicon/manifest.json">
+  <meta name="msapplication-TileColor" content="#56d45b">
+  <meta name="msapplication-TileImage" content="/assets/img/favicon/ms-icon-144x144.png">
+  <meta name="theme-color" content="#56d45b">
+  <!-- Open graph and Twitter metas -->
+  <meta property="og:title" content="MesseMap">
+  <meta property="og:url" content="https://messemap.org/">
+  <meta property="og:image" content="/assets/img/logo-social.png">
+  <meta property="og:description" content="The perfect website to craft an original map poster of your own! Browse the world, adjust your design, texts and colors, then download it at the resolution and filetype you want!">
+  <meta property="og:site_name" content="MesseMap">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MesseMap">
+  <meta name="twitter:description" content="The perfect website to craft an original map poster of your own! Browse the world, adjust your design, texts and colors, then download it at the resolution and filetype you want!">
+  <meta name="twitter:image:src" content="/assets/img/logo-social.png">
+  <!-- Matomo analytics script -->
   <script>
     var _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
     _paq.push(['trackPageView']);
     _paq.push(['enableLinkTracking']);
     (function() {
       var u="//matomo.mycozy.space/";
-      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setTrackerUrl', 'https:'+u+'matomo.php']);
       _paq.push(['setSiteId', '37']);
       var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+      g.type='text/javascript'; g.async=true; g.src='https:'+u+'matomo.js'; s.parentNode.insertBefore(g,s)
     })();
   </script>
 </head>
@@ -60,7 +88,7 @@
               <label for="dark-theme">{{DARK_THEME}}</label>
               <div class="theme-input-holder">
                 <div id="theme-editor" class="theme-editor">
-                  <img src="./assets/img/option.svg" alt="theme-editor-option">
+                  <img src="/assets/img/option.svg" height="14" width="14" alt="theme-editor-option">
                 </div>
                 <input type="checkbox" id="dark-theme" class="switch">
               </div>
@@ -75,17 +103,17 @@
             <label for="user-title">{{MAP_TITLE}}</label>
             <div class="input-with-color">
               <input id="user-title" type="text" value="Messe Basse" placeholder="{{MAP_TITLE_PLACEHOLDER}}" maxlength="32">
-              <input type="color" id="title-color" class="text-edit" data-type="title">
+              <input type="color" id="title-color" aria-label='Title color' class="text-edit" data-type="title">
             </div>
             <label for="user-subtitle">{{MAP_SUBTITLE}}</label>
             <div class="input-with-color">
               <input id="user-subtitle" type="text" value="France" placeholder="{{MAP_SUBTITLE_PLACEHOLDER}}" maxlength="32">
-              <input type="color" id="subtitle-color" class="text-edit" data-type="subtitle">
+              <input type="color" id="subtitle-color" aria-label='Subtitle color' class="text-edit" data-type="subtitle">
             </div>
             <label for="user-comment">{{MAP_COMMENT}}</label>
             <div class="input-with-color">
               <input id="user-comment" type="text" value="44.797°N / 1.542°E" placeholder="{{MAP_COMMENT_PLACEHOLDER}}" maxlength="42">
-              <input type="color" id="comment-color" class="text-edit" data-type="comment">
+              <input type="color" id="comment-color" aria-label='Comment color' class="text-edit" data-type="comment">
             </div>
           </div>
           <h1 id="toggle-export" data-id="toggle-export-container">{{EXPORT}}<span data-id="toggle-export-container" class="toggle">▲</span></h1>
@@ -126,7 +154,7 @@
       <hr>
       <footer>
         <button id="map-save">{{EXPORT_BUTTON}}</button>
-        <a href="https://messe-basse-production.com" target="_blank" rel="noopener noreferer">Messe Basse Production</a>
+        <a href="https://messe-basse-production.com" class="mbp-link" target="_blank" rel="noopener noreferer">Messe Basse Production</a>
         <p id="credit-modal" class="credit-link">2022 / 2023 – {{CREDITS}}</p>
       </footer>
     </aside>
@@ -136,7 +164,7 @@
         <div id="map" class="map"></div>
         <div class="user-text-wrapper">
           <h1 id="title"></h1>
-          <h3><span class="before"></span><span id="subtitle" class="subtitle"></span><span class="after"></span></h3>
+          <h2><span class="before"></span><span id="subtitle" class="subtitle"></span><span class="after"></span></h2>
           <p id="comment"></p>
         </div>
       </div>
@@ -146,22 +174,20 @@
   <div id="modal-overlay" class="modal-overlay"></div>
   <div id="print-overlay" class="print-overlay">
     <h1>MesseMap</h1>
-    <p><a href="messe-basse-production.com" target="_blank" rel="noopener noreferer">messe-basse-production.com</a></p>
+    <p><a href="https://messe-basse-production.com" class="mbp-link" target="_blank" rel="noopener noreferer">messe-basse-production.com</a></p>
     <p id="print-status"></p>
     <div id="print-progress" class="progress"></div>
   </div>
   <!-- Leaflet script and plugins -->
-  <script src="https://unpkg.com/leaflet@latest/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet-search@3.0.2/dist/leaflet-search.min.js" crossorigin=""></script>
+  <script type="text/javascript" src="/assets/lib/leaflet.min.js" loading="lazy"></script>
+  <script type="text/javascript" src="/assets/lib/leaflet-search.min.js" loading="lazy"></script>
   <!-- html2canvas script to allow map exporting -->
-  <script type="text/javascript" src="./assets/lib/html2canvas.min.js"></script>
+  <script type="text/javascript" src="/assets/lib/html2canvas.min.js" loading="lazy"></script>
   <!-- jsPDF script to create 'ready to print' images -->
-  <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+  <script type="text/javascript" src="/assets/lib/jspdf.min.js" loading="lazy"></script>
   <!-- Then load MesseMap Js bundle -->
-  <script type="text/javascript" src="./assets/dist/MesseMap.bundle.js"></script>
+  <script type="text/javascript" src="/assets/dist/MesseMap.bundle.js"></script>
   <!-- Finally, start MesseMap instance -->
-  <script type="text/javascript">
-    window.MesseMap = new MesseMap();
-  </script>
+  <script type="text/javascript">window.MesseMap = new MesseMap();</script>
 </body>
 </html>

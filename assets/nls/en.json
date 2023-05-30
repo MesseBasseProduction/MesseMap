@@ -1,5 +1,7 @@
 {
   "title": "MesseMap",
+  "pageTitle": "MesseMap | Frame a special place for you and download it, or make a print of it !",
+  "pageDescription": "The perfect website to craft an original map poster of your own! Browse the world, adjust your design, texts and colors, then download it at the resolution and filetype you want!",
   "helper": "Welcome on MesseMap!<br><br>Navigate in the map to find the place you want to display (search bar available), then configure the map base layer and its attributes so it reflect the style you aim for your poster. You can collapse or expand the following options categories for better navigation. Finally, click on the export button and enjoy your freshly made poster!",
   "orientation": "Orientation",
   "vertical": "Vertical",
@@ -64,16 +66,17 @@
     "default": "Restore to default"
   },
   "credit": {
-    "line1": "An app proposed by <a href=\"https://messe-basse-production.com\" target=\"_blank\" rel=\"noopener noreferer\">Messe Basse Production</a>. No cookies, no trackers, you're safely browsing here.",
+    "line1": "An app proposed by <a href=\"https://messe-basse-production.com\" target=\"_blank\" rel=\"noopener noreferer\">Messe Basse Production</a>.",
     "line2": "Maps tiles are kindly made by <a href=\"https://www.openstreetmap.fr/\" target=\"_blank\" rel=\"noopener noreferer\">OpenStreetMap</a>, <a href=\"https://www.geoportail.gouv.fr/\" target=\"_blank\" rel=\"noopener noreferer\">GeoPortail</a>, <a href=\"https://www.esri.com/\" target=\"_blank\" rel=\"noopener noreferer\">ESRI</a>, <a href=\"http://stamen.com\" target=\"_blank\" rel=\"noopener noreferer\">Stamen Design</a>, <a href=\"https://carto.com/attributions\" target=\"_blank\" rel=\"noopener noreferer\">Carto</a> and <a href=\"https://www.mapiful.com/\" target=\"_blank\" rel=\"noopener noreferer\">Mapiful</a>, under <a href=\"http://www.openstreetmap.org/copyright\" target=\"_blank\" rel=\"noopener noreferer\">ODbL</a> license. We are very thankful to those providers.",
     "line3": "Map data is kindly provided by ESRI, i-cubed, Mapiful, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, OpenStreetMap, Carto, Stamen Design and the GIS User Community.",
-    "line4": "MesseMap is licensed with GPL-3.0 open source license, and relies on libraries <a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet</a>, <a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet.SmoothWheelZoom</a>, <a href=\"https://github.com/stefanocudini/leaflet-search\" target=\"_blank\" rel=\"noopener noreferer\">leaflet-search</a> <a href=\"https://html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a> and <a href=\"https://github.com/parallax/jsPDF/\" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>. The source code of this app is available on the <a href=\"https://github.com/MesseBasseProduction/MesseMap/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a> repository, any contribution of any kind is welcome!",
+    "line4": "MesseMap is licensed with GPL-3.0 open source license, and relies on libraries <a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet</a>, <a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet.SmoothWheelZoom</a>, <a href=\"https://github.com/stefanocudini/leaflet-search\" target=\"_blank\" rel=\"noopener noreferer\">leaflet-search</a> <a href=\"https://html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a>, <a href=\"https://github.com/niklasvh/html2canvas-proxy-nodejs\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas-proxy-nodejs</a> and <a href=\"https://github.com/parallax/jsPDF/\" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>. The source code of this app is available on the <a href=\"https://github.com/MesseBasseProduction/MesseMap/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a> repository, any contribution of any kind is welcome!",
     "lang": "Language",
     "fr": "🇫🇷 French",
     "en": "🇬🇧 English",
     "es": "🇪🇸 Spanish",
     "de": "🇩🇪 German",
     "it": "🇮🇹 Italiano",
-    "pt": "🇵🇹 Portuguese"
+    "pt": "🇵🇹 Portuguese",
+    "pl": "🇵🇱 Polish"
   }
 }

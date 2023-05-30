@@ -54,7 +54,8 @@
     <blockquote>
 The MesseMap class is made to handle the whole application, its interactivity
 and all its user events. It hold the code to generate the poster output and serve
-it to the user. (see README.md for further details about used libraries).
+it to the user. (see README.md for further details about used libraries). It also
+handle the data exchange with server to store saved posters as JSON.
 This constructor will initialize the Leaflet map and all its manipulators and will
 then listen to user events for text and export settings.
 </blockquote>
@@ -215,7 +216,7 @@ then listen to user events for text and export settings.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line62">line 62</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line63">line 63</a>
     </li></ul></dd>
     
 
@@ -287,7 +288,7 @@ then listen to user events for text and export settings.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line74">line 74</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line75">line 75</a>
     </li></ul></dd>
     
 
@@ -359,7 +360,7 @@ then listen to user events for text and export settings.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line68">line 68</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line69">line 69</a>
     </li></ul></dd>
     
 
@@ -431,7 +432,7 @@ then listen to user events for text and export settings.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line80">line 80</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line88">line 88</a>
     </li></ul></dd>
     
 
@@ -503,7 +504,7 @@ then listen to user events for text and export settings.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line44">line 44</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line45">line 45</a>
     </li></ul></dd>
     
 
@@ -575,7 +576,7 @@ then listen to user events for text and export settings.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line86">line 86</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line94">line 94</a>
     </li></ul></dd>
     
 
@@ -647,7 +648,7 @@ then listen to user events for text and export settings.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line92">line 92</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line100">line 100</a>
     </li></ul></dd>
     
 
@@ -719,7 +720,7 @@ then listen to user events for text and export settings.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line50">line 50</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line51">line 51</a>
     </li></ul></dd>
     
 
@@ -791,7 +792,7 @@ then listen to user events for text and export settings.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line56">line 56</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line57">line 57</a>
     </li></ul></dd>
     
 
@@ -883,7 +884,7 @@ Simply apply the input text to the poster (for title, subtitle and comment)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line519">line 519</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line520">line 520</a>
     </li></ul></dd>
     
 
@@ -1056,7 +1057,7 @@ bypassed with a flag to close modal no matter the context.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line1121">line 1121</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line1118">line 1118</a>
     </li></ul></dd>
     
 
@@ -1205,7 +1206,7 @@ This method will build the credit modal into the user interface.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line1048">line 1048</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line1045">line 1045</a>
     </li></ul></dd>
     
 
@@ -1378,7 +1379,7 @@ curently selected format in the aside. (using jsPDF if so, otherwise, classical 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line860">line 860</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line857">line 857</a>
     </li></ul></dd>
     
 
@@ -1529,7 +1530,7 @@ to the user disk. Call this method in a setInterval to regulary test if tiles ar
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line817">line 817</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line814">line 814</a>
     </li></ul></dd>
     
 
@@ -1728,7 +1729,7 @@ can not be overpassed).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line754">line 754</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line769">line 769</a>
     </li></ul></dd>
     
 
@@ -1878,7 +1879,7 @@ and to restore it to its default size to be then used again.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line904">line 904</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line901">line 901</a>
     </li></ul></dd>
     
 
@@ -1982,7 +1983,7 @@ image and restore the DOM to its initial size and scale.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line715">line 715</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line716">line 716</a>
     </li></ul></dd>
     
 
@@ -2083,7 +2084,7 @@ for later exports after splash screen.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line334">line 334</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line335">line 335</a>
     </li></ul></dd>
     
 
@@ -2233,7 +2234,7 @@ stored in project <code>assets/html</code>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line1094">line 1094</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line1091">line 1091</a>
     </li></ul></dd>
     
 
@@ -2357,7 +2358,7 @@ It returns a promise that is resolved when interface is initialized. There is no
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line264">line 264</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line279">line 279</a>
     </li></ul></dd>
     
 
@@ -2479,7 +2480,7 @@ This method will fetch the proper lang file and then will update the interface a
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line116">line 116</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line124">line 124</a>
     </li></ul></dd>
     
 
@@ -2605,7 +2606,7 @@ rejected there is no Leaflet in the user session (fatal error).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line181">line 181</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line196">line 196</a>
     </li></ul></dd>
     
 
@@ -2776,7 +2777,7 @@ Set map view depending on search result
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line671">line 671</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line672">line 672</a>
     </li></ul></dd>
     
 
@@ -2876,7 +2877,7 @@ Perform a POST call to the server to save map parameters as JSON
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line945">line 945</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line942">line 942</a>
     </li></ul></dd>
     
 
@@ -3025,7 +3026,7 @@ Modify the text on map color. Overrides the default theme color
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line542">line 542</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line543">line 543</a>
     </li></ul></dd>
     
 
@@ -3174,7 +3175,7 @@ This method will build th theme edit modal into the user interface.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line975">line 975</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line972">line 972</a>
     </li></ul></dd>
     
 
@@ -3323,7 +3324,7 @@ Expand or colapse a given map modifiers category
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line360">line 360</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line361">line 361</a>
     </li></ul></dd>
     
 
@@ -3423,7 +3424,7 @@ Update the comment with map center coordinates, only if user didn't set a text i
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line561">line 561</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line562">line 562</a>
     </li></ul></dd>
     
 
@@ -3573,7 +3574,7 @@ by user, they will properly applied to the poster.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line433">line 433</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line434">line 434</a>
     </li></ul></dd>
     
 
@@ -3722,7 +3723,7 @@ Update the export resolution slider label and buttons according to a click on a 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line582">line 582</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line583">line 583</a>
     </li></ul></dd>
     
 
@@ -3872,7 +3873,7 @@ poster, at 300 DPI.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line622">line 622</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line623">line 623</a>
     </li></ul></dd>
     
 
@@ -4021,7 +4022,7 @@ Updates the user interface language according to credit select value then reload
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line690">line 690</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line691">line 691</a>
     </li></ul></dd>
     
 
@@ -4170,7 +4171,7 @@ Will update the poster vertical/horizontal orientation
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line396">line 396</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line397">line 397</a>
     </li></ul></dd>
     
 
@@ -4320,7 +4321,7 @@ are handled in the scss style file.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line486">line 486</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line487">line 487</a>
     </li></ul></dd>
     
 
@@ -4469,7 +4470,7 @@ Will update the poster text position wether to be top or bottom
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line461">line 461</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line462">line 462</a>
     </li></ul></dd>
     
 
@@ -4569,7 +4570,7 @@ Apply the css variables values to the root style from internal _cssTheme object
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line1232">line 1232</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line1229">line 1229</a>
     </li></ul></dd>
     
 
@@ -4669,7 +4670,7 @@ Will add a modal over the whole app to hide the page content
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line1318">line 1318</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line1315">line 1315</a>
     </li></ul></dd>
     
 
@@ -4793,7 +4794,7 @@ Will format all map parameters into a JSON object ready to send
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line1277">line 1277</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line1274">line 1274</a>
     </li></ul></dd>
     
 
@@ -4918,7 +4919,7 @@ used when calling <code>toDataURL()</code> on output canvas with proper paramete
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line1153">line 1153</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line1150">line 1150</a>
     </li></ul></dd>
     
 
@@ -5112,7 +5113,7 @@ Do a Math.round with a given precision (ie amount of integers after the coma).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line1183">line 1183</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line1180">line 1180</a>
     </li></ul></dd>
     
 
@@ -5331,7 +5332,7 @@ Will replace the element text. Useful for translations.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line1256">line 1256</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line1253">line 1253</a>
     </li></ul></dd>
     
 
@@ -5431,7 +5432,7 @@ Will remove the modal over the whole app
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line1342">line 1342</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line1339">line 1339</a>
     </li></ul></dd>
     
 
@@ -5555,7 +5556,7 @@ Get css color and saves them to local storage
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line1205">line 1205</a>
+        <a href="MesseMap.js.html">MesseMap.js</a>, <a href="MesseMap.js.html#line1202">line 1202</a>
     </li></ul></dd>
     
 
@@ -5607,7 +5608,7 @@ Get css color and saves them to local storage
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon May 22 2023 15:05:41 GMT+0200 (Central European Summer Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Apr 25 2023 13:52:01 GMT+0200 (Central European Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>
