@@ -235,6 +235,7 @@ class MesseMap {
           textCancel: this._nls.search.cancel,
           textErr: this._nls.search.error
         });
+        // Update map bounds
         this._map.setMaxBounds(window.L.latLngBounds(
           window.L.latLng(-89.98155760646617, -360),
           window.L.latLng(89.99346179538875, 360)
