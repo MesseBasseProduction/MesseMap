@@ -3,7 +3,7 @@ services:
   messemap:
     container_name: messemap_node
     build: .
-    command: npm run start
+    command: npm run build && npm run start
     restart: always
     ports:
       - 8010:8010
