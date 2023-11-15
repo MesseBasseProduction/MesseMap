@@ -8,8 +8,8 @@ const { jsPDF } = window.jspdf;
 
 
 const CONST = {
-  VERSION: '1.0.0',
-  DEBUG: true
+  VERSION: '1.1.0',
+  DEBUG: false
 };
 
 

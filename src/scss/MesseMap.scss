@@ -463,10 +463,10 @@ main {
       z-index: 998;
   
       h1 {
-        font-family: 'proxima-nova-bold', sans-serif;
+        font-family: 'sublima-bold', sans-serif;
         font-size: 3.2em;
-        font-weight: 700;
-        letter-spacing: .2em;
+        font-weight: 100;
+        letter-spacing: .1em;
         text-indent: 0.2em;
         text-transform: uppercase;
       }
@@ -474,7 +474,7 @@ main {
       h2 {
         align-items: center;
         display: flex;
-        font-family: 'proxima-nova', sans-serif;
+        font-family: 'louis-george-cafe', sans-serif;
         font-size: 1.7em;
         font-weight: 400;
         justify-content: center;
@@ -505,7 +505,7 @@ main {
   
       p {
         color: var(--color-txt-alt);
-        font-family: 'proxima-nova-light', sans-serif;
+        font-family: 'louis-george-cafe-light', sans-serif;
         font-size: 1.3em;
         font-weight: 300;
         letter-spacing: .1em;
@@ -543,9 +543,9 @@ main {
   
       h1 {
         display: inline-block;
-        font-family: 'proxima-nova-bold', sans-serif;
+        font-family: 'sublima-bold', sans-serif;
         font-size: 3.2em;
-        font-weight: 700;
+        font-weight: 100;
         padding: calc(var(--padding) / 2) 0;
         width: 70%;
       }
@@ -553,7 +553,7 @@ main {
       h2 {
         display: block;
         float: right;
-        font-family: 'proxima-nova', sans-serif;
+        font-family: 'louis-george-cafe', sans-serif;
         font-size: 1.7em;
         font-weight: 400;
         line-height: 1.4;
@@ -566,7 +566,7 @@ main {
       p {
         border-top: solid var(--thick-border) var(--color-txt);
         color: var(--color-txt-alt);      
-        font-family: 'proxima-nova-light', sans-serif;
+        font-family: 'louis-george-cafe-light', sans-serif;
         font-size: 1.3em;
         font-weight: 300;
         letter-spacing: .1em;
@@ -608,16 +608,18 @@ main {
   
       h1 {
         display: block;
-        font-family: 'proxima-nova-bold', sans-serif;
+        font-family: 'sublima-bold', sans-serif;
         font-size: 2.3em;
-        letter-spacing: .2em;
+        letter-spacing: .1em;
         line-height: 1;
-        font-weight: 700;
+        font-weight: 100;
+        text-transform: uppercase;
+        margin-bottom: .3rem;
       }
   
       h2 {
         display: block;
-        font-family: 'proxima-nova', sans-serif;
+        font-family: 'louis-george-cafe', sans-serif;
         font-size: 1.4em;
         font-weight: 400;
         letter-spacing: .5em;
@@ -627,7 +629,7 @@ main {
   
       p {
         color: var(--color-txt-alt);
-        font-family: 'proxima-nova-light', sans-serif;
+        font-family: 'louis-george-cafe-light', sans-serif;
         font-size: 1.2em;
         font-weight: 300;
         letter-spacing: .1em;
@@ -662,10 +664,10 @@ main {
       z-index: 998;
   
       h1 {
-        font-family: 'proxima-nova-bold', sans-serif;
+        font-family: 'sublima-bold', sans-serif;
         font-size: 3.2em;
-        font-weight: 700;
-        letter-spacing: .2em;
+        font-weight: 100;
+        letter-spacing: .1em;
         text-indent: 0.2em;
         text-transform: uppercase;
       }
@@ -673,7 +675,7 @@ main {
       h2 {
         align-items: center;
         display: flex;
-        font-family: 'proxima-nova', sans-serif;
+        font-family: 'louis-george-cafe', sans-serif;
         font-size: 1.7em;
         font-weight: 400;
         justify-content: center;
@@ -690,7 +692,7 @@ main {
   
       p {
         color: var(--color-txt-alt);
-        font-family: 'proxima-nova-light', sans-serif;
+        font-family: 'louis-george-cafe-light', sans-serif;
         font-size: 1.3em;
         font-weight: 300;
         letter-spacing: .1em;
@@ -733,16 +735,18 @@ main {
   
       h1 {
         display: block;
-        font-family: 'proxima-nova-bold', sans-serif;
+        font-family: 'sublima-bold', sans-serif;
         font-size: 2.2em;
-        letter-spacing: .2em;
+        letter-spacing: .1em;
+        margin-bottom: .3em;
         line-height: 1;
-        font-weight: 700;
+        font-weight: 100;
+        text-transform: uppercase;
       }
   
       h2 {
         display: block;
-        font-family: 'proxima-nova', sans-serif;
+        font-family: 'louis-george-cafe', sans-serif;
         font-size: 1.3em;
         font-weight: 400;
         letter-spacing: .5em;
@@ -752,7 +756,7 @@ main {
   
       p {
         color: var(--color-txt-alt);
-        font-family: 'proxima-nova-light', sans-serif;
+        font-family: 'louis-george-cafe-light', sans-serif;
         font-size: 1.1em;
         font-weight: 300;
         letter-spacing: .1em;
@@ -796,17 +800,17 @@ main {
       z-index: 998;
   
       h1 {
-        font-family: 'proxima-nova-bold', sans-serif;
+        font-family: 'sublima-bold', sans-serif;
         font-size: 3em;
-        font-weight: 700;
-        letter-spacing: .2em;
+        font-weight: 100;
+        letter-spacing: .1em;
         text-indent: 0.2em;
         text-shadow: 0 0 .5rem var(--color-bg);
         text-transform: uppercase;
       }
   
       h2 {
-        font-family: 'proxima-nova', sans-serif;
+        font-family: 'louis-george-cafe', sans-serif;
         font-size: 1.6em;
         font-weight: 400;
         letter-spacing: .5em;
@@ -818,7 +822,7 @@ main {
   
       p {
         color: var(--color-txt-alt);
-        font-family: 'proxima-nova-light', sans-serif;
+        font-family: 'louis-george-cafe-light', sans-serif;
         font-size: 1.2em;
         font-weight: 300;
         letter-spacing: .1em;
@@ -866,17 +870,17 @@ main {
       z-index: 998;
   
       h1 {
-        font-family: 'proxima-nova-bold', sans-serif;
+        font-family: 'sublima-bold', sans-serif;
         font-size: 3em;
-        font-weight: 700;
-        letter-spacing: .2em;
+        font-weight: 100;
+        letter-spacing: .1em;
         text-indent: 0.2em;
         text-shadow: 0 0 .5rem var(--color-bg);
         text-transform: uppercase;
       }
   
       h2 {
-        font-family: 'proxima-nova', sans-serif;
+        font-family: 'louis-george-cafe', sans-serif;
         font-size: 1.6em;
         font-weight: 400;
         letter-spacing: .5em;
@@ -888,7 +892,7 @@ main {
   
       p {
         color: var(--color-txt-alt);
-        font-family: 'proxima-nova-light', sans-serif;
+        font-family: 'louis-george-cafe-light', sans-serif;
         font-size: 1.2em;
         font-weight: 300;
         letter-spacing: .1em;
@@ -939,16 +943,18 @@ main {
   
       h1 {
         display: block;
-        font-family: 'proxima-nova-bold', sans-serif;
+        font-family: 'sublima-bold', sans-serif;
         font-size: 2.2em;
-        letter-spacing: .2em;
+        letter-spacing: .1em;
         line-height: 1;
-        font-weight: 700;
+        margin-bottom: .3rem;
+        font-weight: 100;
+        text-transform: uppercase;
       }
   
       h2 {
         display: block;
-        font-family: 'proxima-nova', sans-serif;
+        font-family: 'louis-george-cafe', sans-serif;
         font-size: 1.3em;
         font-weight: 400;
         letter-spacing: .5em;
@@ -958,7 +964,7 @@ main {
   
       p {
         color: var(--color-txt-alt);
-        font-family: 'proxima-nova-light', sans-serif;
+        font-family: 'louis-george-cafe-light', sans-serif;
         font-size: 1.1em;
         font-weight: 300;
         letter-spacing: .1em;
@@ -1010,16 +1016,18 @@ main {
   
       h1 {
         display: block;
-        font-family: 'proxima-nova-bold', sans-serif;
+        font-family: 'sublima-bold', sans-serif;
         font-size: 2.3em;
-        letter-spacing: .2em;
+        letter-spacing: .1em;
         line-height: 1;
-        font-weight: 700;
+        font-weight: 100;
+        text-transform: uppercase;
+        margin-bottom: .3rem;
       }
   
       h2 {
         display: block;
-        font-family: 'proxima-nova', sans-serif;
+        font-family: 'louis-george-cafe', sans-serif;
         font-size: 1.4em;
         font-weight: 400;
         letter-spacing: .5em;
@@ -1029,7 +1037,7 @@ main {
   
       p {
         color: var(--color-txt-alt);
-        font-family: 'proxima-nova-light', sans-serif;
+        font-family: 'louis-george-cafe-light', sans-serif;
         font-size: 1.2em;
         font-weight: 300;
         letter-spacing: .1em;
