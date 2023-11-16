@@ -44,11 +44,11 @@
 
     <section>
         <article><h1>MesseMap</h1>
-<p><img src="https://badgen.net/badge/version/1.0.0/blue" alt="">
-<a href="https://github.com/MesseBasseProduction/MesseMap/blob/master/LICENSE.md"><img src="https://img.shields.io/github/license/MesseBasseProduction/MesseMap.svg" alt="License"></a>
-<img src="https://badgen.net/badge/documentation/written/green" alt=""></p>
-<p>A website that help you to create a map poster, so it can be exported ready to print, with the ability to scale the map for to given size. Different map layers available to create your unique <em>wall-memory</em> touch!</p>
-<p>It features 7 poster styles, that can all be customized (positioning, colors). It allows user to define a title, a subtitle and a comment for their map. Each of these text's color can also be modified.</p>
+<p><img src="https://badgen.net/badge/version/1.0.1/blue" alt="">
+<a href="https://github.com/MesseBasseProduction/MesseMap/blob/main/LICENSE"><img src="https://img.shields.io/github/license/MesseBasseProduction/MesseMap.svg" alt="License"></a>
+<a href="https://messebasseproduction.github.io/MesseMap/doc/index.html"><img src="https://badgen.net/badge/documentation/written/green" alt="Doc"></a></p>
+<p>A website that helps you to create a map poster, so it can be exported ready to print, with the ability to scale the map to a given size. Different map layers available to create your unique <em>wall-memory</em> touch!</p>
+<p>It features 7 poster styles so far, that can all be customized (positioning, colors). It allows user to define a title, a subtitle and a comment for their map. Each of these text's color can also be modified. Available in 7 languages, translations welcome.</p>
 <p>Wanna try it ? We are running a <a href="https://messemap.org">MesseMap instance</a> just for you!</p>
 <p><a href="https://messemap.org"><img src="/assets/img/demo.png" alt="Interface Screenshot"></a></p>
 <p>When exporting the map to disk the user can set the output dimension, the lowest resolution being A7 at 300 dpi (600 x 848) and the highest being A2 at 300 dpi (6500 x 9193). The user can also set the output format, between <code>.png</code>, <code>.jpg</code>, <code>.webp</code> and <code>.pdf</code> (exports in PDF are done in the CYMK color space so they're ready to print).</p>
@@ -63,10 +63,11 @@
 <p>It will expose the application on your localhost, port 8010. Saved posters will be stored as JSON files in <code>./saved</code> folder. You turn to configure the web server to expose this app to the world (feel welcome to let us know if you run one).</p>
 <h2>Map data</h2>
 <p>All maps are released under <a href="https://opendatacommons.org/licenses/odbl/">ODbL license</a>. MesseMap is using open source maps released by <a href="https://www.openstreetmap.fr/">OpenStreetMap</a>, <a href="https://www.esri.com/">ESRI</a>, <a href="https://carto.com/basemaps/">Carto</a>, <a href="https://www.mapiful.com/">Mapiful</a> and <a href="http://maps.stamen.com">Stamen</a> providing astonishing data ready to use. A very warm thanks to those heroes!</p>
-<h2>Libraries</h2>
-<p>The map handling is done using <a href="https://leafletjs.com/">Leaflet.js</a> (BSD-2-Clause license), a Leaflet plugin to enable a smooth zooming, <a href="https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom">SmoothWheelZoom</a> (MIT license), another Leaflet plugin <a href="https://github.com/stefanocudini/leaflet-search">Leaflet Control Search</a> (MIT license) to perform searches on the map, it uses <a href="https://html2canvas.hertzen.com/">html2canvas</a> (MIT license), <a href="https://github.com/niklasvh/html2canvas-proxy-nodejs">html2canvas-proxy-nodejs</a> (MIT license) and <a href="https://github.com/parallax/jsPDF">jsPDF</a> (MIT license) to allow the exporting in all supported formats.</p>
 <h2>Bonnus : Map tiles downloader</h2>
 <p>This repository also includes a Python script, that will fetch and save to your disk tiles for a given map. It features several options, to download the map tiles by zone (Lat/Lng min and max point and zoom range) or as a whole (but beware, maps are huge in size terms). Just start the script with no arguments to begin <code>python ./src/py/MapDownloader.py</code> and fill the required information, then you can have one or several coffees.</p>
+<h2>Libraries and credits</h2>
+<p>The map handling is done using <a href="https://leafletjs.com/">Leaflet.js</a> (BSD-2-Clause license), a Leaflet plugin to enable a smooth zooming, <a href="https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom">SmoothWheelZoom</a> (MIT license), another Leaflet plugin <a href="https://github.com/stefanocudini/leaflet-search">Leaflet Control Search</a> (MIT license) to perform searches on the map, it uses <a href="https://html2canvas.hertzen.com/">html2canvas</a> (MIT license), <a href="https://github.com/niklasvh/html2canvas-proxy-nodejs">html2canvas-proxy-nodejs</a> (MIT license) and <a href="https://github.com/parallax/jsPDF">jsPDF</a> (MIT license) to allow the exporting in all supported formats.</p>
+<p>Fonts are taken from DaFont, using <a href="https://www.dafont.com/catamaran.font">Catamaran</a> from <a href="https://www.dafont.com/vladimir-nikolic.d6875">Vladimir Nikolic</a>, <a href="https://www.dafont.com/sublima.font">Sublima</a> from <a href="https://www.dafont.com/profile.php?user=1305933">Ruls Do Paolo</a> and <a href="https://www.dafont.com/louis-george-cafe.font">Louis George Café</a> from <a href="https://www.dafont.com/chen-yining.d6681">Chen Yining</a>.</p>
 <hr>
 <p><a href="https://github.com/MesseBasseProduction">Messe Basse Production</a> --- 2022 / 2023</p></article>
     </section>
@@ -85,7 +86,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Apr 25 2023 13:52:01 GMT+0200 (Central European Summer Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Nov 16 2023 14:31:05 GMT+0100 (Central European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -100,7 +100,7 @@ class MesseMap {
     this._scroll = null;
 
     this._data = {
-      orientation: 'horizontal',
+      orientation: 'vertical',
       style: 'standard',
       darkTheme: false,
       upText: false,
@@ -111,6 +111,7 @@ class MesseMap {
     this._initInterface()
       .then(this._initMap.bind(this))
       .then(this._initEvents.bind(this))
+      .then(this._initAdvancedFeatures.bind(this))
       .then(this._endStartup.bind(this))
       .catch(error => console.error(error));
   }
@@ -246,7 +247,7 @@ class MesseMap {
         return;
       }
       // Add default layer in map
-      MapProviders.layers['Imagery (E)'].addTo(this._map)
+      MapProviders.layers['Imagery (E)'].addTo(this._map);
       // Add layer switch radio on bottom right of the map
       window.L.control.layers(MapProviders.layers, MapProviders.overlays, { position: 'topright' }).addTo(this._map);
       // Add search command
@@ -349,6 +350,47 @@ class MesseMap {
 
   /**
    * @method
+   * @name _initAdvancedFeatures
+   * @private
+   * @memberof MesseMap
+   * @author Arthur Beaulieu
+   * @since November 2023
+   * @description
+   * <blockquote>
+   * In case of url contains <code>?callmeroot()</code>, append advanced inputs and controls
+   * It returns a promise that is resolved when interface is initialized. There is no reject case.
+   * </blockquote>
+   * @returns {Promise} A resolved Promise
+   **/
+  _initAdvancedFeatures() {
+    if (CONST.DEBUG) { console.log('MesseMap._initAdvancedFeatures called'); } 
+    return new Promise(resolve => {
+      if (window.location.href.indexOf('?callmeroot') > -1) {
+        const reader = new FileReader();
+        const importer = document.createElement('INPUT');
+        importer.type = 'file';
+        importer.accept = '.json';
+
+        reader.addEventListener('load', rawData => {
+          const data = JSON.parse(rawData.target.result);
+          this._setPosterConfigurationFromData(data);
+        });
+
+        importer.addEventListener('change', () => {
+          if (importer.files.length) {
+            reader.readAsText(importer.files[0]);
+          }
+        });
+        document.body.appendChild(importer);
+      }
+
+      resolve();
+    });
+  }
+
+
+  /**
+   * @method
    * @name _endStartup
    * @private
    * @memberof MesseMap
@@ -371,6 +413,67 @@ class MesseMap {
   // ======================================================================= //
   // ----------------------- Input events callbacks ------------------------ //
   // ======================================================================= //
+
+
+  /**
+   * @method
+   * @name _setPosterConfigurationFromData
+   * @private
+   * @memberof MesseMap
+   * @author Arthur Beaulieu
+   * @since November 2023
+   * @description
+   * <blockquote>
+   * From a JSON input, apply any transformation to the map or the poster, updates
+   * colors, texts, map style, map orientation, dark theme, text position and position
+   * map at lat/lng and zoom level described in saved file.
+   * </blockquote>
+   * @param {Object} data - A JSON map object, described in /saved/README.md
+   **/
+  _setPosterConfigurationFromData(data) {
+    // Update texts
+    document.getElementById('title').innerHTML = data.text.title;
+    document.getElementById('subtitle').innerHTML = data.text.subtitle;
+    document.getElementById('comment').innerHTML = data.text.comment;
+    // Apply poster orientation
+    const orientations = document.getElementById('toggle-orientation-container');
+    for (let i = 0; i < orientations.children.length; ++i) {
+      if (orientations.children[i].dataset.orientation === data.style.orientation) {
+        orientations.children[i].click();
+        break;
+      }
+    }
+    // Apply dark theme if not already set and checked in saved JSON
+    if (data.style.darkTheme && !document.getElementById('dark-theme').checked || !data.style.darkTheme && document.getElementById('dark-theme').checked) {
+      document.getElementById('dark-theme').click();
+    }
+    // Modify upText only if not already toggle and checked in saved JSON
+    if (data.style.upText && !document.getElementById('txt-position').checked || !data.style.upText && document.getElementById('txt-position').checked) {
+      document.getElementById('txt-position').click();
+    }
+    // Update text and theme colors
+    this._cssTheme.lbg = data.style.colors.lbg;
+    this._cssTheme.ltxt = data.style.colors.ltxt;
+    this._cssTheme.lcom = data.style.colors.lcom;
+    this._cssTheme.dbg = data.style.colors.dbg;
+    this._cssTheme.dtxt = data.style.colors.dtxt;
+    this._cssTheme.dcom = data.style.colors.dcom;
+    this.applyThemeColor();
+
+    // Update map style
+    const styles = document.getElementById('map-style');
+    for (let i = 0; i < styles.children.length; ++i) {
+      if (styles.children[i].dataset.style === data.style.style) {
+        styles.children[i].click();
+        break;
+      }
+    }
+    // Update map position
+    this._map.setView(new window.L.LatLng(data.map.center.lat, data.map.center.lng), data.map.zoom);
+    // Switch map base layer
+    this._map.removeLayer(MapProviders.layers[this._data.layer]);
+    this._map.addLayer(MapProviders.layers[data.map.layer]);    
+  }
 
 
   /**
@@ -590,7 +693,7 @@ class MesseMap {
     if (CONST.DEBUG) { console.log('MesseMap._updateCommentLabel() called'); }
     if (!this._commentEdited) {
       const c = this._map.getCenter();
-      document.getElementById('comment').innerHTML = `${this.precisionRound(c.lat, 3)}°N / ${this.precisionRound(c.lng, 3)}° E`;
+      document.getElementById('comment').innerHTML = `${this.precisionRound(c.lat % 90, 3)}°N / ${this.precisionRound(c.lng % 180, 3)}° E`;
     }
   }
 
@@ -1018,27 +1121,8 @@ class MesseMap {
         document.querySelector(':root').style.setProperty(`--color-${e.target.dataset.key}`, e.target.value);
         this.updateThemeColorInternal();
       };
-      // Color input Listeners
-      dom.querySelector('#light-bg-color').addEventListener('input', _updateColor);
-      dom.querySelector('#light-txt-color').addEventListener('input', _updateColor);
-      dom.querySelector('#light-txt-alt-color').addEventListener('input', _updateColor);
-      dom.querySelector('#dark-bg-color').addEventListener('input', _updateColor);
-      dom.querySelector('#dark-txt-color').addEventListener('input', _updateColor);
-      dom.querySelector('#dark-txt-alt-color').addEventListener('input', _updateColor);
       // Apply current theme
       this.updateThemeColorInternal();
-      // Close modal button event
-      dom.querySelector('#close').addEventListener('click', this._closeModal.bind(this, null, true));
-      dom.querySelector('#reset').addEventListener('click', () => {
-        this._cssTheme.lbg = '#FFFFFE';
-        this._cssTheme.ltxt = '#000001';
-        this._cssTheme.lcom = '#999998';
-        this._cssTheme.dbg = '#000001';
-        this._cssTheme.dtxt = '#FFFFFE';
-        this._cssTheme.dcom = '#999998';
-        this.applyThemeColor();
-        _updateInputs();
-      });
       // Modal start animation (close animation handled in _closeModal())
       document.getElementById('modal-overlay').appendChild(dom);
       document.getElementById('modal-overlay').style.display = 'flex';
@@ -1055,6 +1139,29 @@ class MesseMap {
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_TXTALT_DARK}}', this._nls.theme.txtAlt);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_RESET}}', this._nls.theme.default);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_CLOSE}}', this._nls.action.close);
+        // Need to postpone events as their text changed, and won't trigger previously subscribed event
+        requestAnimationFrame(() => {
+          // Color input Listeners
+          document.getElementById('light-bg-color').addEventListener('input', _updateColor);
+          document.getElementById('light-txt-color').addEventListener('input', _updateColor);
+          document.getElementById('light-txt-alt-color').addEventListener('input', _updateColor);
+          document.getElementById('dark-bg-color').addEventListener('input', _updateColor);
+          document.getElementById('dark-txt-color').addEventListener('input', _updateColor);
+          document.getElementById('dark-txt-alt-color').addEventListener('input', _updateColor);
+          // Close modal button event
+          document.getElementById('close').addEventListener('click', this._closeModal.bind(this, null, true));
+          document.getElementById('reset').addEventListener('click', () => {
+            this._cssTheme.lbg = '#FFFFFE';
+            this._cssTheme.ltxt = '#000001';
+            this._cssTheme.lcom = '#999998';
+            this._cssTheme.dbg = '#000001';
+            this._cssTheme.dtxt = '#FFFFFE';
+            this._cssTheme.dcom = '#999998';
+            this.applyThemeColor();
+            _updateInputs();
+          });          
+        });
+
         _updateInputs();
       });
     });

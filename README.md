@@ -1,6 +1,6 @@
 # MesseMap
 
-![](https://badgen.net/badge/version/1.0.0/blue)
+![](https://badgen.net/badge/version/1.0.1/blue)
 [![License](https://img.shields.io/github/license/MesseBasseProduction/MesseMap.svg)](https://github.com/MesseBasseProduction/MesseMap/blob/main/LICENSE)
 [![Doc](https://badgen.net/badge/documentation/written/green)](https://messebasseproduction.github.io/MesseMap/doc/index.html)
 

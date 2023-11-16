@@ -85,6 +85,12 @@ input[type="radio"] {
   }
 }
 
+input[type="file"] {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+
 button {
   background-color: rgba(255, 255, 255, .8);
   border: solid 1px grey;
@@ -523,6 +529,12 @@ main {
         flex-direction: column-reverse;
         padding-top: 0;
         padding-bottom: 20%;
+      }
+    }
+
+    &.horizontal.txt-reverse {
+      .user-text-wrapper {
+        padding-bottom: 15%;
       }
     }
   }
@@ -1242,7 +1254,7 @@ main {
 .leaflet-control-layers-expanded {
   max-height: 28rem;
   overflow-y: auto;
-  width: 18rem;
+  width: 21rem;
 }
 
 @import 'utils/responsive';
