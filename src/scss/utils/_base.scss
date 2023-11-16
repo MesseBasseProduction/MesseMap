@@ -1,0 +1,123 @@
+:root {
+  --green-border: #246400;
+  --green-background: #9FE379;
+  --red-border: #B70000;
+  --red-background: #FF7878;
+  --grey-border: #595959;
+  --grey-background: #E8E8E8;
+
+  --color-l-bg: #FFFFFE;
+  --color-l-txt: #000001;
+  --color-l-txt-alt: #999998;
+  --color-d-bg: #000001;
+  --color-d-txt: #FFFFFE;
+  --color-d-txt-alt: #999998;
+}
+
+.light-theme {
+  --color-bg: var(--color-l-bg);
+  --color-txt: var(--color-l-txt);
+  --color-txt-alt: var(--color-l-txt-alt);
+}
+
+.dark-theme {
+  --color-bg: var(--color-d-bg);
+  --color-txt: var(--color-d-txt);
+  --color-txt-alt: var(--color-d-txt-alt);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html, body {
+  background-color: white;
+  font-family: sans-serif;
+  height: 100%;
+  width: 100%;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.2rem;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  appearance: none;
+  cursor: pointer;
+  height: calc(1.2rem + 2px);
+  background-color: rgb(255, 107, 103);
+  border: solid 1px rgb(127, 127, 127);
+  border-radius: 3rem;
+  margin: 0;
+  position: relative;
+  outline: none;
+  user-select: none;
+  width: 3rem;
+  transition: all .3s ease-in-out;
+
+  &::after {
+    content: '';
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 .25rem rgba(0, 0, 0, .9);
+    height: 1.2rem;
+    left: 0;
+    position: absolute;
+    transform: scale(.7);
+    width: 1.2rem;
+    transition: all .3s ease-in-out;
+  }
+
+  &:checked {
+    background-color: rgb(86, 212, 91);
+  }
+
+  &:checked::after {
+    left: calc(100% - 1.2rem);
+  }
+}
+
+input[type="file"] {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+
+button {
+  background-color: rgba(255, 255, 255, .8);
+  border: solid 1px grey;
+  border-radius: .333rem;
+  cursor: pointer;
+  margin: 1rem;
+  margin-top: 0;
+  padding: .8rem 2.2rem;
+  width: fit-content;
+  transition: all .2s;
+
+  &:active,
+  &:focus,
+  &:hover {
+    background-color: rgba(255, 255, 255, .9);
+  }
+}
+
+a {
+  cursor: pointer;
+  color: #56d45b;
+  text-align: center;
+  text-decoration: none;
+
+  transition: color .2s;
+
+  &:active,
+  &:focus,
+  &:hover {
+    color: #FF7878;
+  }
+}

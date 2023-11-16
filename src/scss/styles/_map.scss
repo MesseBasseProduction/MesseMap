@@ -1,0 +1,62 @@
+.map-container.map-style {
+  --padding: 3rem;
+  --thick-border: 5px;
+  --small-border: 1px;
+
+  padding: 0;
+
+  .user-text-wrapper {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    padding: var(--padding) 0;
+    width: 100%;
+    z-index: 998;
+
+    h1 {
+      font-family: 'sublima-bold', sans-serif;
+      font-size: 3em;
+      font-weight: 100;
+      letter-spacing: .1em;
+      text-indent: 0.2em;
+      text-shadow: 0 0 .5rem var(--color-bg);
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-family: 'louis-george-cafe', sans-serif;
+      font-size: 1.6em;
+      font-weight: 400;
+      letter-spacing: .5em;
+      line-height: 1.4;
+      text-indent: 0.5em;
+      text-shadow: 0 0 .5rem var(--color-bg);
+      text-transform: uppercase;
+    }
+
+    p {
+      color: var(--color-txt-alt);
+      font-family: 'louis-george-cafe-light', sans-serif;
+      font-size: 1.2em;
+      font-weight: 300;
+      letter-spacing: .1em;
+      margin-top: .5em;
+      text-indent: 0.1em;
+      text-transform: uppercase;
+    }
+  }
+
+  &.txt-reverse {
+    .user-text-wrapper {
+      display: flex;
+      flex-direction: column-reverse;
+      top: 0;
+      bottom: inherit;
+
+      p {
+        margin-bottom: .5em;
+        margin-top: 0;          
+      }
+    }
+  }
+}

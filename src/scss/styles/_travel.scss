@@ -1,0 +1,65 @@
+.map-container.travel-style {
+  --padding: 3rem;
+  --thick-border: 3px;
+  --small-border: 1px;
+
+  .user-text-wrapper {
+    /* Need to ad px to top/width because if scaling not round, line appear on print */
+    position: absolute;
+    background: var(--color-bg);
+    bottom: calc(var(--padding) - 2px);
+    height: 14%;
+    width: calc(100% - (var(--padding) * 2) + 2px);
+    z-index: 998;
+
+    h1 {
+      display: inline-block;
+      font-family: 'sublima-bold', sans-serif;
+      font-size: 3.2em;
+      font-weight: 100;
+      padding: calc(var(--padding) / 2) 0;
+      width: 70%;
+    }
+
+    h2 {
+      display: block;
+      float: right;
+      font-family: 'louis-george-cafe', sans-serif;
+      font-size: 1.7em;
+      font-weight: 400;
+      line-height: 1.4;
+      padding-top: calc(var(--padding) / 2);
+      text-align: right;
+      text-transform: uppercase;
+      width: 30%;
+    }
+
+    p {
+      border-top: solid var(--thick-border) var(--color-txt);
+      color: var(--color-txt-alt);
+      font-family: 'louis-george-cafe-light', sans-serif;
+      font-size: 1.3em;
+      font-weight: 300;
+      letter-spacing: .1em;
+      padding-top: calc(var(--padding) / 2);
+      text-transform: uppercase;
+    }
+  }
+
+  &.txt-reverse {
+    .user-text-wrapper {
+      top: calc(var(--padding) - 2px);
+
+      h1,
+      h2 {
+        padding-top: 0;
+      }
+    }
+  }
+
+  &.horizontal {
+    .user-text-wrapper {
+      height: 20%;
+    }
+  }
+}

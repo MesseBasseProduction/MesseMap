@@ -1,0 +1,109 @@
+.map-container.standard-style {
+  --padding: 3rem;
+  --thick-border: 5px;
+  --small-border: 1px;
+
+  &::before {
+    content: ' ';
+    position: absolute;
+    z-index: 999;
+    pointer-events: none;
+    top: calc(var(--padding) - var(--thick-border));
+    left: calc(var(--padding) - var(--thick-border));
+    right: calc(var(--padding) - var(--thick-border));
+    bottom: calc(var(--padding) - var(--thick-border));
+    border: var(--small-border) solid var(--color-txt);
+  }
+
+  .map {
+    border: solid var(--thick-border) var(--color-txt);
+  }
+
+  .user-text-wrapper {
+    position: absolute;
+    /* No transparent because Issue #538 on html2canvas, must use 0.01 alpha */
+    background: linear-gradient(rgba(255, 255, 255, .001) 1%, var(--color-bg) 50%);
+    bottom: calc(var(--padding) + var(--thick-border));
+    height: 35%;
+    padding-top: 20%;
+    text-align: center;
+    width: calc(100% - (var(--padding) * 2) - (var(--thick-border) * 2));
+    z-index: 998;
+
+    h1 {
+      font-family: 'sublima-bold', sans-serif;
+      font-size: 3.2em;
+      font-weight: 100;
+      letter-spacing: .1em;
+      text-indent: 0.2em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      align-items: center;
+      display: flex;
+      font-family: 'louis-george-cafe', sans-serif;
+      font-size: 1.7em;
+      font-weight: 400;
+      justify-content: center;
+      letter-spacing: .5em;
+      line-height: 1.4;
+      margin: 1em 0;
+      text-indent: 0.5em;
+      text-transform: uppercase;
+
+      span.before {
+        display: inline-block;
+        background-color: var(--color-txt);
+        height: 0.14em;
+        width: 3em;
+      }
+
+      span.subtitle {
+        padding: 0 1em;
+      }
+
+      span.after {
+        display: inline-block;
+        background-color: var(--color-txt);
+        height: 0.14em;
+        width: 3em;
+      }
+    }
+
+    p {
+      color: var(--color-txt-alt);
+      font-family: 'louis-george-cafe-light', sans-serif;
+      font-size: 1.3em;
+      font-weight: 300;
+      letter-spacing: .1em;
+      text-indent: 0.1em;
+      text-transform: uppercase;
+    }
+  }
+
+  &.txt-reverse {
+    .user-text-wrapper {
+      bottom: inherit;
+      top: calc(var(--padding) + var(--thick-border));
+      background: linear-gradient(var(--color-bg) 50%, rgba(255, 255, 255, .001) 100%);
+      display: flex;
+      flex-direction: column-reverse;
+      padding-top: 0;
+      padding-bottom: 20%;
+    }
+  }
+
+  &.horizontal {
+    .user-text-wrapper {
+      height: 50%;
+      padding-top: 15%;
+    }
+
+    &.txt-reverse {
+      .user-text-wrapper {
+        padding-bottom: 15%;
+      }
+    }
+  }
+}

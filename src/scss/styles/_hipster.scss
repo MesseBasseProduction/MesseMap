@@ -1,0 +1,67 @@
+.map-container.hipster-style {
+  --padding: 1rem;
+  --thick-border: 1px;
+  --small-border: 1px;
+
+  padding: var(--padding);
+  padding-bottom: calc(var(--padding) * 6);
+
+  .user-text-wrapper {
+    align-items: center;
+    border: solid var(--thick-border) var(--color-txt);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    background: var(--color-bg);
+    bottom: calc(var(--padding) * 6);
+    border-radius: .5em;
+    height: auto;
+    padding: var(--padding) calc(var(--padding) * 2);
+    text-align: center;
+    width: auto;
+    z-index: 998;
+    transform: translateY(50%);
+
+    h1 {
+      display: block;
+      font-family: 'sublima-bold', sans-serif;
+      font-size: 2.3em;
+      letter-spacing: .1em;
+      line-height: 1;
+      font-weight: 100;
+      text-transform: uppercase;
+      margin-bottom: .3rem;
+    }
+
+    h2 {
+      display: block;
+      font-family: 'louis-george-cafe', sans-serif;
+      font-size: 1.4em;
+      font-weight: 400;
+      letter-spacing: .5em;
+      line-height: 1.4;
+      text-transform: uppercase;
+    }
+
+    p {
+      color: var(--color-txt-alt);
+      font-family: 'louis-george-cafe-light', sans-serif;
+      font-size: 1.2em;
+      font-weight: 300;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+  }
+
+  &.txt-reverse {
+    padding: var(--padding);
+    padding-top: calc(var(--padding) * 6);
+
+    .user-text-wrapper {
+      bottom: inherit;
+      top: calc(var(--padding) * 6);
+      transform: translateY(-50%);
+    }
+  }
+}

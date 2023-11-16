@@ -1,0 +1,329 @@
+.app-wrapper {
+  align-items: center;
+  background: linear-gradient(126deg, rgba(251, 255, 144, 0.1), rgba(255, 107, 103, 0.2)), linear-gradient(204deg, rgba(255, 255, 255, .3), rgba(86, 212, 91, .2));
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  overflow: auto;
+  position: relative;
+  width: 100%;
+}
+
+aside {
+  background-color: #333;
+  box-shadow: .5rem 0px 2rem rgba(0, 0, 0, .3);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 36rem;
+
+  hr {
+    border-top: transparent;
+    color: #a1a1a1;
+    height: 1px;
+    margin: 0 1rem;
+    width: 90%;
+
+    &:first-of-type {
+      margin-top: 2rem;
+    }
+
+    &:last-of-type {
+      margin-bottom: 2rem;
+    }
+  }
+
+  header {
+    padding-top: 2rem;
+
+    h1 {
+      font-size: 2.8rem;
+      margin: 0;
+      padding: 0 1rem;
+      text-align: center;
+    }
+  }
+
+  section {
+    height: calc(100% - 17.5rem);
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    width: 100%;
+
+    .aside-content-wrapper {
+      padding-right: calc((2 * var(--default-scroll-size)) - 1px);
+      width: 100%;
+    }
+
+    /* Header text to describe what to do in MesseMap */
+    .aside-helper {
+      font-size: 1.4rem;
+      margin-bottom: 4rem;
+      margin-top: 2rem;
+      padding: 0 1rem;
+      text-align: center;
+    }
+
+    /* Category title */
+    h1 {
+      cursor: pointer;
+      display: flex;
+      font-size: 2.2rem;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      padding: 0 1.5rem;
+
+      span {
+        user-select: none;
+      }
+    }
+
+    /* Category baseline class*/
+    .category {
+      height: 0;
+      overflow: hidden;
+
+      &.expanded {
+        height: auto;
+
+        &.orientation-container span,
+        .txt-position-wrapper,
+        .input-with-color:last-of-type,
+        fieldset {
+          margin-bottom: 4rem;
+        }
+      }
+
+      /* Input label inside categories */
+      label {
+        font-style: italic;
+        margin-left: 1rem;
+      }
+    }
+
+    /* Item that can be selected (radio buttons) */
+    .click-item {
+      border: solid 1px white;
+      border-radius: .5rem;
+      color: inherit;
+      cursor: pointer;
+      padding: .2rem .8rem;
+      user-select: none;
+      transition: all .2s;
+
+      &.selected {
+        border-color: #56d45b;
+        color: #56d45b;
+      }
+    }
+
+    /* Specific to orientation category */
+    .orientation-container {
+      display: flex;
+      flex-wrap: wrap;
+      grid-gap: .5rem;
+      justify-content: flex-start;
+      margin: 0;
+      padding: 0 1rem;
+
+      span {
+        margin-bottom: 2rem;
+      }
+    }
+
+    /* Specific to style category */
+    .style-container {
+      .map-style {
+        display: flex;
+        flex-wrap: wrap;
+        grid-gap: .5rem;
+        justify-content: flex-start;
+        margin: .2rem 0 1rem;
+        padding: 0 1rem;
+      }
+
+      .dark-theme-wrapper,
+      .txt-position-wrapper {
+        display: flex;
+        justify-content: space-between;
+        margin: 0 0 1rem;
+        padding: 0 1rem;
+
+        label {
+          margin: 0;
+        }
+
+        div.theme-input-holder {
+          display: flex;
+
+          input {
+            margin-left: 1rem;
+          }
+
+          div {
+            cursor: pointer;
+            width: calc(1.2rem + 2px);
+          }
+        }
+      }
+
+      .txt-position-wrapper {
+        margin-bottom: 2rem;
+      }
+    }
+
+    /* Specific to texts category */
+    .texts-container {
+      .input-with-color {
+        align-items: center;
+        display: flex;
+        height: 2.5rem;
+        margin: .2rem 0;
+        margin-bottom: 1rem;
+        padding: 0 1rem;
+        width: 100%;
+
+        &:last-of-type {
+          margin-bottom: 2rem;
+        }
+
+        input[type="text"] {
+          background-color: transparent;
+          border: solid 1px;
+          border-color: #a1a1a1;
+          color: white;
+          border-top-left-radius: .3rem;
+          border-bottom-left-radius: .3rem;
+          font-weight: bold;
+          height: 100%;
+          width: inherit;
+        }
+
+        .text-edit {
+          aspect-ratio: 1 / 1;
+          background-color: transparent;
+          border: solid 1px;
+          border-color: #a1a1a1;
+          border-left: none;
+          border-top-right-radius: .3rem;
+          border-bottom-right-radius: .3rem;
+          cursor: pointer;
+          height: 100%;
+          padding: .2rem;
+          width: 2.5rem;
+        }
+      }
+    }
+
+    /* Specific to export category */
+    .export-container {
+      input[type="range"] {
+        margin: 0 1rem;
+        margin-bottom: 1rem;
+        width: calc(100% - 2rem);
+      }
+
+      .size-container {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 1rem;
+
+        span {
+          padding: .2rem 1.2rem;
+        }
+      }
+
+      fieldset {
+        border: solid 1px;
+        border-color: #a1a1a1;
+        border-radius: .3rem;
+        margin: 2rem 1rem;
+      }
+    }
+  }
+
+  footer {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 2rem;
+
+    /* Credit link */
+    a,
+    .credit-link {
+      cursor: pointer;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+
+      transition: color .2s;
+
+      &:active,
+      &:focus,
+      &:hover {
+        color: #56d45b;
+      }
+    }
+
+    .mbp-link {
+      font-family: 'catamaran', sans-serif;
+      font-size: 1.6rem;
+      margin-bottom: .5rem;
+      margin-top: .5rem;
+    }
+  }
+}
+
+main {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  left: 36rem;
+  position: absolute;
+  top: 0;
+  width: calc(100% - 36rem);
+}
+
+.map-container {
+  align-items: center;
+  aspect-ratio: 21 / 29.7;
+  background-color: var(--color-bg);
+  color: var(--color-txt);
+  display: flex;
+  justify-content: center;
+  padding: var(--padding);
+  position: relative;
+  width: 600px;
+  z-index: 10;
+
+  transition: all .2s;
+
+  &.shadow {
+    box-shadow: .5rem .5rem 3rem rgba(0, 0, 0, .3);
+  }
+
+  /* Leaflet overrides to move controls and zoom position */
+  &.txt-reverse .leaflet-top {
+    bottom: 0;
+    top: inherit;
+    margin-bottom: 10px;
+  }
+
+  .map {
+    height: 100%;
+    width: 100%;
+  }
+
+  &.horizontal {
+    aspect-ratio: 29.7 / 21;
+    height: 600px;
+    width: auto;
+  }
+}

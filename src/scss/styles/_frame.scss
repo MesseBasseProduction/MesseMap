@@ -1,0 +1,58 @@
+.map-container.frame-style {
+  --padding: 1.5rem;
+  --thick-border: 3px;
+  --small-border: 1px;
+
+  .user-text-wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    background: var(--color-bg);
+    bottom: calc(2 * var(--padding));
+    border-radius: .5em;
+    height: auto;
+    padding: var(--padding) calc(var(--padding) * 2);
+    text-align: center;
+    width: auto;
+    z-index: 998;
+
+    h1 {
+      display: block;
+      font-family: 'sublima-bold', sans-serif;
+      font-size: 2.3em;
+      letter-spacing: .1em;
+      line-height: 1;
+      font-weight: 100;
+      text-transform: uppercase;
+      margin-bottom: .3rem;
+    }
+
+    h2 {
+      display: block;
+      font-family: 'louis-george-cafe', sans-serif;
+      font-size: 1.4em;
+      font-weight: 400;
+      letter-spacing: .5em;
+      line-height: 1.4;
+      text-transform: uppercase;
+    }
+
+    p {
+      color: var(--color-txt-alt);
+      font-family: 'louis-george-cafe-light', sans-serif;
+      font-size: 1.2em;
+      font-weight: 300;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+  }
+
+  &.txt-reverse {
+    .user-text-wrapper {
+      bottom: inherit;
+      top: calc(2 * var(--padding));
+    }
+  }
+}

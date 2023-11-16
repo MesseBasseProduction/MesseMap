@@ -1,0 +1,16 @@
+/* Avoid lines between tiles during export */
+.leaflet-tile[style*="width: 256px"] {
+  width: 257px !important;
+  height: 257px !important;
+}
+
+.leaflet-tile[style*="width: 512px"] {
+  width: 513px !important;
+  height: 513px !important;
+}
+
+.leaflet-control-layers-expanded {
+  max-height: 28rem;
+  overflow-y: auto;
+  width: 21rem;
+}

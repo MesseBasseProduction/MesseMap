@@ -1,0 +1,65 @@
+.map-container.air-style {
+  --padding: 1.5rem;
+  --thick-border: 5px;
+  --small-border: 1px;
+
+  .user-text-wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    background: var(--color-bg);
+    bottom: var(--padding);
+    height: auto;
+    padding-top: var(--padding);
+    width: calc(100% - (var(--padding) * 2));
+    z-index: 998;
+
+    h1 {
+      display: block;
+      font-family: 'sublima-bold', sans-serif;
+      font-size: 2.2em;
+      letter-spacing: .1em;
+      line-height: 1;
+      margin-bottom: .3rem;
+      font-weight: 100;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      display: block;
+      font-family: 'louis-george-cafe', sans-serif;
+      font-size: 1.3em;
+      font-weight: 400;
+      letter-spacing: .5em;
+      line-height: 1.4;
+      text-transform: uppercase;
+    }
+
+    p {
+      color: var(--color-txt-alt);
+      font-family: 'louis-george-cafe-light', sans-serif;
+      font-size: 1.1em;
+      font-weight: 300;
+      letter-spacing: .1em;
+      margin-top: 1em;
+      text-transform: uppercase;
+    }
+  }
+  
+  &.txt-reverse {
+    .user-text-wrapper {
+      flex-direction: column-reverse;
+      bottom: inherit;
+      top: var(--padding);
+      padding-bottom: var(--padding);
+      padding-top: 0;
+
+      p {
+        margin-bottom: 1em;
+        margin-top: 0;          
+      }
+    }
+  }
+}
