@@ -1,0 +1,85 @@
+{
+  "title": "MesseMap",
+  "pageTitle": "MesseMap | あなたのための特別な場所をフレームに入れてダウンロードするか、印刷してください。",
+  "pageDescription": "自分だけのオリジナル地図ポスターを作るのに最適なサイトです。世界を閲覧し、デザイン、テキスト、色を調整して、希望の解像度とファイルタイプでダウンロードしてください。",
+  "helper": "MesseMap へようこそ!<br><br>マップ内を移動して表示したい場所を見つけて (検索バーが利用可能)、ポスターの目的のスタイルを反映するようにマップのベース レイヤーとその属性を構成します。ナビゲーションを改善するために、次のオプション カテゴリを折りたたんだり展開したりできます。最後に、エクスポート ボタンをクリックして、作成したばかりのポスターをお楽しみください。",
+  "orientation": "オリエンテーション",
+  "vertical": "垂直",
+  "horizontal": "水平",
+  "action": {
+    "close": "近い"
+  },
+  "style": {
+    "title": "スタイル",
+    "mapStyle": "マップレイアウト",
+    "darkTheme": "暗いテーマ",
+    "upText": "上のテキスト",
+    "std": "標準",
+    "travel": "旅行",
+    "frame": "フレーム",
+    "pure": "純粋な",
+    "pantone": "パントン",
+    "map": "地図",
+    "window": "窓",
+    "air": "空気",
+    "hipster": "ヒップスター"
+  },
+  "text": {
+    "title": "テキスト",
+    "mapTitle": "タイトル",
+    "mapTitlePlaceholder": "マップタイトル",
+    "mapSubtitle": "字幕",
+    "mapSubtitlePlaceholder": "地図のサブタイトル",
+    "mapComment": "コメント",
+    "mapCommentPlaceholder": "地図についてのコメント"
+  },
+  "export": {
+    "title": "設定のエクスポート",
+    "dimension": "寸法",
+    "at": "で",
+    "format": "ファイル形式",
+    "button": "輸出",
+    "credits": "クレジット"
+  },
+  "download": {
+    "title": "あなたのポスターは準備中です",
+    "subtitle": "アプリが必要なデータをすべて収集している間お待ちください。",
+    "stylePrep": "エクスポート用のマップ スタイルの準備...",
+    "tileLoad": "すべてのマップ タイルがロードされるのを待っています...",
+    "printStart": "タイルがロードされ、エクスポートが開始されました...",
+    "outputFile": "出力ファイルの作成...",
+    "saveToDisk": "エクスポートが完了しました。現在イメージをディスクに保存しています...",
+    "restoreMap": "マップを初期状態に戻す..."
+  },
+  "search": {
+    "placeholder": "検索...",
+    "cancel": "キャンセル",
+    "error": "検索結果はありません..."
+  },
+  "theme": {
+    "title": "テーマの変更",
+    "lightTheme": "ライトテーマ",
+    "darkTheme": "暗いテーマ",
+    "bg": "背景",
+    "txt": "文章",
+    "txtAlt": "代替テキスト",
+    "default": "デフォルトに戻す"
+  },
+  "credit": {
+    "line1": "<a href=\"https://messe-basse-production.com\" target=\"_blank\" rel=\"noopener noreferer\">メッセバス プロダクション</a>が提案するアプリです。",
+    "line2": "地図タイルは <a href=\"https://www.openstreetmap.fr/\" target=\"_blank\" rel=\"noopener noreferer\">OpenStreetMap</a>、<a href= によって作成されました。 \"https://www.geoportail.gouv.fr/\" target=\"_blank\" rel=\"noopener noreferer\">GeoPortail</a>、<a href=\"https://www. esri.com/\" target=\"_blank\" rel=\"noopener noreferer\">ESRI</a>、<a href=\"http://stamen.com\" target=\"_blank\" rel=\"noopener noreferer\">おしべのデザイン</a>、<a href=\"https://carto.com/attributions\" target=\"_blank\" rel=\"noopener noreferer\">Carto </a> と <a href=\"https://www.mapiful.com/\" target=\"_blank\" rel=\"noopener noreferer\">Mapiful</a> (<a href= の下) \"http://www.openstreetmap.org/copyright\" target=\"_blank\" rel=\"noopener noreferer\">ODbL</a> ライセンス。それらのプロバイダーにとても感謝しています。",
+    "line3": "地図データは、ESRI、i-cubed、Mapiful、USDA、USGS、AEX、GeoEye、Getmapping、Aerogrid、IGN、IGP、UPR-EGP、OpenStreetMap、Carto、Stamen Design、および GIS ユーザー コミュニティから提供されています。",
+    "line4": "MesseMap は GPL-3.0 オープン ソース ライセンスでライセンス供与されており、ライブラリ <a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet</ に依存しています。 a>、<a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet.SmoothWheelZoom</a>、<a href=\"https://github.com/stefanocudini/leaflet-search\" target=\"_blank\" rel=\"noopener noreferer\">leaflet-search</a> <a href=\"https: //html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a>、<a href=\"https://github.com/niklasvh/html2canvas- proxy-nodejs\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas-proxy-nodejs</a> および <a href=\"https://github.com/parallax/jsPDF/\" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>。このアプリのソース コードは、<a href=\"https://github.com/MesseBasseProduction/MesseMap/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a で入手できます。 > リポジトリ、あらゆる種類の貢献を歓迎します!",
+    "lang": "言語",
+    "fr": "🇫🇷 フランス語",
+    "en": "🇬🇧 英語",
+    "es": "🇪🇸 スペイン語",
+    "de": "🇩🇪 ドイツ人",
+    "it": "🇮🇹 イタリアーノ",
+    "pt": "🇵🇹 ポルトガル語",
+    "pl": "🇵🇱 ポーランド語",
+    "ru": "🇷🇺 ロシア",
+    "ch": "🇨🇳 中国語",
+    "ja": "🇯🇵 日本語"
+  }
+}

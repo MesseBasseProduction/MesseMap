@@ -1204,6 +1204,9 @@ class MesseMap {
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_IT}}', this._nls.credit.it);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_PT}}', this._nls.credit.pt);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_PL}}', this._nls.credit.pl);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_RU}}', this._nls.credit.ru);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_CH}}', this._nls.credit.ch);
+        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_JA}}', this._nls.credit.ja);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_CLOSE}}', this._nls.action.close);
         // Lang update
         document.getElementById('lang').value = this._lang;

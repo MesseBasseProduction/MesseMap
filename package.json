@@ -1,6 +1,6 @@
 {
   "name": "messemap",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "keywords": [],
   "main": "src/js/MesseMap.js",
   "scripts": {

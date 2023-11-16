@@ -62,7 +62,7 @@
     "darkTheme": "Dark theme",
     "bg": "Background",
     "txt": "Text",
-    "txtAlt": "Alternative texte",
+    "txtAlt": "Alternative text",
     "default": "Restore to default"
   },
   "credit": {
@@ -77,6 +77,9 @@
     "de": "🇩🇪 German",
     "it": "🇮🇹 Italiano",
     "pt": "🇵🇹 Portuguese",
-    "pl": "🇵🇱 Polish"
+    "pl": "🇵🇱 Polish",
+    "ru": "🇷🇺 Russian",
+    "ch": "🇨🇳 Chinese",
+    "ja": "🇯🇵 Japanese"
   }
 }
