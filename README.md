@@ -1,6 +1,6 @@
 # MesseMap
 
-![](https://badgen.net/badge/version/1.0.3/blue)
+![](https://badgen.net/badge/version/1.1.0/blue)
 [![License](https://img.shields.io/github/license/MesseBasseProduction/MesseMap.svg)](https://github.com/MesseBasseProduction/MesseMap/blob/main/LICENSE)
 [![Doc](https://badgen.net/badge/documentation/written/green)](https://messebasseproduction.github.io/MesseMap/doc/index.html)
 
@@ -10,7 +10,7 @@ It features 7 poster styles so far, that can all be customized (positioning, col
 
 Wanna try it ? We are running a [MesseMap instance](https://messemap.org) just for you! 
 
-[![Interface Screenshot](/assets/img/demo.png)](https://messemap.org)
+[![Interface Screenshot](/assets/img/demo/demo.png)](https://messemap.org)
 
 When exporting the map to disk the user can set the output dimension, the lowest resolution being A7 at 300 dpi (600 x 848) and the highest being A2 at 300 dpi (6500 x 9193). The user can also set the output format, between `.png`, `.jpg`, `.webp` and `.pdf` (exports in PDF are done in the CYMK color space so they're ready to print). 
 
@@ -42,4 +42,4 @@ Fonts are taken from DaFont, using [Catamaran](https://www.dafont.com/catamaran.
 
 ---
 
-[Messe Basse Production](https://github.com/MesseBasseProduction) --- 2022 / 2023
+[Messe Basse Production](https://github.com/MesseBasseProduction) --- 2022 / 2024

@@ -15,7 +15,7 @@ from Utils import *
 global mapInfo
 global savedPath
 global scriptVersion
-scriptVersion = '1.0.3'
+scriptVersion = '0'
 
 def main():
     global mapInfo

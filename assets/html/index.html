@@ -65,14 +65,14 @@
       <section id="scrollable-aside">
         <div class="aside-content-wrapper">
           <p class="aside-helper">{{HELPER}}</p>
-          <h1 id="toggle-orientation" data-id="toggle-orientation-container">{{ORIENTATION}}<span data-id="toggle-orientation-container" class="toggle">▲</span></h1>
-          <div id="toggle-orientation-container" class="orientation-container category expanded">
-            <span class="click-item selected" data-orientation="vertical">{{VERTICAL}}</span>
-            <span class="click-item" data-orientation="horizontal">{{HORIZONTAL}}</span>
-          </div>
           <h1 id="toggle-style" data-id="toggle-style-container">{{STYLE}}<span data-id="toggle-style-container" class="toggle">▲</span></h1>
           <div id="toggle-style-container" class="style-container category expanded">
-            <label for="dark-theme">{{MAP_STYLE}}</label>
+            <label for="map-orientation">{{MAP_ORIENTATION}}</label>
+            <div id="toggle-orientation-container" class="orientation-container">
+              <span class="click-item selected" data-orientation="vertical">{{VERTICAL}}</span>
+              <span class="click-item" data-orientation="horizontal">{{HORIZONTAL}}</span>
+            </div>
+            <label for="map-style">{{MAP_STYLE}}</label>
             <div id="map-style" class="map-style">
               <span class="click-item selected" data-style="standard">{{STYLE_STD}}</span>
               <span class="click-item" data-style="travel">{{STYLE_TRAVEL}}</span>
@@ -88,7 +88,7 @@
               <label for="dark-theme">{{DARK_THEME}}</label>
               <div class="theme-input-holder">
                 <div id="theme-editor" class="theme-editor">
-                  <img src="/assets/img/option.svg" height="14" width="14" alt="theme-editor-option">
+                  <img src="/assets/img/icon/option.svg" height="14" width="14" alt="theme-editor-option">
                 </div>
                 <input type="checkbox" id="dark-theme" class="switch">
               </div>
@@ -114,6 +114,29 @@
             <div class="input-with-color">
               <input id="user-comment" type="text" value="44.797°N / 1.542°E" placeholder="{{MAP_COMMENT_PLACEHOLDER}}" maxlength="42">
               <input type="color" id="comment-color" aria-label='Comment color' class="text-edit" data-type="comment">
+            </div>
+          </div>
+          <h1 id="toggle-icon" data-id="toggle-icon-container">{{ICON}}<span data-id="toggle-icon-container" class="toggle">▲</span></h1>
+          <div id="toggle-icon-container" class="icon-container category expanded">
+            <div class="toggle-icon-wrapper">
+              <label for="activate-icon">{{TOGGLE_ICON}}</label>
+              <input type="checkbox" id="activate-icon" class="switch">
+            </div>
+            <label for="icon-size" id="icon-size-label">{{ICON_SIZE}} : 2</label>
+            <input type="range" id="icon-size" name="icon-size" min="1" max="16" value="2" data-size="2">
+            <div class="icon-color-container">
+              <label for="icon-color">{{ICON_COLOR}}</label>
+              <input type="color" value="#FFFFFF" id="icon-color" aria-label='Icon color' class="icon">
+            </div>
+            <label for="icon-images">{{ICON_IMAGE}}</label>
+            <div id="icon-images" class="icon-images-container">
+              <img src="/assets/img/icon/home.svg" class="selected" data-url="/assets/img/icon/home.svg">
+              <img src="/assets/img/icon/building.svg" data-url="/assets/img/icon/building.svg">
+              <img src="/assets/img/icon/case.svg" data-url="/assets/img/icon/case.svg">
+              <img src="/assets/img/icon/user.svg" data-url="/assets/img/icon/user.svg">
+              <img src="/assets/img/icon/star.svg" data-url="/assets/img/icon/star.svg">
+              <img src="/assets/img/icon/heart.svg" data-url="/assets/img/icon/heart.svg">
+              <img src="/assets/img/icon/pin.svg" data-url="/assets/img/icon/pin.svg">
             </div>
           </div>
           <h1 id="toggle-export" data-id="toggle-export-container">{{EXPORT}}<span data-id="toggle-export-container" class="toggle">▲</span></h1>
@@ -155,7 +178,7 @@
       <footer>
         <button id="map-save">{{EXPORT_BUTTON}}</button>
         <a href="https://messe-basse-production.com" class="mbp-link" target="_blank" rel="noopener noreferer">Messe Basse Production</a>
-        <p id="credit-modal" class="credit-link">2022 / 2023 – {{CREDITS}}</p>
+        <p id="credit-modal" class="credit-link">2022 / <span id="year-now"></span> – {{CREDITS}}</p>
       </footer>
     </aside>
     <!-- Map view controls and poster -->
@@ -166,6 +189,8 @@
           <h1 id="title"></h1>
           <h2><span class="before"></span><span id="subtitle" class="subtitle"></span><span class="after"></span></h2>
           <p id="comment"></p>
+        </div>
+        <div id="map-icon" class="map-icon" draggable="true">
         </div>
       </div>
     </main>
@@ -188,6 +213,9 @@
   <!-- Then load MesseMap Js bundle -->
   <script type="text/javascript" src="/assets/dist/MesseMap.bundle.js"></script>
   <!-- Finally, start MesseMap instance -->
-  <script type="text/javascript">window.MesseMap = new MesseMap();</script>
+  <script type="text/javascript">
+document.getElementById('year-now').innerHTML = new Date().getFullYear();
+window.MesseMap = new MesseMap();
+  </script>
 </body>
 </html>

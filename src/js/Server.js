@@ -7,7 +7,7 @@ const request = require('request');
 const compression = require('compression');
 const zlib = require('node:zlib');
 // App and preferences
-const version = '1.0.3';
+const version = '1.1.0';
 const port = 8010;
 const exportPath = path.join(__dirname, '../../saved'); // Must match Dockerfile value
 const app = express();

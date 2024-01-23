@@ -3,14 +3,14 @@
   "pageTitle": "MesseMap | Gestalten Sie einen besonderen Ort für Sie und laden Sie ihn herunter oder drucken Sie ihn aus!",
   "pageDescription": "Die perfekte Seite, um ein originelles Kartenplakat zu erstellen! Navigieren Sie zu dem Ort, den Sie hervorheben möchten, passen Sie Design, Texte und Farben an und laden Sie dann Ihr Poster in der gewünschten Auflösung und im gewünschten Format herunter!",
   "helper": "Willkommen auf MesseMap!<br><br>Navigieren Sie in der Karte, um den Ort zu finden, den Sie anzeigen möchten (Suchleiste verfügbar), und konfigurieren Sie dann die Kartenbasisebene und ihre Attribute so, dass sie den Stil widerspiegeln, den Sie für Ihr Poster anstreben. Sie können die folgenden Optionskategorien für eine bessere Navigation reduzieren oder erweitern. Klicken Sie abschließend auf den Export-Button und genießen Sie Ihr frisch erstelltes Poster!",
-  "orientation": "Ausrichtung",
-  "vertical": "Hochformat",
-  "horizontal": "Querformat",
   "action": {
     "close": "Schließen"
   },
   "style": {
     "title": "Stil",
+    "orientation": "Ausrichtung",
+    "vertical": "Hochformat",
+    "horizontal": "Querformat",
     "mapStyle": "Kartenlayout",
     "darkTheme": "Dunkles Thema",
     "upText": "Text oben",
@@ -32,6 +32,13 @@
     "mapSubtitlePlaceholder": "Karten Untertitel",
     "mapComment": "Kommentar",
     "mapCommentPlaceholder": "Ein Kommentar über die Karte"
+  },
+  "icon": {
+    "title": "Symbol",
+    "toggle": "Bildschirmsymbol",
+    "size": "Größe",
+    "color": "Farbe des Symbols",
+    "image": "Form des Symbols"
   },
   "export": {
     "title": "Export Eisntellungen",

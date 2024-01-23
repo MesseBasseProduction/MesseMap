@@ -3,14 +3,14 @@
   "pageTitle": "MesseMap | Inquadra un luogo speciale per te e scaricalo, oppure stampalo!",
   "pageDescription": "Il sito perfetto per realizzare un poster di carta originale! Naviga fino al luogo che desideri evidenziare, modifica il design, i testi e i colori, quindi scarica il tuo poster nella risoluzione e nel formato che desideri!",
   "helper": "Benvenuto su MesseMap!<br><br>Naviga nella mappa per trovare il luogo che desideri visualizzare (barra di ricerca disponibile), quindi configura il livello di base della mappa e i suoi attributi in modo che riflettano lo stile che desideri per il tuo poster. Puoi comprimere o espandere le seguenti categorie di opzioni per una migliore navigazione. Infine, fai clic sul pulsante Esporta e goditi il tuo poster appena creato!",
-  "orientation": "Orientamento",
-  "vertical": "Verticale",
-  "horizontal": "Orizzontale",
   "action": {
     "close": "Vicino"
   },
   "style": {
     "title": "Stile",
+    "orientation": "Orientamento",
+    "vertical": "Verticale",
+    "horizontal": "Orizzontale",
     "mapStyle": "Disposizione della mappa",
     "darkTheme": "Tema scuro",
     "upText": "Testo in alto",
@@ -32,6 +32,13 @@
     "mapSubtitlePlaceholder": "Sottotitolo della mappa",
     "mapComment": "Commento",
     "mapCommentPlaceholder": "Un commento sulla mappa"
+  },
+  "icon": {
+    "title": "Icona",
+    "toggle": "Visualizza l'icona",
+    "size": "Misurare",
+    "color": "Colore dell'icona",
+    "image": "La forma dell'icona"
   },
   "export": {
     "title": "Impostazioni di esportazione",

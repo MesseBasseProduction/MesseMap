@@ -1,3 +1,7 @@
+:root {
+  --fillColor: #FFFFFF;
+}
+
 .app-wrapper {
   align-items: center;
   background: linear-gradient(126deg, rgba(251, 255, 144, 0.1), rgba(255, 107, 103, 0.2)), linear-gradient(204deg, rgba(255, 255, 255, .3), rgba(86, 212, 91, .2));
@@ -19,7 +23,7 @@ aside {
   left: 0;
   position: absolute;
   top: 0;
-  width: 36rem;
+  width: 42rem;
 
   hr {
     border-top: transparent;
@@ -56,7 +60,7 @@ aside {
     width: 100%;
 
     .aside-content-wrapper {
-      padding-right: calc((2 * var(--default-scroll-size)) - 1px);
+      padding-right: calc((2 * var(--scroll-size)));
       width: 100%;
     }
 
@@ -91,11 +95,11 @@ aside {
       &.expanded {
         height: auto;
 
-        &.orientation-container span,
         .txt-position-wrapper,
+        .icon-images-container,
         .input-with-color:last-of-type,
         fieldset {
-          margin-bottom: 4rem;
+          margin-bottom: 3rem;
         }
       }
 
@@ -122,28 +126,23 @@ aside {
       }
     }
 
-    /* Specific to orientation category */
-    .orientation-container {
-      display: flex;
-      flex-wrap: wrap;
-      grid-gap: .5rem;
-      justify-content: flex-start;
-      margin: 0;
-      padding: 0 1rem;
-
-      span {
-        margin-bottom: 2rem;
-      }
-    }
-
     /* Specific to style category */
     .style-container {
+      .orientation-container {
+        display: flex;
+        flex-wrap: wrap;
+        grid-gap: .5rem;
+        justify-content: flex-start;
+        margin: .5rem 0 1rem;
+        padding: 0 1rem;
+      }
+
       .map-style {
         display: flex;
         flex-wrap: wrap;
         grid-gap: .5rem;
         justify-content: flex-start;
-        margin: .2rem 0 1rem;
+        margin: .5rem 0 1rem;
         padding: 0 1rem;
       }
 
@@ -183,7 +182,7 @@ aside {
         align-items: center;
         display: flex;
         height: 2.5rem;
-        margin: .2rem 0;
+        margin: .5rem 0;
         margin-bottom: 1rem;
         padding: 0 1rem;
         width: 100%;
@@ -220,6 +219,79 @@ aside {
       }
     }
 
+    .icon-container {
+      .toggle-icon-wrapper {
+        display: flex;
+        justify-content: space-between;
+        margin: 0 0 1rem;
+        padding: 0 1rem;
+
+        label {
+          margin: 0;
+        }
+
+        div.theme-input-holder {
+          display: flex;
+
+          input {
+            margin-left: 1rem;
+          }
+
+          div {
+            cursor: pointer;
+            width: calc(1.2rem + 2px);
+          }
+        }
+      }
+
+      input[type="range"] {
+        margin: 0 1rem;
+        margin-bottom: 1rem;
+        width: calc(100% - 2rem);
+      }
+
+      .icon-color-container {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        margin: 0 1rem;
+
+        label {
+          margin-left: 0;
+        }
+
+        input {
+          aspect-ratio: 2/1;
+          background-color: transparent;
+          border: 1px solid #a1a1a1;
+          border-radius: .5rem;
+          cursor: pointer;
+          height: 2.5rem;
+          padding: .2rem;      
+        }
+      }
+
+      .icon-images-container {
+        align-items: center;
+        display: flex;
+        justify-content: space-evenly;
+        margin: .5rem 0 1rem;
+
+        img {
+          cursor: pointer;
+          border: solid 1px #a1a1a1;
+          border-radius: .5rem;
+          height: 3rem;
+          padding: .7rem;
+          transition: all .2s;
+    
+          &.selected {
+            filter: invert(63%) sepia(60%) saturate(507%) hue-rotate(73deg) brightness(172%) contrast(98%);
+          }
+        }
+      }
+    }
+
     /* Specific to export category */
     .export-container {
       input[type="range"] {
@@ -230,7 +302,7 @@ aside {
 
       .size-container {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-evenly;
         padding: 0 1rem;
 
         span {
@@ -285,10 +357,10 @@ main {
   flex-direction: column;
   height: 100%;
   justify-content: center;
-  left: 36rem;
+  left: 42rem;
   position: absolute;
   top: 0;
-  width: calc(100% - 36rem);
+  width: calc(100% - 42rem);
 }
 
 .map-container {
@@ -321,9 +393,29 @@ main {
     width: 100%;
   }
 
+  .map-icon {
+    cursor: grab;
+    display: none;
+    position: absolute;
+    left: 50%;
+    height: 2rem;
+    opacity: 0;
+    width: 2rem;
+    z-index: 999;
+
+    &.visible {
+      display: block;
+      opacity: 1;
+    }
+  }
+
   &.horizontal {
     aspect-ratio: 29.7 / 21;
     height: 600px;
     width: auto;
+  }
+
+  svg, path, circle {
+    fill: var(--fillColor) !important;
   }
 }

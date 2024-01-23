@@ -3,14 +3,14 @@
   "pageTitle": "MesseMap | 为您选一个特别的地方并下载或打印！",
   "pageDescription": "制作您自己的原创地图海报的完美网站！浏览世界，调整您的设计、文本和颜色，然后以您想要的分辨率和文件类型下载！",
   "helper": "欢迎使用 MesseMap！<br><br>在地图中导航找到您想要显示的位置（可用搜索栏），然后配置地图基础图层及其属性，使其反映您的海报风格。您可以折叠或展开以下选项类别以便更好地导航。最后，单击导出按钮并享受您新鲜制作的海报！",
-  "orientation": "方向",
-  "vertical": "垂直的",
-  "horizontal": "水平的",
   "action": {
     "close": "关闭"
   },
   "style": {
     "title": "风格",
+    "orientation": "方向",
+    "vertical": "垂直的",
+    "horizontal": "水平的",
     "mapStyle": "地图布局",
     "darkTheme": "深色主题",
     "upText": "向上文字",
@@ -32,6 +32,13 @@
     "mapSubtitlePlaceholder": "地图副标题",
     "mapComment": "评论",
     "mapCommentPlaceholder": "关于地图的评论"
+  },
+  "icon": {
+    "title": "图标",
+    "toggle": "显示图标",
+    "size": "尺寸",
+    "color": "图标的颜色",
+    "image": "图标的形状"
   },
   "export": {
     "title": "导出设置",

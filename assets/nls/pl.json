@@ -3,14 +3,14 @@
     "pageTitle": "MesseMap | Wykadruj bliskie Ci miejsce i pobierz gotowe do zdjęcia!",
     "pageDescription": "Idealne miejsce do stworzenia oryginalnego plakatu z mapą! Przejdź do miejsca, które chcesz wyróżnić, dostosuj projekt, teksty i kolory, a następnie pobierz plakat w wybranej rozdzielczości i formacie!",
     "helper": "Witamy w MesseMap!<br><br>Przejrzyj mapę, aby znaleźć miejsce do wykadrowania (pasek wyszukiwania jest do Twojej dyspozycji), a następnie skonfiguruj mapę bazową i jej atrybuty, aby jak najlepiej odzwierciedlały styl, który chcesz zastosować. Możesz rozwinąć lub zwinąć następujące kategorie, aby ułatwić nawigację. Na koniec kliknij eksport, aby pobrać plakat gotowy do druku!",
-    "orientation": "Orientacja",
-    "vertical": "Pionowy",
-    "horizontal": "Poziomy",
     "action": {
       "close": "Zamknąć"
     },
     "style": {
       "title": "Styl",
+      "orientation": "Orientacja",
+      "vertical": "Pionowy",
+      "horizontal": "Poziomy",
       "mapStyle": "Format elementów",
       "darkTheme": "Ciemny schemat",
       "upText": "Tekst na górze",
@@ -32,6 +32,13 @@
       "mapSubtitlePlaceholder": "Podtytuł mapy",
       "mapComment": "Komentarz",
       "mapCommentPlaceholder": "Komentarz do mapy"
+    },
+    "icon": {
+      "title": "Ikona",
+      "toggle": "Wyświetl ikonę",
+      "size": "Rozmiar",
+      "color": "Kolor ikony",
+      "image": "Kształt ikony"
     },
     "export": {
       "title": "Eksportuj parametr",

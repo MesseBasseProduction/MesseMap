@@ -60,7 +60,7 @@ class MesseMap {
      * @type {Boolean}
      * @private
      **/
-     this._commentEdited = false;
+    this._commentEdited = false;
     /**
      * setInterval ID used to frequently ask for printing (only if tiles are loaded)
      * @type {Number}
@@ -78,7 +78,7 @@ class MesseMap {
       lcom: '#999998',
       dbg: '#000001',
       dtxt: '#FFFFFE',
-      dcom: '#999998'      
+      dcom: '#999998'
     };
     /**
      * The currently applied language
@@ -104,7 +104,15 @@ class MesseMap {
       style: 'standard',
       darkTheme: false,
       upText: false,
-      layer: 'Imagery (E)'
+      layer: 'Imagery (E)',
+      hasIcon: false,
+      icon: {
+        color: '#FFFFFF',
+        image: '/assets/img/icon/home.svg',
+        size: 2, // Size in rem
+        x: 48.33, // Size in %
+        y: 48.33 // Size in %
+      }
     };
 
     // Begin the initialization sequence (interface and events)
@@ -155,11 +163,12 @@ class MesseMap {
           // Update page content with translations
           this.replaceString(document.body, '{{TITLE}}', this._nls.title);
           this.replaceString(document.body, '{{HELPER}}', this._nls.helper);
-          this.replaceString(document.body, '{{ORIENTATION}}', this._nls.orientation);
-          this.replaceString(document.body, '{{VERTICAL}}', this._nls.vertical);
-          this.replaceString(document.body, '{{HORIZONTAL}}', this._nls.horizontal);
 
           this.replaceString(document.body, '{{STYLE}}', this._nls.style.title);
+          this.replaceString(document.body, '{{MAP_ORIENTATION}}', this._nls.style.orientation);
+          this.replaceString(document.body, '{{VERTICAL}}', this._nls.style.vertical);
+          this.replaceString(document.body, '{{HORIZONTAL}}', this._nls.style.horizontal);
+
           this.replaceString(document.body, '{{MAP_STYLE}}', this._nls.style.mapStyle);
           this.replaceString(document.body, '{{STYLE_STD}}', this._nls.style.std);
           this.replaceString(document.body, '{{STYLE_TRAVEL}}', this._nls.style.travel);
@@ -180,6 +189,13 @@ class MesseMap {
           this.replaceString(document.body, '{{MAP_SUBTITLE_PLACEHOLDER}}', this._nls.text.mapSubtitlePlaceholder);
           this.replaceString(document.body, '{{MAP_COMMENT}}', this._nls.text.mapComment);
           this.replaceString(document.body, '{{MAP_COMMENT_PLACEHOLDER}}', this._nls.text.mapCommentPlaceholder);
+
+          this.replaceString(document.body, '{{ICON}}', this._nls.icon.title);
+          this.replaceString(document.body, '{{TOGGLE_ICON}}', this._nls.icon.toggle);
+          this.replaceString(document.body, '{{ICON_SIZE}}', this._nls.icon.size);
+          this.replaceString(document.body, '{{ICON_COLOR}}', this._nls.icon.color);
+          this.replaceString(document.body, '{{ICON_IMAGE}}', this._nls.icon.image);
+
           this.replaceString(document.body, '{{EXPORT}}', this._nls.export.title);
           this.replaceString(document.body, '{{EXPORT_DIMENSION}}', this._nls.export.dimension);
           this.replaceString(document.body, '{{EXPORT_AT}}', this._nls.export.at);
@@ -228,7 +244,7 @@ class MesseMap {
           url: 'https://nominatim.openstreetmap.org/search?format=json&q={s}',
           jsonpParam: 'json_callback',
           propertyName: 'display_name',
-          propertyLoc: ['lat','lon'],
+          propertyLoc: ['lat', 'lon'],
           marker: false,
           autoCollapse: true,
           firstTipSubmit: true,
@@ -296,14 +312,12 @@ class MesseMap {
   _initEvents() {
     if (CONST.DEBUG) { console.log('MesseMap._initEvents() called'); }
     return new Promise(resolve => {
-      // Orientation
-      document.getElementById('toggle-orientation').addEventListener('click', this._toggleCategory.bind(this));
+      // Style
+      document.getElementById('toggle-style').addEventListener('click', this._toggleCategory.bind(this));
       const orientations = document.getElementById('toggle-orientation-container');
       for (let i = 0; i < orientations.children.length; ++i) {
         orientations.children[i].addEventListener('click', this._updateMapOrientation.bind(this));
       }
-      // Style
-      document.getElementById('toggle-style').addEventListener('click', this._toggleCategory.bind(this));
       const styles = document.getElementById('map-style');
       for (let i = 0; i < styles.children.length; ++i) {
         styles.children[i].addEventListener('click', this._updateMapStyle.bind(this));
@@ -319,6 +333,16 @@ class MesseMap {
       document.getElementById('user-title').addEventListener('input', this._applyTexts.bind(this));
       document.getElementById('user-subtitle').addEventListener('input', this._applyTexts.bind(this));
       document.getElementById('user-comment').addEventListener('input', this._applyTexts.bind(this));
+      // Icon
+      document.getElementById('toggle-icon').addEventListener('click', this._toggleCategory.bind(this));
+      document.getElementById('activate-icon').addEventListener('change', this._toggleIcon.bind(this));
+      document.getElementById('icon-size').addEventListener('input', this._updateIconSize.bind(this));
+      this._handleIconDrag();
+      document.getElementById('icon-color').addEventListener('input', this._updateIconColor.bind(this));
+      const icons = document.getElementById('icon-images');
+      for (let i = 0; i < icons.children.length; ++i) {
+        icons.children[i].addEventListener('click', this._updateIconImage.bind(this));
+      }
       // Export settings
       document.getElementById('toggle-export').addEventListener('click', this._toggleCategory.bind(this));
       document.getElementById('image-width').addEventListener('input', this._updateDimensionLabel.bind(this));
@@ -363,7 +387,7 @@ class MesseMap {
    * @returns {Promise} A resolved Promise
    **/
   _initAdvancedFeatures() {
-    if (CONST.DEBUG) { console.log('MesseMap._initAdvancedFeatures called'); } 
+    if (CONST.DEBUG) { console.log('MesseMap._initAdvancedFeatures called'); }
     return new Promise(resolve => {
       if (window.location.href.indexOf('?callmeroot') > -1) {
         const reader = new FileReader();
@@ -403,7 +427,7 @@ class MesseMap {
    * </blockquote>
    **/
   _endStartup() {
-    if (CONST.DEBUG) { console.log('MesseMap._endStartup called'); } 
+    if (CONST.DEBUG) { console.log('MesseMap._endStartup called'); }
     return new Promise(resolve => {
       this.unblockInterface().then(resolve);
     });
@@ -468,11 +492,33 @@ class MesseMap {
         break;
       }
     }
+
+    if (data.icon && data.icon.displayed === true) {
+      document.getElementById('activate-icon').click();
+      document.getElementById('icon-size').value = data.icon.size;
+      this._updateIconSize({
+        target: document.getElementById('icon-size')
+      });
+      const icons = document.getElementById('icon-images');
+      for (let i = 0; i < icons.children.length; ++i) {
+        if (icons.children[i].dataset.url === data.icon.image) {
+          icons.children[i].click();
+          break;
+        }
+      }
+      document.getElementById('icon-color').value = data.icon.color;
+      this._updateIconColor({
+        target: document.getElementById('icon-color')
+      });
+      document.getElementById('map-icon').style.left = `${data.icon.x}%`;
+      document.getElementById('map-icon').style.top = `${data.icon.y}%`;
+    }
+
     // Update map position
     this._map.setView(new window.L.LatLng(data.map.center.lat, data.map.center.lng), data.map.zoom);
     // Switch map base layer
     this._map.removeLayer(MapProviders.layers[this._data.layer]);
-    this._map.addLayer(MapProviders.layers[data.map.layer]);    
+    this._map.addLayer(MapProviders.layers[data.map.layer]);
   }
 
 
@@ -646,6 +692,7 @@ class MesseMap {
    * <blockquote>
    * Simply apply the input text to the poster (for title, subtitle and comment)
    * </blockquote>
+   * @param {Event} e - The text input
    **/
   _applyTexts(e) {
     if (CONST.DEBUG) { console.log('MesseMap._applyTexts() called with ', e); }
@@ -695,6 +742,236 @@ class MesseMap {
       const c = this._map.getCenter();
       document.getElementById('comment').innerHTML = `${this.precisionRound(c.lat % 90, 3)}°N / ${this.precisionRound(c.lng % 180, 3)}° E`;
     }
+  }
+
+
+  /**
+   * @method
+   * @name _toggleIcon
+   * @private
+   * @memberof MesseMap
+   * @author Arthur Beaulieu
+   * @since January 2024
+   * @description
+   * <blockquote>
+   * Display or hide the icon on the output map
+   * </blockquote>
+   * @param {Event} e - The check input
+   **/
+  _toggleIcon(e) {
+    if (CONST.DEBUG) { console.log('MesseMap._toggleIcon() called with ', e); }
+    const icon = document.getElementById('map-icon');
+    if (e.target.checked) {
+      // Init icon position
+      icon.style.left = `${this._data.icon.x}%`;
+      icon.style.top = `${this._data.icon.y}%`;
+      icon.classList.add('visible');
+      icon.style.backgroundColor = this._data.icon.color;
+      icon.style.mask = `url(${this._data.icon.image}) no-repeat center / contain`;
+      this._data.hasIcon = true;
+    } else {
+      icon.classList.remove('visible');
+      this._data.hasIcon = false;
+    }
+  }
+
+
+  /**
+   * @method
+   * @name _updateIconSize
+   * @private
+   * @memberof MesseMap
+   * @author Arthur Beaulieu
+   * @since January 2024
+   * @description
+   * <blockquote>
+   * Update the icon size in output map
+   * </blockquote>
+   * @param {Event} e - The range input
+   **/
+  _updateIconSize(e) {
+    if (CONST.DEBUG) { console.log('MesseMap._updateIconSize() called with ', e); }
+    document.getElementById('map-icon').style.height = `${e.target.value}rem`;
+    document.getElementById('map-icon').style.width = `${e.target.value}rem`;
+    const label = e.target.previousElementSibling;
+    this._data.icon.size = parseInt(e.target.value);
+    // Update position with new size
+    e.target.dataset.size = e.target.value;
+    label.innerHTML = `${this._nls.icon.size} : ${e.target.value}`;
+  }
+
+
+  /**
+   * @method
+   * @name _handleIconDrag
+   * @private
+   * @memberof MesseMap
+   * @author Arthur Beaulieu
+   * @since January 2024
+   * @description
+   * <blockquote>
+   * Handle the icon dragging in the map output
+   * </blockquote>
+   **/
+  _handleIconDrag() {
+    if (CONST.DEBUG) { console.log('MesseMap._handleIconDrag() called'); }
+    let dragging = false;
+    const map = document.getElementById('map-output');
+    const mapRect = map.getBoundingClientRect();
+    const element = document.getElementById('map-icon');
+    let rect = element.getBoundingClientRect();
+    // Map paddings
+    let paddingLeft = parseInt(window.getComputedStyle(map).getPropertyValue('padding-left').slice(0, -2));
+    let paddingTop = parseInt(window.getComputedStyle(map).getPropertyValue('padding-top').slice(0, -2));
+    // User pointer position
+    let clickX = 0;
+    let clickY = 0;
+    // Variation between place clicked and icon X,Y absolute origin
+    let dX = 0;
+    let dY = 0;
+    // Current position
+    let positionX = 0;
+    let positionY = 0;
+
+    const mouseDown = e => {
+      e.preventDefault();
+      dragging = true;
+      // Update icon bounding rect in case its sized was updated
+      rect = element.getBoundingClientRect();
+      // Update map paddings if style has been updated
+      paddingLeft = parseInt(window.getComputedStyle(map).getPropertyValue('padding-left').slice(0, -2));
+      paddingTop = parseInt(window.getComputedStyle(map).getPropertyValue('padding-top').slice(0, -2));
+      // Store initial position
+      positionX = e.clientX;
+      positionY = e.clientY;
+      // Get dif between click and icon x pos
+      dX = e.clientX - rect.x;
+      dY = e.clientY - rect.y;
+    };
+
+    const mouseMove = e => {
+      const xAxis = (e.pageX > (mapRect.x + paddingLeft - dX) && e.pageX < (mapRect.x + mapRect.width - paddingLeft + dX));
+      const yAxis = (e.pageY > (mapRect.y + paddingTop - dY) && e.pageY < (mapRect.y + mapRect.height - paddingTop + dY));
+      if (dragging && xAxis && yAxis) {
+        e.preventDefault();
+        // Update pointer position with differential
+        clickX = positionX - e.clientX;
+        clickY = positionY - e.clientY;
+        // Store current pointer position
+        positionX = e.clientX;
+        positionY = e.clientY;
+        // Determine icon new top and left position
+        const newTop = element.offsetTop - clickY;
+        const newLeft = element.offsetLeft - clickX;
+        // Only update Y if in bounds
+        if (newTop > paddingTop && newTop + rect.width < mapRect.height - paddingTop) {
+          element.style.top = `${newTop}px`;
+          element.dataset.top = `${newTop}px`;
+          this._data.icon.y = newTop * 100 / mapRect.height;
+        }
+        // Only update X if in bounds
+        if (newLeft > paddingLeft && newLeft + rect.width < mapRect.width - paddingLeft) {
+          element.style.left = `${newLeft}px`;
+          element.dataset.left = `${newLeft}px`;
+          this._data.icon.x = newLeft * 100 / mapRect.width;
+        }
+      }
+    };
+
+    const mouseUp = () => {
+      dragging = false;
+    };
+
+    element.addEventListener('mousedown', mouseDown);
+    map.addEventListener('mousemove', mouseMove);
+    window.addEventListener('mouseup', mouseUp);
+  }
+
+
+  /**
+   * @method
+   * @name _updateIconImage
+   * @private
+   * @memberof MesseMap
+   * @author Arthur Beaulieu
+   * @since January 2024
+   * @description
+   * <blockquote>
+   * Update the icon source image
+   * </blockquote>
+   * @param {Event} e - The clicked image
+   **/
+  _updateIconImage(e) {
+    if (CONST.DEBUG) { console.log('MesseMap._updateIconImage() called with ', e); }
+    const icons = document.getElementById('icon-images');
+    for (let i = 0; i < icons.children.length; ++i) {
+      if (icons.children[i].classList.contains('selected')) {
+        icons.children[i].classList.remove('selected');
+        break;
+      }
+    }
+    // Update icon src and store it
+    e.target.classList.add('selected');
+    this._data.icon.image = e.target.dataset.url; // Update internal data
+    document.getElementById('map-icon').style.mask = `url(${e.target.dataset.url}) no-repeat center / contain`;
+  }
+
+
+  /**
+   * @method
+   * @name _updateIconColor
+   * @private
+   * @memberof MesseMap
+   * @author Arthur Beaulieu
+   * @since January 2024
+   * @description
+   * <blockquote>
+   * Update the icon color
+   * </blockquote>
+   * @param {Event} e - The color input
+   **/
+  _updateIconColor(e) {
+    document.getElementById('map-icon').style.backgroundColor = e.target.value;
+    document.getElementById('map-icon').style.mask = `url(${this._data.icon.image}) no-repeat center / contain`;
+    this._data.icon.color = e.target.value;
+    document.documentElement.style.setProperty('--fillColor', this._data.icon.color);
+  }
+
+
+  /**
+   * @method
+   * @name _prepareIconForPrinting
+   * @private
+   * @memberof MesseMap
+   * @author Arthur Beaulieu
+   * @since January 2024
+   * @description
+   * <blockquote>
+   * Apply svg image with color to properly render icon ou output map
+   * </blockquote>
+   * @param {Number} scale - The output map scale
+   **/
+  _prepareIconForPrinting(scale) {
+    return new Promise(resolve => {
+      fetch(this._data.icon.image)
+      .then(response => response.text())
+      .then((data) => {
+        var parser = new DOMParser();
+        var svg = parser.parseFromString(data, 'image/svg+xml').lastChild;
+        svg.style.width = '100%';
+        svg.style.height = '100%';
+        const wrapper = document.createElement('DIV');
+        wrapper.style.position = 'absolute';
+        wrapper.style.zIndex = '999';
+        wrapper.style.width = `${this._data.icon.size * scale}rem`;
+        wrapper.style.height = `${this._data.icon.size * scale}rem`;
+        wrapper.style.left = `calc(${this._data.icon.x}% - ${this._data.icon.size}px)`;
+        wrapper.style.top = `calc(${this._data.icon.y}% - ${this._data.icon.size}px`;
+        wrapper.appendChild(svg);
+        document.getElementById('map-output').appendChild(wrapper);
+        requestAnimationFrame(resolve);
+      }).catch(resolve);      
+    });
   }
 
 
@@ -913,6 +1190,11 @@ class MesseMap {
       } else {
         document.getElementById('map-output').style.width = `${size}px`;
       }
+      // Update icon position
+      if (this._data.hasIcon === true) {
+        document.getElementById('map-icon').style.display = 'none';
+      }
+      // Mobile specific
       if (document.body.clientWidth < 1150) {
         document.querySelector('.user-text-wrapper').style.fontSize = 'inherit';
       }
@@ -927,7 +1209,12 @@ class MesseMap {
         document.getElementById('print-status').innerHTML = this._nls.download.tileLoad;
         document.getElementById('print-progress').style.width = '25%';
         this._tilesLoaded = false;
-        resolve();
+        // Need to create svg if an icon is requested
+        if (this._data.hasIcon === true) {
+          this._prepareIconForPrinting(scale).then(resolve);
+        } else {
+          resolve();
+        }
       });
     });
   }
@@ -1046,6 +1333,12 @@ class MesseMap {
     if (document.body.clientWidth < 1150) {
       document.querySelector('.user-text-wrapper').style.fontSize = '50%';
     }
+    // Restore icon position
+    if (this._data.hasIcon === true) {
+      document.getElementById('map-icon').style.display = 'block';
+      document.getElementById('map-output').removeChild(document.getElementById('map-output').lastElementChild);
+    }
+    // Clear map temporary styles and remove temporary
     document.getElementById('map-output').style = '';
     // Restore map container box shadow
     document.getElementById('map-output').classList.add('shadow');
@@ -1159,7 +1452,7 @@ class MesseMap {
             this._cssTheme.dcom = '#999998';
             this.applyThemeColor();
             _updateInputs();
-          });          
+          });
         });
 
         _updateInputs();
@@ -1428,6 +1721,14 @@ class MesseMap {
         subtitle: document.getElementById('user-subtitle').value,
         comment: document.getElementById('user-comment').value
       },
+      icon: {
+        displayed: this._data.hasIcon,
+        color: this._data.icon.color,
+        image: this._data.icon.image,
+        size: this._data.icon.size,
+        x: this._data.icon.x,
+        y: this._data.icon.y
+      },
       map: {
         layer: this._data.layer,
         center: this._map.getCenter(),
@@ -1456,7 +1757,7 @@ class MesseMap {
    * @return {Promise} - A promise resolved when UI is blocked
    **/
   blockInterface() {
-    if (CONST.DEBUG) { console.log('MesseMap.blockInterface called'); } 
+    if (CONST.DEBUG) { console.log('MesseMap.blockInterface called'); }
     return new Promise(resolve => {
       document.getElementById('print-overlay').style.zIndex = 99;
       document.getElementById('print-overlay').style.opacity = 1;
@@ -1480,10 +1781,10 @@ class MesseMap {
    * @return {Promise} - A promise resolved when UI is unblocked
    **/
   unblockInterface() {
-    if (CONST.DEBUG) { console.log('MesseMap.unblockInterface called'); } 
+    if (CONST.DEBUG) { console.log('MesseMap.unblockInterface called'); }
     return new Promise(resolve => {
       document.getElementById('print-overlay').style.opacity = 0;
-      setTimeout(() => { 
+      setTimeout(() => {
         document.getElementById('print-overlay').style.zIndex = -1;
         document.getElementById('print-overlay').children[0].innerHTML = this._nls.download.title;
         document.getElementById('print-overlay').children[1].innerHTML = this._nls.download.subtitle;
