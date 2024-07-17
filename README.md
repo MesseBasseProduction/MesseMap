@@ -6,7 +6,7 @@
 
 A website that helps you to create a map poster, so it can be exported ready to print, with the ability to scale the map to a given size. Different map layers available to create your unique *wall-memory* touch!
 
-It features 7 poster styles so far, that can all be customized (positioning, colors). It allows user to define a title, a subtitle and a comment for their map. Each of these text's color can also be modified. Available in 7 languages, translations welcome.
+It features 7 poster styles so far, that can all be customized (positioning, colors). It allows user to define a title, a subtitle and a comment for their map. Each of these text's color can also be modified. Available in 10 languages, translations welcome.
 
 Wanna try it ? We are running a [MesseMap instance](https://messemap.org) just for you! 
 

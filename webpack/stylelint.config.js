@@ -20,7 +20,6 @@ module.exports = {
     'no-duplicate-at-import-rules': true,
     'no-duplicate-selectors': true,
     'no-empty-source': true,
-    'no-extra-semicolons': true,
     'no-invalid-double-slash-comments': true,
     'property-no-unknown': true,
     'selector-pseudo-class-no-unknown': true,

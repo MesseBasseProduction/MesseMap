@@ -72,12 +72,8 @@
     "txtAlt": "替代文本",
     "default": "恢复默认值"
   },
-  "credit": {
-    "line1": "<a href=\"https://messe-basse-production.com\" target=\"_blank\" rel=\"noopener noreferer\">Messe Basse Production</a> 提议的应用。",
-    "line2": "地图图块由 <a href=\"https://www.openstreetmap.fr/\" target=\"_blank\" rel=\"noopener noreferer\">OpenStreetMap</a> 制作，<a href= \"https://www.geoportail.gouv.fr/\" target=\"_blank\" rel=\"noopener noreferer\">GeoPortail</a>，<a href=\"https://www. esri.com/\" target=\"_blank\" rel=\"noopener noreferer\">ESRI</a>，<a href=\"http://stamen.com\" target=\"_blank\" rel=\"noopener noreferer\">雄蕊设计</a>，<a href=\"https://carto.com/attributions\" target=\"_blank\" rel=\"noopener noreferer\">Carto </a> 和 <a href=\"https://www.mapiful.com/\" target=\"_blank\" rel=\"noopener noreferer\">Mapiful</a>，位于 <a href= \"http://www.openstreetmap.org/copyright\" target=\"_blank\" rel=\"noopener noreferer\">ODbL</a> 许可证。我们非常感谢这些提供者。",
-    "line3": "地图数据由 ESRI、i-cubed、Mapiful、USDA、USGS、AEX、GeoEye、Getmapping、Aerogrid、IGN、IGP、UPR-EGP、OpenStreetMap、Carto、Stamen Design 和 GIS 用户社区提供。",
-    "line4": "MesseMap 采用 GPL-3.0 开源许可证，并依赖于库<a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet</ a>, <a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet.SmoothWheelZoom</a>, <a href=\"https://github.com/stefanocudini/leaflet-search\" target=\"_blank\" rel=\"noopener noreferer\">传单搜索</a> <a href=\"https: //html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a>, <a href=\"https://github.com/niklasvh/html2canvas- proxy-nodejs\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas-proxy-nodejs</a> 和 <a href=\"https://github.com/parallax/jsPDF/\" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>。此应用程序的源代码可在 <a href=\"https://github.com/MesseBasseProduction/MesseMap/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a 上获取> 存储库，欢迎任何形式的贡献！",
-    "lang": "语言",
+  "lang": {
+    "label": "语言",
     "fr": "🇫🇷 法语",
     "en": "🇬🇧 英语",
     "es": "🇪🇸 西班牙语",
@@ -87,6 +83,12 @@
     "pl": "🇵🇱 抛光",
     "ru": "🇷🇺 俄语",
     "ch": "🇨🇳 俄语",
-    "ja": "🇯🇵 日本人"
+    "ja": "🇯🇵 日本人"    
+  },
+  "credit": {
+    "line1": "<a href=\"https://messe-basse-production.com\" target=\"_blank\" rel=\"noopener noreferer\">Messe Basse Production</a> （我们） 提议的应用。 本网站使用 <a href=\"https://fr.matomo.org/\" target=\"_blank\" rel=\"noopener noreferer\">Matomo</a> 分析服务；这是一项符合 GDPR 规定的隐私友好型服务。我们仅使用此跟踪服务来监控本网站的受众。不会收集任何额外数据，也不会与任何第三方共享。",
+    "line2": "地图图块由 <a href=\"https://www.openstreetmap.fr/\" target=\"_blank\" rel=\"noopener noreferer\">OpenStreetMap</a> 制作，<a href= \"https://www.geoportail.gouv.fr/\" target=\"_blank\" rel=\"noopener noreferer\">GeoPortail</a>，<a href=\"https://www. esri.com/\" target=\"_blank\" rel=\"noopener noreferer\">ESRI</a>，<a href=\"http://stamen.com\" target=\"_blank\" rel=\"noopener noreferer\">雄蕊设计</a>，<a href=\"https://carto.com/attributions\" target=\"_blank\" rel=\"noopener noreferer\">Carto </a> 和 <a href=\"https://www.mapiful.com/\" target=\"_blank\" rel=\"noopener noreferer\">Mapiful</a>，位于 <a href= \"http://www.openstreetmap.org/copyright\" target=\"_blank\" rel=\"noopener noreferer\">ODbL</a> 许可证。我们非常感谢这些提供者。",
+    "line3": "地图数据由 ESRI、i-cubed、Mapiful、USDA、USGS、AEX、GeoEye、Getmapping、Aerogrid、IGN、IGP、UPR-EGP、OpenStreetMap、Carto、Stamen Design 和 GIS 用户社区提供。",
+    "line4": "MesseMap 采用 GPL-3.0 开源许可证，并依赖于库<a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet</ a>, <a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet.SmoothWheelZoom</a>, <a href=\"https://github.com/stefanocudini/leaflet-search\" target=\"_blank\" rel=\"noopener noreferer\">传单搜索</a> <a href=\"https: //html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a>, <a href=\"https://github.com/niklasvh/html2canvas- proxy-nodejs\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas-proxy-nodejs</a> 和 <a href=\"https://github.com/parallax/jsPDF/\" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>。此应用程序的源代码可在 <a href=\"https://github.com/MesseBasseProduction/MesseMap/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a 上获取> 存储库，欢迎任何形式的贡献！"
   }
 }

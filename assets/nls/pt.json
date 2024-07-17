@@ -72,12 +72,8 @@
     "txtAlt": "Texto alternativo",
     "default": "Restaurar para o padrão"
   },
-  "credit": {
-    "line1": "Um aplicativo proposto por <a href=\"https://messe-basse-production.com\" target=\"_blank\" rel=\"noopener noreferer\">Messe Basse Production</a>.",
-    "line2": "Blocos de mapas são gentilmente feitos por <a href=\"https://www.openstreetmap.fr/\" target=\"_blank\" rel=\"noopener noreferer\">OpenStreetMap</a>, <a href= \"https://www.geoportail.gouv.fr/\" target=\"_blank\" rel=\"noopener noreferer\">GeoPortail</a>, <a href=\"https://www. esri.com/\" target=\"_blank\" rel=\"noopener noreferer\">ESRI</a>, <a href=\"http://stamen.com\" target=\"_blank\" rel=\"noopener noreferer\">Stamen Design</a>, <a href=\"https://carto.com/attributions\" target=\"_blank\" rel=\"noopener noreferer\">Carto </a> e <a href=\"https://www.mapiful.com/\" target=\"_blank\" rel=\"noopener noreferer\">Mapiful</a>, em <a href= \"http://www.openstreetmap.org/copyright\" target=\"_blank\" rel=\"noopener noreferer\">ODbL</a> licença. Somos muito gratos a esses provedores.",
-    "line3": "Os dados do mapa são gentilmente fornecidos por ESRI, i-cubed, Mapiful, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, OpenStreetMap, Carto, Stamen Design e GIS User Community",
-    "line4": "O MesseMap é licenciado com a licença de código aberto GPL-3.0 e depende das bibliotecas <a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Folheto</ a>, <a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet.SmoothWheelZoom</a>, <a href=\"https://github.com/stefanocudini/leaflet-search\" target=\"_blank\" rel=\"noopener noreferer\">folheto-pesquisa</a> <a href=\"https: //html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a>, <a href=\"https://github.com/niklasvh/html2canvas-proxy-nodejs\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas-proxy-nodejs</a> e <a href=\"https://github.com/parallax/jsPDF/ \" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>. O código-fonte deste aplicativo está disponível no <a href=\"https://github.com/MesseBasseProduction/MesseMap/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a > repositório, qualquer contribuição de qualquer tipo é bem vinda!",
-    "lang": "Linguagem",
+  "lang": {
+    "label": "Linguagem",
     "fr": "🇫🇷 Francês",
     "en": "🇬🇧 Inglês",
     "es": "🇪🇸 Espanhol",
@@ -88,5 +84,11 @@
     "ru": "🇷🇺 Russo",
     "ch": "🇨🇳 Chinês",
     "ja": "🇯🇵 Japonês"
+  },
+  "credit": {
+    "line1": "Um aplicativo proposto por <a href=\"https://messe-basse-production.com\" target=\"_blank\" rel=\"noopener noreferer\">Messe Basse Production</a> (nós). Este site está a utilizar o serviço de análise <a href=\"https://fr.matomo.org/\" target=\"_blank\" rel=\"noopener noreferer\">Matomo</a> ; um serviço amigo da privacidade que está em conformidade com a regulamentação do RGPD. Este serviço de tracking é utilizado por nós apenas para monitorizar a audiência deste site. Nenhum dado adicional é recolhido nem partilhado com terceiros.",
+    "line2": "Blocos de mapas são gentilmente feitos por <a href=\"https://www.openstreetmap.fr/\" target=\"_blank\" rel=\"noopener noreferer\">OpenStreetMap</a>, <a href= \"https://www.geoportail.gouv.fr/\" target=\"_blank\" rel=\"noopener noreferer\">GeoPortail</a>, <a href=\"https://www. esri.com/\" target=\"_blank\" rel=\"noopener noreferer\">ESRI</a>, <a href=\"http://stamen.com\" target=\"_blank\" rel=\"noopener noreferer\">Stamen Design</a>, <a href=\"https://carto.com/attributions\" target=\"_blank\" rel=\"noopener noreferer\">Carto </a> e <a href=\"https://www.mapiful.com/\" target=\"_blank\" rel=\"noopener noreferer\">Mapiful</a>, em <a href= \"http://www.openstreetmap.org/copyright\" target=\"_blank\" rel=\"noopener noreferer\">ODbL</a> licença. Somos muito gratos a esses provedores.",
+    "line3": "Os dados do mapa são gentilmente fornecidos por ESRI, i-cubed, Mapiful, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, OpenStreetMap, Carto, Stamen Design e GIS User Community",
+    "line4": "O MesseMap é licenciado com a licença de código aberto GPL-3.0 e depende das bibliotecas <a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Folheto</ a>, <a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet.SmoothWheelZoom</a>, <a href=\"https://github.com/stefanocudini/leaflet-search\" target=\"_blank\" rel=\"noopener noreferer\">folheto-pesquisa</a> <a href=\"https: //html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a>, <a href=\"https://github.com/niklasvh/html2canvas-proxy-nodejs\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas-proxy-nodejs</a> e <a href=\"https://github.com/parallax/jsPDF/ \" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>. O código-fonte deste aplicativo está disponível no <a href=\"https://github.com/MesseBasseProduction/MesseMap/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a > repositório, qualquer contribuição de qualquer tipo é bem vinda!"
   }
 }

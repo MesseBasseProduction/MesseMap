@@ -72,12 +72,8 @@
     "txtAlt": "代替テキスト",
     "default": "デフォルトに戻す"
   },
-  "credit": {
-    "line1": "<a href=\"https://messe-basse-production.com\" target=\"_blank\" rel=\"noopener noreferer\">メッセバス プロダクション</a>が提案するアプリです。",
-    "line2": "地図タイルは <a href=\"https://www.openstreetmap.fr/\" target=\"_blank\" rel=\"noopener noreferer\">OpenStreetMap</a>、<a href= によって作成されました。 \"https://www.geoportail.gouv.fr/\" target=\"_blank\" rel=\"noopener noreferer\">GeoPortail</a>、<a href=\"https://www. esri.com/\" target=\"_blank\" rel=\"noopener noreferer\">ESRI</a>、<a href=\"http://stamen.com\" target=\"_blank\" rel=\"noopener noreferer\">おしべのデザイン</a>、<a href=\"https://carto.com/attributions\" target=\"_blank\" rel=\"noopener noreferer\">Carto </a> と <a href=\"https://www.mapiful.com/\" target=\"_blank\" rel=\"noopener noreferer\">Mapiful</a> (<a href= の下) \"http://www.openstreetmap.org/copyright\" target=\"_blank\" rel=\"noopener noreferer\">ODbL</a> ライセンス。それらのプロバイダーにとても感謝しています。",
-    "line3": "地図データは、ESRI、i-cubed、Mapiful、USDA、USGS、AEX、GeoEye、Getmapping、Aerogrid、IGN、IGP、UPR-EGP、OpenStreetMap、Carto、Stamen Design、および GIS ユーザー コミュニティから提供されています。",
-    "line4": "MesseMap は GPL-3.0 オープン ソース ライセンスでライセンス供与されており、ライブラリ <a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet</ に依存しています。 a>、<a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet.SmoothWheelZoom</a>、<a href=\"https://github.com/stefanocudini/leaflet-search\" target=\"_blank\" rel=\"noopener noreferer\">leaflet-search</a> <a href=\"https: //html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a>、<a href=\"https://github.com/niklasvh/html2canvas- proxy-nodejs\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas-proxy-nodejs</a> および <a href=\"https://github.com/parallax/jsPDF/\" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>。このアプリのソース コードは、<a href=\"https://github.com/MesseBasseProduction/MesseMap/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a で入手できます。 > リポジトリ、あらゆる種類の貢献を歓迎します!",
-    "lang": "言語",
+  "lang": {
+    "label": "言語",
     "fr": "🇫🇷 フランス語",
     "en": "🇬🇧 英語",
     "es": "🇪🇸 スペイン語",
@@ -88,5 +84,11 @@
     "ru": "🇷🇺 ロシア",
     "ch": "🇨🇳 中国語",
     "ja": "🇯🇵 日本語"
+  },
+  "credit": {
+    "line1": "<a href=\"https://messe-basse-production.com\" target=\"_blank\" rel=\"noopener noreferer\"> （私たち） メッセバス プロダクション</a>が提案するアプリです。 このウェブサイトは、GDPR規制に準拠したプライバシーに配慮したサービスである<a href=\"https://fr.matomo.org/\" target=\"_blank\" rel=\"noopener noreferer\">Matomo</a>分析サービスを使用しています。この追跡サービスは、このウェブサイトの視聴者を監視するためにのみ使用されます。追加データは収集されず、第三者と共有されることもありません。",
+    "line2": "地図タイルは <a href=\"https://www.openstreetmap.fr/\" target=\"_blank\" rel=\"noopener noreferer\">OpenStreetMap</a>、<a href= によって作成されました。 \"https://www.geoportail.gouv.fr/\" target=\"_blank\" rel=\"noopener noreferer\">GeoPortail</a>、<a href=\"https://www. esri.com/\" target=\"_blank\" rel=\"noopener noreferer\">ESRI</a>、<a href=\"http://stamen.com\" target=\"_blank\" rel=\"noopener noreferer\">おしべのデザイン</a>、<a href=\"https://carto.com/attributions\" target=\"_blank\" rel=\"noopener noreferer\">Carto </a> と <a href=\"https://www.mapiful.com/\" target=\"_blank\" rel=\"noopener noreferer\">Mapiful</a> (<a href= の下) \"http://www.openstreetmap.org/copyright\" target=\"_blank\" rel=\"noopener noreferer\">ODbL</a> ライセンス。それらのプロバイダーにとても感謝しています。",
+    "line3": "地図データは、ESRI、i-cubed、Mapiful、USDA、USGS、AEX、GeoEye、Getmapping、Aerogrid、IGN、IGP、UPR-EGP、OpenStreetMap、Carto、Stamen Design、および GIS ユーザー コミュニティから提供されています。",
+    "line4": "MesseMap は GPL-3.0 オープン ソース ライセンスでライセンス供与されており、ライブラリ <a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet</ に依存しています。 a>、<a href=\"https://github.com/mutsuyuki/Leaflet.SmoothWheelZoom\" target=\"_blank\" rel=\"noopener noreferer\">Leaflet.SmoothWheelZoom</a>、<a href=\"https://github.com/stefanocudini/leaflet-search\" target=\"_blank\" rel=\"noopener noreferer\">leaflet-search</a> <a href=\"https: //html2canvas.hertzen.com/\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas</a>、<a href=\"https://github.com/niklasvh/html2canvas- proxy-nodejs\" target=\"_blank\" rel=\"noopener noreferer\">html2canvas-proxy-nodejs</a> および <a href=\"https://github.com/parallax/jsPDF/\" target=\"_blank\" rel=\"noopener noreferer\">jsPDF</a>。このアプリのソース コードは、<a href=\"https://github.com/MesseBasseProduction/MesseMap/\" target=\"_blank\" rel=\"noopener noreferer\">GitHub</a で入手できます。 > リポジトリ、あらゆる種類の貢献を歓迎します!"
   }
 }

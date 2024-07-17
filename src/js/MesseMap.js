@@ -85,7 +85,7 @@ class MesseMap {
      * @type {String}
      * @private
      **/
-    this._lang = localStorage.getItem('lang') || 'en';
+    this._lang = localStorage.getItem('lang') || null;
     /**
      * The nls file that holds language key values
      * @type {Object}
@@ -98,7 +98,11 @@ class MesseMap {
      * @private
      **/
     this._scroll = null;
-
+    /**
+     * The poster configuration object
+     * @type {Object}
+     * @private
+     **/
     this._data = {
       orientation: 'vertical',
       style: 'standard',
@@ -146,7 +150,18 @@ class MesseMap {
   _initInterface() {
     if (CONST.DEBUG) { console.log('MesseMap._initInterface() called'); }
     return new Promise((resolve, reject) => {
-      // Get lang from storage, or use default
+      // Language not saved, try to detect from navigator
+      if (this._lang === null) {
+        const navigatorLanguage = (navigator.language || navigator.userLanguage) || 'en';
+        if (navigatorLanguage === null) {
+          this._lang = 'en';
+        } else if (['ch', 'de', 'en', 'es', 'fr', 'it', 'ja', 'pl', 'pt', 'ru'].indexOf(navigatorLanguage.substring(0, 2)) !== -1) {
+          this._lang = navigatorLanguage.substring(0, 2);
+        } else {
+          this._lang = 'en';
+        }
+      }
+      // Set lang in local storage
       if (!localStorage.getItem('lang')) {
         localStorage.setItem('lang', this._lang);
       }
@@ -201,7 +216,21 @@ class MesseMap {
           this.replaceString(document.body, '{{EXPORT_AT}}', this._nls.export.at);
           this.replaceString(document.body, '{{EXPORT_FORMAT}}', this._nls.export.format);
           this.replaceString(document.body, '{{EXPORT_BUTTON}}', this._nls.export.button);
+          this.replaceString(document.body, '{{LANG_SELECT}}', this._nls.lang.label);
+          this.replaceString(document.body, '{{LANG_FR}}', this._nls.lang.fr);
+          this.replaceString(document.body, '{{LANG_EN}}', this._nls.lang.en);
+          this.replaceString(document.body, '{{LANG_ES}}', this._nls.lang.es);
+          this.replaceString(document.body, '{{LANG_DE}}', this._nls.lang.de);
+          this.replaceString(document.body, '{{LANG_IT}}', this._nls.lang.it);
+          this.replaceString(document.body, '{{LANG_PT}}', this._nls.lang.pt);
+          this.replaceString(document.body, '{{LANG_PL}}', this._nls.lang.pl);
+          this.replaceString(document.body, '{{LANG_RU}}', this._nls.lang.ru);
+          this.replaceString(document.body, '{{LANG_CH}}', this._nls.lang.ch);
+          this.replaceString(document.body, '{{LANG_JA}}', this._nls.lang.ja);
           this.replaceString(document.body, '{{CREDITS}}', this._nls.export.credits);
+
+          // Update select language input value
+          document.getElementById('lang').value = this._lang;
 
           resolve();
         }).catch(reject);
@@ -352,6 +381,8 @@ class MesseMap {
       for (let i = 0; i < sizes.children.length; ++i) {
         sizes.children[i].addEventListener('click', this._updateDimensionClicked.bind(this));
       }
+      // Lang update
+      document.getElementById('lang').addEventListener('change', this._updateLang.bind(this));
       // Listening to close modal event
       document.getElementById('modal-overlay').addEventListener('click', this._closeModal.bind(this));
       document.getElementById('credit-modal').addEventListener('click', this._creditModal.bind(this));
@@ -359,12 +390,11 @@ class MesseMap {
       for (const layer in MapProviders.layers) {
         MapProviders.layers[layer].on('load', () => this._tilesLoaded = true);
       }
-
+      // Map related events
       this._map.on('move', this._updateCommentLabel.bind(this));
       this._map.on('baselayerchange', e => {
         this._data.layer = e.name;
       });
-
       this._search.on('search:locationfound', this._searchMatch.bind(this));
 
       resolve();
@@ -1489,21 +1519,7 @@ class MesseMap {
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LINE3}}', this._nls.credit.line3);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LINE4}}', this._nls.credit.line4);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LINE5}}', this._nls.credit.line5);
-        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LANG}}', this._nls.credit.lang);
-        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_FR}}', this._nls.credit.fr);
-        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_EN}}', this._nls.credit.en);
-        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_ES}}', this._nls.credit.es);
-        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_DE}}', this._nls.credit.de);
-        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_IT}}', this._nls.credit.it);
-        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_PT}}', this._nls.credit.pt);
-        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_PL}}', this._nls.credit.pl);
-        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_RU}}', this._nls.credit.ru);
-        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_CH}}', this._nls.credit.ch);
-        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_JA}}', this._nls.credit.ja);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_CLOSE}}', this._nls.action.close);
-        // Lang update
-        document.getElementById('lang').value = this._lang;
-        document.getElementById('lang').addEventListener('change', this._updateLang.bind(this));
         // Close modal button event
         document.getElementById('close').addEventListener('click', this._closeModal.bind(this, null, true));
       });

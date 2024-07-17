@@ -1,6 +1,6 @@
 # Poster saved as JSON
 
-When a poster is requested on the instance, a JSON file will be created in this directory, so the map can be later reloaded in app. For the Messe Basse Production instance, those files are used when a user request us to make a print and frame it. This upcoming service will be soon announced ; feel free to follow us on [Instagram](https://www.instagram.com/messebasseproduction/) or [Facebook]() ! Enough commercial, here is a the JSON format for a poster :
+When a poster is requested on the instance, a JSON file will be created in this directory, so the map can be later reloaded in app. For the Messe Basse Production instance, those files are used when a user request us to make a print and frame it. This upcoming service will be soon announced ; feel free to follow us on [Instagram](https://www.instagram.com/messebasseproduction/) or [Facebook](https://www.facebook.com/messebasseproduction) ! Enough commercial, here is a the JSON format for a poster :
 
 ```json
 {
@@ -41,3 +41,5 @@ When a poster is requested on the instance, a JSON file will be created in this 
   }
 }
 ```
+
+In order to restore a poster in JSON format, just add the `?callmeroot` argument to your instance's URL, it will display an input file on the top right so you can load any saved poster.
