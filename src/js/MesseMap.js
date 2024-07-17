@@ -865,6 +865,9 @@ class MesseMap {
 
     const mouseDown = e => {
       e.preventDefault();
+      if (e.touches && e.touches.length > 0) {
+        e = e.touches[0];
+      }
       dragging = true;
       // Update icon bounding rect in case its sized was updated
       rect = element.getBoundingClientRect();
@@ -880,10 +883,12 @@ class MesseMap {
     };
 
     const mouseMove = e => {
+      if (e.touches && e.touches.length > 0) {
+        e = e.touches[0];
+      }
       const xAxis = (e.pageX > (mapRect.x + paddingLeft - dX) && e.pageX < (mapRect.x + mapRect.width - paddingLeft + dX));
       const yAxis = (e.pageY > (mapRect.y + paddingTop - dY) && e.pageY < (mapRect.y + mapRect.height - paddingTop + dY));
       if (dragging && xAxis && yAxis) {
-        e.preventDefault();
         // Update pointer position with differential
         clickX = positionX - e.clientX;
         clickY = positionY - e.clientY;
@@ -915,6 +920,10 @@ class MesseMap {
     element.addEventListener('mousedown', mouseDown);
     map.addEventListener('mousemove', mouseMove);
     window.addEventListener('mouseup', mouseUp);
+    // Touch events
+    element.addEventListener('touchstart', mouseDown);
+    map.addEventListener('touchmove', mouseMove);
+    window.addEventListener('touchup', mouseUp);    
   }
 
 

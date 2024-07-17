@@ -76,6 +76,10 @@ def latlng2tile(lat, lng, zoom):
 
 
 def downloadImage(img):
+    proxy = urllib.request.ProxyHandler({})
+    opener = urllib.request.build_opener(proxy)
+    opener.addheaders = [('User-Agent','Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.1 Safari/603.1.30')]
+    urllib.request.install_opener(opener)
     try:
         urllib.request.urlretrieve(img['url'], img['path'])
     except urllib.error.HTTPError:

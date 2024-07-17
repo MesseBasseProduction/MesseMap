@@ -20,9 +20,13 @@ class ZoneDownloader:
         # Convert lat lng to tile number depending on Z
         min = latlng2tile(self.zoneInfo['tlCoords'][0], self.zoneInfo['tlCoords'][1], z)
         max = latlng2tile(self.zoneInfo['brCoords'][0], self.zoneInfo['brCoords'][1], z)
+        usableRange = range(min[0], max[0] + 1)
+        # Reverse range order if needed
+        if min[0] > max[0] + 1:
+            usableRange = range(max[0] + 1, min[0])
         # Iterate x tiles depending on current zoom
         with ThreadPoolExecutor(max_workers=100) as executor:
-            executor.map(self._xProcessor, [z for i in range(pow(2, z))], list(range(min[0], max[0] + 1)))
+            executor.map(self._xProcessor, [z for i in range(pow(2, z))], list(usableRange))
 
 
     def _xProcessor(self, z, x):
@@ -34,8 +38,12 @@ class ZoneDownloader:
         min = latlng2tile(self.zoneInfo['tlCoords'][0], self.zoneInfo['tlCoords'][1], z)
         max = latlng2tile(self.zoneInfo['brCoords'][0], self.zoneInfo['brCoords'][1], z)
         imgs = []
+        usableRange = range(max[1], min[1] + 1)
+        # Reverse range order if needed
+        if max[1] > min[1] + 1:
+            usableRange = range(min[1] + 1, max[1])
         # Iterate y tiles for z and x
-        for y in range(max[1], min[1] + 1):
+        for y in usableRange:
             # Perform image download
             url = self.zoneInfo['url'].replace('{z}', str(z)).replace('{x}', str(x)).replace('{y}', str(y))
             subPath = '/' + str(z) + '/' + str(x) + '/' + str(y)
