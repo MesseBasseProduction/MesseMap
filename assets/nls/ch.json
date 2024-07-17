@@ -31,7 +31,8 @@
     "mapSubtitle": "字幕",
     "mapSubtitlePlaceholder": "地图副标题",
     "mapComment": "评论",
-    "mapCommentPlaceholder": "关于地图的评论"
+    "mapCommentPlaceholder": "关于地图的评论",
+    "lockCommentCoordinates": "锁定评论至当前坐标"
   },
   "icon": {
     "title": "图标",

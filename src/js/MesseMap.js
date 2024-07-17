@@ -204,6 +204,7 @@ class MesseMap {
           this.replaceString(document.body, '{{MAP_SUBTITLE_PLACEHOLDER}}', this._nls.text.mapSubtitlePlaceholder);
           this.replaceString(document.body, '{{MAP_COMMENT}}', this._nls.text.mapComment);
           this.replaceString(document.body, '{{MAP_COMMENT_PLACEHOLDER}}', this._nls.text.mapCommentPlaceholder);
+          this.replaceString(document.body, '{{LOCK_COMMENT_COORD}}', this._nls.text.lockCommentCoordinates);
 
           this.replaceString(document.body, '{{ICON}}', this._nls.icon.title);
           this.replaceString(document.body, '{{TOGGLE_ICON}}', this._nls.icon.toggle);
@@ -362,6 +363,7 @@ class MesseMap {
       document.getElementById('user-title').addEventListener('input', this._applyTexts.bind(this));
       document.getElementById('user-subtitle').addEventListener('input', this._applyTexts.bind(this));
       document.getElementById('user-comment').addEventListener('input', this._applyTexts.bind(this));
+      document.getElementById('lock-comment-coordinates').addEventListener('click', this._updateLockCommentCoordinates.bind(this));
       // Icon
       document.getElementById('toggle-icon').addEventListener('click', this._toggleCategory.bind(this));
       document.getElementById('activate-icon').addEventListener('change', this._toggleIcon.bind(this));
@@ -731,6 +733,7 @@ class MesseMap {
     document.getElementById('comment').innerHTML = document.getElementById('user-comment').value;
     if (e && e.target && e.target.id === 'user-comment') {
       this._commentEdited = true;
+      document.getElementById('lock-comment-coordinates').checked = false;
     }
   }
 
@@ -771,6 +774,32 @@ class MesseMap {
     if (!this._commentEdited) {
       const c = this._map.getCenter();
       document.getElementById('comment').innerHTML = `${this.precisionRound(c.lat % 90, 3)}°N / ${this.precisionRound(c.lng % 180, 3)}° E`;
+      document.getElementById('user-comment').value = document.getElementById('comment').innerHTML;
+    }
+  }
+
+
+  /**
+   * @method
+   * @name _updateLockCommentCoordinates
+   * @private
+   * @memberof MesseMap
+   * @author Arthur Beaulieu
+   * @since July 2024
+   * @description
+   * <blockquote>
+   * Callback when user clicked on lock comment coordinates toggle
+   * </blockquote>
+   * @param {Event} e - The input checkbox change
+   **/
+  _updateLockCommentCoordinates(e) {
+    // Restore comment edited boolean to false
+    this._commentEdited = false;
+    if (e.target.checked === true) {
+      // Force to set value to lat/lng
+      this._updateCommentLabel();
+      // Then lock again editing (auto compute lat/lng on move)
+      this._commentEdited = true;
     }
   }
 

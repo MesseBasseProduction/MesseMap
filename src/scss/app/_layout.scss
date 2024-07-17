@@ -217,6 +217,17 @@ aside {
           width: 2.5rem;
         }
       }
+
+      .toggle-icon-wrapper {
+        display: flex;
+        justify-content: space-between;
+        margin: 0 0 3rem;
+        padding: 0 1rem;
+
+        label {
+          margin: 0;
+        }
+      }
     }
 
     .icon-container {

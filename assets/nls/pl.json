@@ -31,7 +31,8 @@
       "mapSubtitle": "Podtytuł",
       "mapSubtitlePlaceholder": "Podtytuł mapy",
       "mapComment": "Komentarz",
-      "mapCommentPlaceholder": "Komentarz do mapy"
+      "mapCommentPlaceholder": "Komentarz do mapy",
+      "lockCommentCoordinates": "Zablokuj komentarz do bieżących współrzędnych"
     },
     "icon": {
       "title": "Ikona",

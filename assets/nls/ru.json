@@ -31,7 +31,8 @@
     "mapSubtitle": "Субтитры",
     "mapSubtitlePlaceholder": "Подзаголовок карты",
     "mapComment": "Комментарий",
-    "mapCommentPlaceholder": "Комментарий к карте"
+    "mapCommentPlaceholder": "Комментарий к карте",
+    "lockCommentCoordinates": "Прикрепить комментарий к текущим координатам"
   },
   "icon": {
     "title": "Икона",

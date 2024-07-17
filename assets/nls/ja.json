@@ -31,7 +31,8 @@
     "mapSubtitle": "字幕",
     "mapSubtitlePlaceholder": "地図のサブタイトル",
     "mapComment": "コメント",
-    "mapCommentPlaceholder": "地図についてのコメント"
+    "mapCommentPlaceholder": "地図についてのコメント",
+    "lockCommentCoordinates": "コメントを現在の座標にロックする"
   },
   "icon": {
     "title": "アイコン",

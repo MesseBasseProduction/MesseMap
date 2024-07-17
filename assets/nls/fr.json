@@ -31,7 +31,8 @@
     "mapSubtitle": "Sous-Titre",
     "mapSubtitlePlaceholder": "Sous-Titre de la carte",
     "mapComment": "Commentaire",
-    "mapCommentPlaceholder": "Commentaire à propos de la carte"
+    "mapCommentPlaceholder": "Commentaire à propos de la carte",
+    "lockCommentCoordinates": "Bloquer le commentaire sur les coordonnées actuelles"
   },
   "icon": {
     "title": "Icone",

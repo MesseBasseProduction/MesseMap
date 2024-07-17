@@ -31,7 +31,8 @@
     "mapSubtitle": "Legenda",
     "mapSubtitlePlaceholder": "Legenda do mapa",
     "mapComment": "Comentário",
-    "mapCommentPlaceholder": "Um comentário sobre o mapa"
+    "mapCommentPlaceholder": "Um comentário sobre o mapa",
+    "lockCommentCoordinates": "Bloquear comentário nas coordenadas atuais"
   },
   "icon": {
     "title": "Ícone",
