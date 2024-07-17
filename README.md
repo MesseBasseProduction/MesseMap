@@ -1,20 +1,18 @@
 # MesseMap
 
-![](https://badgen.net/badge/version/1.1.0/blue)
+![](https://badgen.net/badge/version/1.1.1/blue)
 [![License](https://img.shields.io/github/license/MesseBasseProduction/MesseMap.svg)](https://github.com/MesseBasseProduction/MesseMap/blob/main/LICENSE)
 [![Doc](https://badgen.net/badge/documentation/written/green)](https://messebasseproduction.github.io/MesseMap/doc/index.html)
 
 A website that helps you to create a map poster, so it can be exported ready to print, with the ability to scale the map to a given size. Different map layers available to create your unique *wall-memory* touch!
 
-It features 7 poster styles so far, that can all be customized (positioning, colors). It allows user to define a title, a subtitle and a comment for their map. Each of these text's color can also be modified. Available in 10 languages, translations welcome.
+It features 7 poster styles so far, that can all be customized (26 map layers available, text positioning and colors, custom icon). It allows user to define a title, a subtitle and a comment for their map. Each of these text's color can also be modified. Available in 10 languages, translations welcome.
 
 Wanna try it ? We are running a [MesseMap instance](https://messemap.org) just for you! 
 
 [![Interface Screenshot](/assets/img/demo/demo.png)](https://messemap.org)
 
 When exporting the map to disk the user can set the output dimension, the lowest resolution being A7 at 300 dpi (600 x 848) and the highest being A2 at 300 dpi (6500 x 9193). The user can also set the output format, between `.png`, `.jpg`, `.webp` and `.pdf` (exports in PDF are done in the CYMK color space so they're ready to print). 
-
-**On Google Chrome, exporting large maps may lead to grey tiles. Unfortunatly this is a known ressource issue with Chrome ; please try with Firefox or non-webkit based browsers in the meantime.**
 
 ## Get started
 

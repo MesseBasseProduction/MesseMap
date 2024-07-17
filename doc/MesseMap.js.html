@@ -36,7 +36,7 @@ const { jsPDF } = window.jspdf;
 
 
 const CONST = {
-  VERSION: '1.1.0',
+  VERSION: '1.1.1',
   DEBUG: false
 };
 
@@ -113,7 +113,7 @@ class MesseMap {
      * @type {String}
      * @private
      **/
-    this._lang = localStorage.getItem('lang') || 'en';
+    this._lang = localStorage.getItem('lang') || null;
     /**
      * The nls file that holds language key values
      * @type {Object}
@@ -126,7 +126,11 @@ class MesseMap {
      * @private
      **/
     this._scroll = null;
-
+    /**
+     * The poster configuration object
+     * @type {Object}
+     * @private
+     **/
     this._data = {
       orientation: 'vertical',
       style: 'standard',
@@ -174,7 +178,18 @@ class MesseMap {
   _initInterface() {
     if (CONST.DEBUG) { console.log('MesseMap._initInterface() called'); }
     return new Promise((resolve, reject) => {
-      // Get lang from storage, or use default
+      // Language not saved, try to detect from navigator
+      if (this._lang === null) {
+        const navigatorLanguage = (navigator.language || navigator.userLanguage) || 'en';
+        if (navigatorLanguage === null) {
+          this._lang = 'en';
+        } else if (['ch', 'de', 'en', 'es', 'fr', 'it', 'ja', 'pl', 'pt', 'ru'].indexOf(navigatorLanguage.substring(0, 2)) !== -1) {
+          this._lang = navigatorLanguage.substring(0, 2);
+        } else {
+          this._lang = 'en';
+        }
+      }
+      // Set lang in local storage
       if (!localStorage.getItem('lang')) {
         localStorage.setItem('lang', this._lang);
       }
@@ -217,6 +232,7 @@ class MesseMap {
           this.replaceString(document.body, '{{MAP_SUBTITLE_PLACEHOLDER}}', this._nls.text.mapSubtitlePlaceholder);
           this.replaceString(document.body, '{{MAP_COMMENT}}', this._nls.text.mapComment);
           this.replaceString(document.body, '{{MAP_COMMENT_PLACEHOLDER}}', this._nls.text.mapCommentPlaceholder);
+          this.replaceString(document.body, '{{LOCK_COMMENT_COORD}}', this._nls.text.lockCommentCoordinates);
 
           this.replaceString(document.body, '{{ICON}}', this._nls.icon.title);
           this.replaceString(document.body, '{{TOGGLE_ICON}}', this._nls.icon.toggle);
@@ -229,7 +245,21 @@ class MesseMap {
           this.replaceString(document.body, '{{EXPORT_AT}}', this._nls.export.at);
           this.replaceString(document.body, '{{EXPORT_FORMAT}}', this._nls.export.format);
           this.replaceString(document.body, '{{EXPORT_BUTTON}}', this._nls.export.button);
+          this.replaceString(document.body, '{{LANG_SELECT}}', this._nls.lang.label);
+          this.replaceString(document.body, '{{LANG_FR}}', this._nls.lang.fr);
+          this.replaceString(document.body, '{{LANG_EN}}', this._nls.lang.en);
+          this.replaceString(document.body, '{{LANG_ES}}', this._nls.lang.es);
+          this.replaceString(document.body, '{{LANG_DE}}', this._nls.lang.de);
+          this.replaceString(document.body, '{{LANG_IT}}', this._nls.lang.it);
+          this.replaceString(document.body, '{{LANG_PT}}', this._nls.lang.pt);
+          this.replaceString(document.body, '{{LANG_PL}}', this._nls.lang.pl);
+          this.replaceString(document.body, '{{LANG_RU}}', this._nls.lang.ru);
+          this.replaceString(document.body, '{{LANG_CH}}', this._nls.lang.ch);
+          this.replaceString(document.body, '{{LANG_JA}}', this._nls.lang.ja);
           this.replaceString(document.body, '{{CREDITS}}', this._nls.export.credits);
+
+          // Update select language input value
+          document.getElementById('lang').value = this._lang;
 
           resolve();
         }).catch(reject);
@@ -361,6 +391,7 @@ class MesseMap {
       document.getElementById('user-title').addEventListener('input', this._applyTexts.bind(this));
       document.getElementById('user-subtitle').addEventListener('input', this._applyTexts.bind(this));
       document.getElementById('user-comment').addEventListener('input', this._applyTexts.bind(this));
+      document.getElementById('lock-comment-coordinates').addEventListener('click', this._updateLockCommentCoordinates.bind(this));
       // Icon
       document.getElementById('toggle-icon').addEventListener('click', this._toggleCategory.bind(this));
       document.getElementById('activate-icon').addEventListener('change', this._toggleIcon.bind(this));
@@ -380,6 +411,8 @@ class MesseMap {
       for (let i = 0; i &lt; sizes.children.length; ++i) {
         sizes.children[i].addEventListener('click', this._updateDimensionClicked.bind(this));
       }
+      // Lang update
+      document.getElementById('lang').addEventListener('change', this._updateLang.bind(this));
       // Listening to close modal event
       document.getElementById('modal-overlay').addEventListener('click', this._closeModal.bind(this));
       document.getElementById('credit-modal').addEventListener('click', this._creditModal.bind(this));
@@ -387,12 +420,11 @@ class MesseMap {
       for (const layer in MapProviders.layers) {
         MapProviders.layers[layer].on('load', () => this._tilesLoaded = true);
       }
-
+      // Map related events
       this._map.on('move', this._updateCommentLabel.bind(this));
       this._map.on('baselayerchange', e => {
         this._data.layer = e.name;
       });
-
       this._search.on('search:locationfound', this._searchMatch.bind(this));
 
       resolve();
@@ -729,6 +761,7 @@ class MesseMap {
     document.getElementById('comment').innerHTML = document.getElementById('user-comment').value;
     if (e &amp;&amp; e.target &amp;&amp; e.target.id === 'user-comment') {
       this._commentEdited = true;
+      document.getElementById('lock-comment-coordinates').checked = false;
     }
   }
 
@@ -769,6 +802,32 @@ class MesseMap {
     if (!this._commentEdited) {
       const c = this._map.getCenter();
       document.getElementById('comment').innerHTML = `${this.precisionRound(c.lat % 90, 3)}°N / ${this.precisionRound(c.lng % 180, 3)}° E`;
+      document.getElementById('user-comment').value = document.getElementById('comment').innerHTML;
+    }
+  }
+
+
+  /**
+   * @method
+   * @name _updateLockCommentCoordinates
+   * @private
+   * @memberof MesseMap
+   * @author Arthur Beaulieu
+   * @since July 2024
+   * @description
+   * &lt;blockquote>
+   * Callback when user clicked on lock comment coordinates toggle
+   * &lt;/blockquote>
+   * @param {Event} e - The input checkbox change
+   **/
+  _updateLockCommentCoordinates(e) {
+    // Restore comment edited boolean to false
+    this._commentEdited = false;
+    if (e.target.checked === true) {
+      // Force to set value to lat/lng
+      this._updateCommentLabel();
+      // Then lock again editing (auto compute lat/lng on move)
+      this._commentEdited = true;
     }
   }
 
@@ -863,6 +922,9 @@ class MesseMap {
 
     const mouseDown = e => {
       e.preventDefault();
+      if (e.touches &amp;&amp; e.touches.length > 0) {
+        e = e.touches[0];
+      }
       dragging = true;
       // Update icon bounding rect in case its sized was updated
       rect = element.getBoundingClientRect();
@@ -878,10 +940,12 @@ class MesseMap {
     };
 
     const mouseMove = e => {
+      if (e.touches &amp;&amp; e.touches.length > 0) {
+        e = e.touches[0];
+      }
       const xAxis = (e.pageX > (mapRect.x + paddingLeft - dX) &amp;&amp; e.pageX &lt; (mapRect.x + mapRect.width - paddingLeft + dX));
       const yAxis = (e.pageY > (mapRect.y + paddingTop - dY) &amp;&amp; e.pageY &lt; (mapRect.y + mapRect.height - paddingTop + dY));
       if (dragging &amp;&amp; xAxis &amp;&amp; yAxis) {
-        e.preventDefault();
         // Update pointer position with differential
         clickX = positionX - e.clientX;
         clickY = positionY - e.clientY;
@@ -913,6 +977,10 @@ class MesseMap {
     element.addEventListener('mousedown', mouseDown);
     map.addEventListener('mousemove', mouseMove);
     window.addEventListener('mouseup', mouseUp);
+    // Touch events
+    element.addEventListener('touchstart', mouseDown);
+    map.addEventListener('touchmove', mouseMove);
+    window.addEventListener('touchup', mouseUp);    
   }
 
 
@@ -1517,21 +1585,7 @@ class MesseMap {
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LINE3}}', this._nls.credit.line3);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LINE4}}', this._nls.credit.line4);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LINE5}}', this._nls.credit.line5);
-        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_LANG}}', this._nls.credit.lang);
-        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_FR}}', this._nls.credit.fr);
-        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_EN}}', this._nls.credit.en);
-        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_ES}}', this._nls.credit.es);
-        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_DE}}', this._nls.credit.de);
-        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_IT}}', this._nls.credit.it);
-        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_PT}}', this._nls.credit.pt);
-        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_PL}}', this._nls.credit.pl);
-        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_RU}}', this._nls.credit.ru);
-        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_CH}}', this._nls.credit.ch);
-        this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_JA}}', this._nls.credit.ja);
         this.replaceString(document.getElementById('modal-overlay'), '{{MODAL_CLOSE}}', this._nls.action.close);
-        // Lang update
-        document.getElementById('lang').value = this._lang;
-        document.getElementById('lang').addEventListener('change', this._updateLang.bind(this));
         // Close modal button event
         document.getElementById('close').addEventListener('click', this._closeModal.bind(this, null, true));
       });
@@ -1842,7 +1896,7 @@ export default MesseMap;
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jan 23 2024 17:37:41 GMT+0100 (Central European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Wed Jul 17 2024 16:04:22 GMT+0200 (heure d’été d’Europe centrale)
 </footer>
 
 <script> prettyPrint(); </script>
