@@ -29,12 +29,7 @@ const params = {
     attribution: 'Map tiles by <a href="http://mapiful.com">Mapiful</a> under <a href="http://www.openstreetmap.org/copyright">ODbL</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
     minZoom: 2,
     maxZoom: 21
-  },
-  mapify: {
-    attribution: 'Map tiles by <a href="http://mapiful.com">Mapiful</a> under <a href="http://www.openstreetmap.org/copyright">ODbL</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
-    minZoom: 2,
-    maxZoom: 21
-  },
+  }
 };
 
 export default {
@@ -44,7 +39,6 @@ export default {
     'Voyager (C)': window.L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png', params.carto),
     'Positron (C)': window.L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', params.carto),
     'Dark Matter (C)': window.L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', params.carto),
-    'IGN France 1950 (I)': window.L.tileLayer('https://wxs.ign.fr/x7yv499pbcguxhhxh8syehwe/geoportail/wmts?layer=ORTHOIMAGERY.ORTHOPHOTOS.1950-1965&style=BDORTHOHISTORIQUE&tilematrixset=PM&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}', params.mapiful),
     'OldSchool (M)': window.L.tileLayer('https://tiles.mapiful.com/oldschool/{z}/{x}/{y}.png', params.mapiful),
     'Nara (M)': window.L.tileLayer('https://tiles.mapiful.com/nara/{z}/{x}/{y}.png', params.mapiful),
     'Playroom (M)': window.L.tileLayer('https://tiles.mapiful.com/playroom/{z}/{x}/{y}.png', params.mapiful),
@@ -62,15 +56,10 @@ export default {
     'Coral (M)': window.L.tileLayer('https://tiles.mapiful.com/coral/{z}/{x}/{y}.png', params.mapiful),
     'Pink (M)': window.L.tileLayer('https://tiles.mapiful.com/valentine/{z}/{x}/{y}.png', params.mapiful),
     'Purple (M)': window.L.tileLayer('https://tiles.mapiful.com/lavender/{z}/{x}/{y}.png', params.mapiful),
-    'Terrain (S)': window.L.tileLayer('https://https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}.jpg', params.stamen),
     'Toner (S)': window.L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}.png', params.stamen),
     'Toner Lite (S)': window.L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_toner-lite/{z}/{x}/{y}.png', params.stamen),
     'Watercolor (S)': window.L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}{r}.jpg', params.stamen),
-    'Waze (W)': window.L.tileLayer('https://worldtiles3.waze.com/tiles/{z}/{x}/{y}.png', params.waze),
-    'Ski (Y)': window.L.tileLayer('https://d3disig70jar7.cloudfront.net/styles/ski/{z}/{x}/{y}.png', params.mapify),
-    'Blueprint (Y)': window.L.tileLayer('https://d3disig70jar7.cloudfront.net/styles/blueprint-no-labels/{z}/{x}/{y}.png', params.mapify),
-    'Twilight (Y)': window.L.tileLayer('https://d3disig70jar7.cloudfront.net/styles/twilight/{z}/{x}/{y}.png', params.mapify),
-    'Chrome (Y)': window.L.tileLayer('https://d3disig70jar7.cloudfront.net/styles/classic-chrome/{z}/{x}/{y}.png', params.mapify)
+    'Waze (W)': window.L.tileLayer('https://worldtiles3.waze.com/tiles/{z}/{x}/{y}.png', params.waze)
   },
   overlays: {
     'Terrain Lines (S)': window.L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_terrain-lines/{z}/{x}/{y}{r}.png', params.stamen),
