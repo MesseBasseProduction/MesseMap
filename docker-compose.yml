@@ -1,4 +1,3 @@
-version: "3"
 services:
   messemap:
     container_name: messemap_node
