@@ -20,9 +20,9 @@ If you want to run a local instance, you may proceed as follows :
 
 - $ `git clone https://github.com/MesseBasseProduction/MesseMap`
 - $ `cd MesseMap`
-- $ `docker-compose build && docker-compose up -d`
+- $ `docker compose build && docker compose up -d`
 
-It will expose the application on your localhost, port 8010. Saved posters will be stored as JSON files in `./saved` folder. You turn to configure the web server to expose this app to the world (feel welcome to let us know if you run one).
+It will expose the application on your localhost, port 8010. Saved posters will be stored as JSON files in `./saved` folder (to load a JSON saved poster, add `?callmeroot` into the base url so a file input appear). You turn to configure the web server to expose this app to the world (feel welcome to let us know if you run one).
 
 ## Map data
 
@@ -40,4 +40,4 @@ Fonts are taken from DaFont, using [Catamaran](https://www.dafont.com/catamaran.
 
 ---
 
-[Messe Basse Production](https://github.com/MesseBasseProduction) --- 2022 / 2024
+[Messe Basse Production](https://github.com/MesseBasseProduction) --- 2022 / 2025
