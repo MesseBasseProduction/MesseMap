@@ -2,6 +2,8 @@
 __pycache__
 node_modules
 
+.DS_Store
+
 saved/*json
 assets/dist
 assets/dist/**
